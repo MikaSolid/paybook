@@ -1,0 +1,159 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:core="clr-namespace:PayBook"
+             xmlns:viewModels="clr-namespace:PayBook.ViewModels"
+             xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             x:Class="PayBook.Views.PartysBalance"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="800">
+    <UserControl.Resources>
+
+        <Style x:Key="{x:Type ListBox}"
+               TargetType="{x:Type ListBox}">
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid x:Name="gridHeader"
+                                  Background="{DynamicResource ThemeBrush}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Button Style="{DynamicResource SortButtonStyle}"
+                                        Grid.Column="0"
+                                        Command="{Binding SortCommand}"
+                                        CommandParameter="Code"
+                                        Content="Šifra" />
+
+                                <Button Style="{DynamicResource SortButtonStyle}"
+                                        Command="{Binding SortCommand}"
+                                        CommandParameter="Name"
+                                        Grid.Column="1"
+                                        Content="Ime" />
+
+                                <Button Style="{DynamicResource SortButtonStyle}"
+                                        Grid.Column="2"
+                                        Command="{Binding SortCommand}"
+                                        CommandParameter="Balance"
+                                        Content="Saldo" />
+
+                                <TextBox x:Name="codeTextBox"
+                                         Width="150"
+                                         Text="{Binding CodeFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Row="1"
+                                         Grid.Column="0" />
+
+                                <TextBox x:Name="nameTextBox"
+                                         Text="{Binding NameFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Row="1"
+                                         Grid.Column="1" />
+
+                                <Grid Grid.Row="1"
+                                      x:Name="amountTextBlock"
+                                      Width="150"
+                                      Grid.Column="2" />
+
+                            </Grid>
+                            <ScrollViewer x:Name="gridItems"
+                                          HorizontalScrollBarVisibility="Disabled"
+                                          Grid.Row="1">
+                                <VirtualizingStackPanel Background="White"
+                                                        IsItemsHost="true" />
+                            </ScrollViewer>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="BillDataTemplate">
+            <Border BorderBrush="{DynamicResource ThemeBrush}"
+                    BorderThickness="1,0,1,1">
+                <Grid>
+
+                    <Grid Visibility="{Binding IsBalanceOverDue, Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Background="#FFDDDD"></Grid>
+                    <Grid Visibility="{Binding IsBalanceDue, Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Background="#DDFFDD"></Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Margin="5,5,0,5"
+                                   Foreground="{DynamicResource ThemeBrush}"
+                                   Text="{Binding Code, StringFormat={}{0:D6}}"
+                                   TextAlignment="Center"
+                                   Width="{Binding ElementName=codeTextBox, Path=ActualWidth}" />
+
+                        <TextBlock Margin="5,5,0,5"
+                                   Foreground="{DynamicResource ThemeBrush}"
+                                   Grid.Column="1"
+                                   Text="{Binding Name}"
+                                   HorizontalAlignment="Left"
+                                   Width="{Binding ElementName=nameTextBox, Path=ActualWidth}"
+                                   FontFamily="/PayBook;component/Assets/#Segoe WP Light" />
+
+                        <Grid Grid.Column="2">
+                            <TextBlock Padding="0,0,20,0"
+                                       TextAlignment="Right"
+                                       Foreground="{DynamicResource ThemeBrush}"
+                                       Text="{Binding Balance, StringFormat={}{0:n}}"
+                                       Width="{Binding ElementName=amountTextBlock, Path=ActualWidth}" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <Style x:Key="ListBoxItemStyle"
+               TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <ContentPresenter HorizontalAlignment="Stretch"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <d:DataContext>
+        <viewModels:PartysVM />
+    </d:DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <ListBox Grid.Row="0"
+                 ItemsSource="{Binding Partys}"
+                 ItemTemplate="{DynamicResource BillDataTemplate}"
+                 ItemContainerStyle="{DynamicResource ListBoxItemStyle}" />
+    </Grid>
+
+</UserControl>

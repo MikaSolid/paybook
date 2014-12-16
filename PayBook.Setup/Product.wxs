@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="Knjiga" Language="1033" Version="1.0.0.0" Manufacturer="m1k4" UpgradeCode="d3e52aa2-78f2-4c33-b51b-4e81a0707c73">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate />
+
+    <Feature Id="ProductFeature" Title="Knjiga" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="Knjiga" />
+      </Directory>
+      <!--<Directory Id="PersonalFolder" Name="PersonalFolder">
+      </Directory>-->
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="ProductComponent" Guid="5E3D18CC-4F8D-4DD2-A42B-422FB8035EDC">
+        <File Source="$(var.PayBook.TargetPath)" />
+        <File Source="$(var.PayBook.TargetDir)System.Windows.Controls.Input.Toolkit.dll" />
+        <File Source="$(var.PayBook.TargetDir)System.Windows.Interactivity.dll" />
+        <File Source="$(var.PayBook.TargetDir)WPFToolkit.dll" />
+        <!--<RemoveFile Id="Partys.xml" Directory="PersonalFolder"  Name="Partys" LongName="PartysXml" On="uninstall" />
+        <RemoveFile Id="Bills.xml" Directory="PersonalFolder" Name="Bills" LongName="BillsXml" On="uninstall" />
+        <RemoveFile Id="Payments.xml" Directory="PersonalFolder" Name="Payments" LongName="PaymentsXml" On="uninstall" />-->
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

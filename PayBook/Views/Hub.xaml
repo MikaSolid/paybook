@@ -1,0 +1,85 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:PayBook.ViewModels"
+             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+             x:Class="PayBook.Views.Hub"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="600">
+    <UserControl.Resources>
+        <Style x:Key="BillsButtonStyle"
+               TargetType="{x:Type Button}">
+            <Setter Property="Background"
+                    Value="{DynamicResource ThemeBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Margin="16"
+                              Cursor="Hand"
+                              Background="{TemplateBinding Background}"
+                              Height="160"
+                              Width="240">
+                            <TextBlock Text="{TemplateBinding Content}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="28"
+                                       TextWrapping="Wrap"
+                                       FontFamily="/PayBook;component/Assets/#Segoe WP Light"
+                                       Foreground="{DynamicResource ForegroundBrush}" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <d:DataContext>
+        <viewModels:HubVM />
+    </d:DataContext>
+
+    <WrapPanel Margin="0,48,0,0"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               Orientation="Horizontal">
+
+        <Button Command="{Binding NavigateToUnpayedBills}"
+                Style="{DynamicResource BillsButtonStyle}"
+                Content="Neplaćeni primljeni računi" />
+
+        <Button Command="{Binding NavigateToBills}"
+                Style="{DynamicResource BillsButtonStyle}"
+                Content="Primljeni računi" />
+        
+        <Button Command="{Binding NavigateToPayments}"
+                Style="{DynamicResource BillsButtonStyle}"
+                Content="Plaćanja" />
+
+        <Button Command="{Binding NavigateToUnpayedBills}"
+                Style="{DynamicResource BillsButtonStyle}"
+                Content="Neplaćeni izdati računi" />
+
+        <Button Command="{Binding NavigateToBills}"
+                Style="{DynamicResource BillsButtonStyle}"
+                Content="Izdati računi" />
+
+        <Button Command="{Binding NavigateToPayments}"
+                Style="{DynamicResource BillsButtonStyle}"
+                Content="Uplate" />
+
+        <Button Command="{Binding NavigateToPartys}"
+                Style="{DynamicResource BillsButtonStyle}"
+                Background="DarkGreen"
+                Content="Dobavljači" />
+
+        <Button Command="{Binding NavigateToPartysBalance}"
+                Style="{DynamicResource BillsButtonStyle}"
+                Content="Presek stanja" />
+
+        <Button Command="{Binding NavigateToCalendar}"
+                Style="{DynamicResource BillsButtonStyle}"
+                Content="Kalendar" />
+
+    </WrapPanel>
+</UserControl>

@@ -1,0 +1,184 @@
+﻿<Window x:Class="PayBook.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:core="clr-namespace:PayBook"
+        xmlns:viewModels="clr-namespace:PayBook.ViewModels"
+        xmlns:views="clr-namespace:PayBook.Views"
+        DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=ShellVM}"
+        Title="PayBook"
+        Height="768"
+        WindowStyle="None"
+        Width="1366"
+        UseLayoutRounding="False"
+        FontSize="26"
+        WindowState="{Binding WindowState, Mode=TwoWay}"
+        core:WindowSizeBehavior.Observe="True"
+        core:WindowSizeBehavior.ObservedWidth="{Binding Width, Mode=OneWayToSource}"
+        core:WindowSizeBehavior.ObservedHeight="{Binding Height, Mode=OneWayToSource}"
+        Foreground="{DynamicResource ForegroundBrush}"
+        Background="{DynamicResource BackgroundBrush}"
+        FontFamily="/PayBook;component/Assets/Fonts/#Segoe WP Light">
+
+    <i:Interaction.Behaviors>
+        <core:BorderlessWindowBehavior />
+    </i:Interaction.Behaviors>
+    <Border BorderBrush="Black"
+            BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="75" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Background="{DynamicResource AlternateThemeBrush}">
+
+                <TextBlock Margin="105,5,0,0">KNJIGA PLAĆANJA</TextBlock>
+
+                <Button x:Name="resizeButton"
+                        Width="48"
+                        Height="36"
+                        Focusable="False"
+                        Margin="0,0,36,0"
+                        Command="{Binding ChangeSizeCommand}"
+                        Foreground="{DynamicResource ForegroundBrush}"
+                        Style="{DynamicResource SimpleButton}"
+                        Content="{DynamicResource FullScreenGeometry}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Grid.Column="2" />
+
+                <Button x:Name="closeAppButton"
+                        Width="36"
+                        Height="36"
+                        Focusable="False"
+                        Click="closeAppButton_Click"
+                        Foreground="{DynamicResource ForegroundBrush}"
+                        Style="{DynamicResource SimpleButton}"
+                        Content="{DynamicResource CloseGeometry}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Grid.Column="2" />
+            </Grid>
+
+            <Grid Grid.Row="1"
+                  Background="{DynamicResource AlternateThemeBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="1"
+                           FontSize="14"
+                           Visibility="Collapsed"
+                           Margin="5,3,0,0">PAYBOOK</TextBlock>
+
+                <TextBlock Grid.Column="1"
+                           Foreground="White"
+                           FontSize="38"
+                           Margin="2,10,0,0"
+                           FontFamily="/PayBook;component/Assets/#Segoe WP Light"
+                           Text="{Binding View.Title}" />
+
+                <StackPanel Orientation="Vertical"
+                            Grid.Column="2"
+                            Margin="0,0,6,0"
+                            HorizontalAlignment="Right">
+
+                    <TextBlock Focusable="False"
+                               Foreground="{DynamicResource ForegroundBrush}"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Grid.Column="2">
+                           <i:Interaction.Behaviors>
+                               <core:ClockBehavior Format="dd.MMM.yyyy" />
+                           </i:Interaction.Behaviors>
+                    </TextBlock>
+
+                    <Grid Margin="20,0,0,0"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="33"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Focusable="False"
+                                   Margin="0"
+                                   Foreground="{DynamicResource ForegroundBrush}">
+                    <i:Interaction.Behaviors>
+                        <core:ClockBehavior Format="HH:mm" />
+                    </i:Interaction.Behaviors>
+                        </TextBlock>
+                        <TextBlock Focusable="False"
+                                   Grid.Column="1"
+                                   Margin="0"
+                                   Opacity="0.4"
+                                   Foreground="{DynamicResource ForegroundBrush}">
+                    <i:Interaction.Behaviors>
+                        <core:ClockBehavior Format=":ss" />
+                    </i:Interaction.Behaviors>
+                        </TextBlock>
+                    </Grid>
+
+                </StackPanel>
+
+            </Grid>
+
+            <ContentControl Grid.Row="2"
+                            Margin="0"
+                            Content="{Binding View}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type viewModels:HubVM}">
+                        <views:Hub Margin="100,20,20,20" />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:PartysVM}">
+                        <views:Partys />
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type viewModels:PartysBalanceVM}">
+                        <views:PartysBalance />
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type viewModels:PartyEditorVM}">
+                        <views:PartyEditor />
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type viewModels:BillsVM}">
+                        <views:Bills />
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type viewModels:BillEditorVM}">
+                        <views:BillEditor />
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type viewModels:PaymentsVM}">
+                        <views:Payments />
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type viewModels:CalendarVM}">
+                        <views:BillsCalendar />
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type viewModels:UnpayedBillsVM}">
+                        <views:UnpayedBills />
+                    </DataTemplate>
+
+                </ContentControl.Resources>
+            </ContentControl>
+
+            <Grid Visibility="{Binding View.CanNavigateBack, Converter={StaticResource BooleanToVisibilityConverter}}"
+                  Grid.RowSpan="2"
+                  HorizontalAlignment="Left"
+                  Margin="20"
+                  Background="{DynamicResource AlternateThemeBrush}">
+                <Button Cursor="Hand"
+                        Background="{DynamicResource AlternateThemeBrush}"
+                        Command="{Binding View.NavigateToHub}"
+                        Content="{DynamicResource ArrowLeftGeometry}"
+                        Style="{DynamicResource CircleButtonStyle}" />
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

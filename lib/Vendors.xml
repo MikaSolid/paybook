@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Vendors>
+  <Vendor Id="f513aee3-8354-43d4-b481-121c76569892" Code="" Name="Mika" Account="" />
+  <Vendor Id="5e0a5afa-1554-4997-ba5a-f3902c2ef8cc" Code="244" Name="Zdravko" Account="113444" />
+  <Vendor Id="9740aef2-932d-49e0-bb20-0409fe90d11c" Code="334" Name="Buxna" Account="342432" />
+  <Vendor Id="20c23b9f-1640-4202-8d54-b4c6be272942" Code="3" Name="Tatatatira" Account="42" />
+  <Vendor Id="9f0c2c49-5ced-4bfc-98ac-431aa209b32d" Code="34" Name="abc company" Account="99" />
+</Vendors>

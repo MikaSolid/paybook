@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayBook", "PayBook\PayBook.csproj", "{6FF198A1-C473-4866-8D3F-B0521D90C80B}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "PayBook.Setup", "PayBook.Setup\PayBook.Setup.wixproj", "{05CF4181-DA5B-408C-BB2A-97C91CF3AF46}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "PayBook.Bootstrapper", "PayBook.Bootstrapper\PayBook.Bootstrapper.wixproj", "{C07B66A5-84DB-4433-BAE4-239CD41443C9}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://m1k4.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = PayBook\\PayBook.csproj
+		SccProjectName1 = PayBook
+		SccLocalPath1 = PayBook
+		SccProjectUniqueName2 = PayBook.Setup\\PayBook.Setup.wixproj
+		SccProjectName2 = PayBook.Setup
+		SccLocalPath2 = PayBook.Setup
+		SccProjectUniqueName3 = PayBook.Bootstrapper\\PayBook.Bootstrapper.wixproj
+		SccProjectName3 = PayBook.Bootstrapper
+		SccLocalPath3 = PayBook.Bootstrapper
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6FF198A1-C473-4866-8D3F-B0521D90C80B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FF198A1-C473-4866-8D3F-B0521D90C80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FF198A1-C473-4866-8D3F-B0521D90C80B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6FF198A1-C473-4866-8D3F-B0521D90C80B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6FF198A1-C473-4866-8D3F-B0521D90C80B}.Debug|x86.ActiveCfg = Debug|x86
+		{6FF198A1-C473-4866-8D3F-B0521D90C80B}.Debug|x86.Build.0 = Debug|x86
+		{6FF198A1-C473-4866-8D3F-B0521D90C80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FF198A1-C473-4866-8D3F-B0521D90C80B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FF198A1-C473-4866-8D3F-B0521D90C80B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6FF198A1-C473-4866-8D3F-B0521D90C80B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6FF198A1-C473-4866-8D3F-B0521D90C80B}.Release|x86.ActiveCfg = Release|x86
+		{6FF198A1-C473-4866-8D3F-B0521D90C80B}.Release|x86.Build.0 = Release|x86
+		{05CF4181-DA5B-408C-BB2A-97C91CF3AF46}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{05CF4181-DA5B-408C-BB2A-97C91CF3AF46}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{05CF4181-DA5B-408C-BB2A-97C91CF3AF46}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{05CF4181-DA5B-408C-BB2A-97C91CF3AF46}.Debug|x86.ActiveCfg = Debug|x86
+		{05CF4181-DA5B-408C-BB2A-97C91CF3AF46}.Release|Any CPU.ActiveCfg = Release|x86
+		{05CF4181-DA5B-408C-BB2A-97C91CF3AF46}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{05CF4181-DA5B-408C-BB2A-97C91CF3AF46}.Release|Mixed Platforms.Build.0 = Release|x86
+		{05CF4181-DA5B-408C-BB2A-97C91CF3AF46}.Release|x86.ActiveCfg = Release|x86
+		{05CF4181-DA5B-408C-BB2A-97C91CF3AF46}.Release|x86.Build.0 = Release|x86
+		{C07B66A5-84DB-4433-BAE4-239CD41443C9}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{C07B66A5-84DB-4433-BAE4-239CD41443C9}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{C07B66A5-84DB-4433-BAE4-239CD41443C9}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{C07B66A5-84DB-4433-BAE4-239CD41443C9}.Debug|x86.ActiveCfg = Debug|x86
+		{C07B66A5-84DB-4433-BAE4-239CD41443C9}.Release|Any CPU.ActiveCfg = Release|x86
+		{C07B66A5-84DB-4433-BAE4-239CD41443C9}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{C07B66A5-84DB-4433-BAE4-239CD41443C9}.Release|Mixed Platforms.Build.0 = Release|x86
+		{C07B66A5-84DB-4433-BAE4-239CD41443C9}.Release|x86.ActiveCfg = Release|x86
+		{C07B66A5-84DB-4433-BAE4-239CD41443C9}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
