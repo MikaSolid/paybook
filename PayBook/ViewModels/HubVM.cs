@@ -37,7 +37,7 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return NavigateTo(new PartysVM());
+                return NavigateTo(new CompaniesVM());
             }
         }
 
@@ -45,7 +45,7 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return NavigateTo(new PartysBalanceVM());
+                return NavigateTo(new CompaniesBalanceVM());
             }
         }
 

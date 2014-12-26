@@ -133,15 +133,15 @@
                     <DataTemplate DataType="{x:Type viewModels:HubVM}">
                         <views:Hub Margin="100,20,20,20" />
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewModels:PartysVM}">
+                    <DataTemplate DataType="{x:Type viewModels:CompaniesVM}">
                         <views:Partys />
                     </DataTemplate>
 
-                    <DataTemplate DataType="{x:Type viewModels:PartysBalanceVM}">
+                    <DataTemplate DataType="{x:Type viewModels:CompaniesBalanceVM}">
                         <views:PartysBalance />
                     </DataTemplate>
 
-                    <DataTemplate DataType="{x:Type viewModels:PartyEditorVM}">
+                    <DataTemplate DataType="{x:Type viewModels:CompanyEditorVM}">
                         <views:PartyEditor />
                     </DataTemplate>
 

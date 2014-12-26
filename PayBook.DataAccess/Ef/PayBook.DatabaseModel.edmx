@@ -1,0 +1,1188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PayBook.DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartyId" Type="int" Nullable="false" />
+          <Property Name="RoleTypeId" Type="int" Nullable="false" />
+          <Property Name="InvoiceDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="InvoiceItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="InvoiceRole">
+          <Key>
+            <PropertyRef Name="PartyId" />
+            <PropertyRef Name="InvoiceId" />
+            <PropertyRef Name="RoleTypeId" />
+          </Key>
+          <Property Name="PartyId" Type="int" Nullable="false" />
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="RoleTypeId" Type="int" Nullable="false" />
+          <Property Name="Datetime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="InvoiceRoleType">
+          <Key>
+            <PropertyRef Name="RoleTypeId" />
+          </Key>
+          <Property Name="RoleTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InvoiceStatus">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+          </Key>
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="InvoiceStatusTypeId" Type="int" Nullable="false" />
+          <Property Name="StatusDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InvoiceStatusType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InvoiceTerm">
+          <Key>
+            <PropertyRef Name="InvoiceTermId" />
+          </Key>
+          <Property Name="InvoiceTermId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TermTypeId" Type="int" Nullable="false" />
+          <Property Name="InvoiceId" Type="int" />
+          <Property Name="InvoiceItemId" Type="int" />
+          <Property Name="TermValue" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Party">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PartyRole">
+          <Key>
+            <PropertyRef Name="PartyId" />
+          </Key>
+          <Property Name="PartyId" Type="int" Nullable="false" />
+          <Property Name="RoleTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PaymentMethodTypeId" Type="int" Nullable="false" />
+          <Property Name="PartyIdFrom" Type="int" Nullable="false" />
+          <Property Name="PartyIdTo" Type="int" Nullable="false" />
+          <Property Name="EffectiveDate" Type="datetime" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="Currency" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="1000" />
+          <Property Name="PaymentTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentApplication">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="AmountApplied" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="BillingAccountId" Type="int" Nullable="false" />
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentMethodType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="RoleType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TermType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Invoice_Party">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_RoleType">
+          <End Role="RoleType" Type="Self.RoleType" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="RoleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceItem_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceItem">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceRole_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="InvoiceRole" Type="Self.InvoiceRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceRole">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceRole_Party">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="InvoiceRole" Type="Self.InvoiceRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceRole">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceRole_RoleType">
+          <End Role="InvoiceRoleType" Type="Self.InvoiceRoleType" Multiplicity="1" />
+          <End Role="InvoiceRole" Type="Self.InvoiceRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceRoleType">
+              <PropertyRef Name="RoleTypeId" />
+            </Principal>
+            <Dependent Role="InvoiceRole">
+              <PropertyRef Name="RoleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceRoleType_RoleType">
+          <End Role="RoleType" Type="Self.RoleType" Multiplicity="1" />
+          <End Role="InvoiceRoleType" Type="Self.InvoiceRoleType" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RoleType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceRoleType">
+              <PropertyRef Name="RoleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceStatus_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="InvoiceStatus" Type="Self.InvoiceStatus" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceStatus">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceStatus_InvoiceStatusType">
+          <End Role="InvoiceStatusType" Type="Self.InvoiceStatusType" Multiplicity="1" />
+          <End Role="InvoiceStatus" Type="Self.InvoiceStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceStatusType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceStatus">
+              <PropertyRef Name="InvoiceStatusTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceTerm_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
+          <End Role="InvoiceTerm" Type="Self.InvoiceTerm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceTerm">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceTerm_InvoiceItem">
+          <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="0..1" />
+          <End Role="InvoiceTerm" Type="Self.InvoiceTerm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceTerm">
+              <PropertyRef Name="InvoiceItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceTerm_InvoiceTermType">
+          <End Role="TermType" Type="Self.TermType" Multiplicity="1" />
+          <End Role="InvoiceTerm" Type="Self.InvoiceTerm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TermType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceTerm">
+              <PropertyRef Name="TermTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Organization_Party">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="Organization" Type="Self.Organization" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Organization">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartyRole_Party">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="PartyRole" Type="Self.PartyRole" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartyRole">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartyRole_RoleType">
+          <End Role="RoleType" Type="Self.RoleType" Multiplicity="1" />
+          <End Role="PartyRole" Type="Self.PartyRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartyRole">
+              <PropertyRef Name="RoleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_PartyFrom">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PartyIdFrom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_PartyTo">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PartyIdTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_PaymentMethodType">
+          <End Role="PaymentMethodType" Type="Self.PaymentMethodType" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethodType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PaymentMethodTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Party">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Party">
+          <End Role="Organization" Type="Self.Organization" Multiplicity="1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PayBookDatabaseModelStoreContainer">
+          <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceItem" EntityType="Self.InvoiceItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceRoleType" EntityType="Self.InvoiceRoleType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceStatus" EntityType="Self.InvoiceStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceStatusType" EntityType="Self.InvoiceStatusType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceTerm" EntityType="Self.InvoiceTerm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Party" EntityType="Self.Party" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartyRole" EntityType="Self.PartyRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentApplication" EntityType="Self.PaymentApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentMethodType" EntityType="Self.PaymentMethodType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleType" EntityType="Self.RoleType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TermType" EntityType="Self.TermType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceRole" EntityType="Self.InvoiceRole" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [InvoiceRole].[PartyId] AS [PartyId], 
+    [InvoiceRole].[InvoiceId] AS [InvoiceId], 
+    [InvoiceRole].[RoleTypeId] AS [RoleTypeId], 
+    [InvoiceRole].[Datetime] AS [Datetime]
+    FROM [dbo].[InvoiceRole] AS [InvoiceRole]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Invoice_Party" Association="Self.FK_Invoice_Party">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_RoleType" Association="Self.FK_Invoice_RoleType">
+            <End Role="RoleType" EntitySet="RoleType" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Invoice" Association="Self.FK_InvoiceItem_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceRole_Invoice" Association="Self.FK_InvoiceRole_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="InvoiceRole" EntitySet="InvoiceRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceRole_Party" Association="Self.FK_InvoiceRole_Party">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="InvoiceRole" EntitySet="InvoiceRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceRole_RoleType" Association="Self.FK_InvoiceRole_RoleType">
+            <End Role="InvoiceRoleType" EntitySet="InvoiceRoleType" />
+            <End Role="InvoiceRole" EntitySet="InvoiceRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceRoleType_RoleType" Association="Self.FK_InvoiceRoleType_RoleType">
+            <End Role="RoleType" EntitySet="RoleType" />
+            <End Role="InvoiceRoleType" EntitySet="InvoiceRoleType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceStatus_Invoice" Association="Self.FK_InvoiceStatus_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="InvoiceStatus" EntitySet="InvoiceStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceStatus_InvoiceStatusType" Association="Self.FK_InvoiceStatus_InvoiceStatusType">
+            <End Role="InvoiceStatusType" EntitySet="InvoiceStatusType" />
+            <End Role="InvoiceStatus" EntitySet="InvoiceStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceTerm_Invoice" Association="Self.FK_InvoiceTerm_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="InvoiceTerm" EntitySet="InvoiceTerm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceTerm_InvoiceItem" Association="Self.FK_InvoiceTerm_InvoiceItem">
+            <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+            <End Role="InvoiceTerm" EntitySet="InvoiceTerm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceTerm_InvoiceTermType" Association="Self.FK_InvoiceTerm_InvoiceTermType">
+            <End Role="TermType" EntitySet="TermType" />
+            <End Role="InvoiceTerm" EntitySet="InvoiceTerm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Organization_Party" Association="Self.FK_Organization_Party">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="Organization" EntitySet="Organization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartyRole_Party" Association="Self.FK_PartyRole_Party">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="PartyRole" EntitySet="PartyRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartyRole_RoleType" Association="Self.FK_PartyRole_RoleType">
+            <End Role="RoleType" EntitySet="RoleType" />
+            <End Role="PartyRole" EntitySet="PartyRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_PartyFrom" Association="Self.FK_Payment_PartyFrom">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_PartyTo" Association="Self.FK_Payment_PartyTo">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_PaymentMethodType" Association="Self.FK_Payment_PaymentMethodType">
+            <End Role="PaymentMethodType" EntitySet="PaymentMethodType" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Party" Association="Self.FK_Person_Party">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Party" Association="Self.FK_Supplier_Party">
+            <End Role="Organization" EntitySet="Organization" />
+            <End Role="Supplier" EntitySet="Supplier" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PayBook.DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PartyId" Type="Int32" Nullable="false" />
+          <Property Name="RoleTypeId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Party" Relationship="Self.FK_Invoice_Party" FromRole="Invoice" ToRole="Party" />
+          <NavigationProperty Name="RoleType" Relationship="Self.FK_Invoice_RoleType" FromRole="Invoice" ToRole="RoleType" />
+          <NavigationProperty Name="InvoiceItems" Relationship="Self.FK_InvoiceItem_Invoice" FromRole="Invoice" ToRole="InvoiceItem" />
+          <NavigationProperty Name="InvoiceRoles" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_Invoice" FromRole="Invoice" ToRole="InvoiceRole" />
+          <NavigationProperty Name="InvoiceStatus" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice" FromRole="Invoice" ToRole="InvoiceStatu" />
+          <NavigationProperty Name="InvoiceTerms" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_Invoice" FromRole="Invoice" ToRole="InvoiceTerm" />
+        </EntityType>
+        <EntityType Name="InvoiceItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Invoice" Relationship="Self.FK_InvoiceItem_Invoice" FromRole="InvoiceItem" ToRole="Invoice" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="InvoiceTerms" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceItem" FromRole="InvoiceItem" ToRole="InvoiceTerm" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Party" Relationship="Self.FK_Organization_Party" FromRole="Organization" ToRole="Party" />
+          <NavigationProperty Name="Supplier" Relationship="PayBook.DatabaseModel.FK_Supplier_Party" FromRole="Organization" ToRole="Supplier" />
+        </EntityType>
+        <EntityType Name="Party">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_Party" FromRole="Party" ToRole="Invoice" />
+          <NavigationProperty Name="Organization" Relationship="Self.FK_Organization_Party" FromRole="Party" ToRole="Organization" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Person_Party" FromRole="Party" ToRole="Person" />
+          <NavigationProperty Name="RoleType" Relationship="Self.PartyRole" FromRole="Party" ToRole="RoleType" />
+          <NavigationProperty Name="InvoiceRoles" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_Party" FromRole="Party" ToRole="InvoiceRole" />
+          <NavigationProperty Name="Payments" Relationship="PayBook.DatabaseModel.FK_Payment_PartyFrom" FromRole="Party" ToRole="Payment" />
+          <NavigationProperty Name="Payments1" Relationship="PayBook.DatabaseModel.FK_Payment_PartyTo" FromRole="Party" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Party" Relationship="Self.FK_Person_Party" FromRole="Person" ToRole="Party" />
+        </EntityType>
+        <EntityType Name="RoleType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_RoleType" FromRole="RoleType" ToRole="Invoice" />
+          <NavigationProperty Name="Parties" Relationship="Self.PartyRole" FromRole="RoleType" ToRole="Party" />
+          <NavigationProperty Name="InvoiceRoleType" Relationship="PayBook.DatabaseModel.FK_InvoiceRoleType_RoleType" FromRole="RoleType" ToRole="InvoiceRoleType" />
+        </EntityType>
+        <Association Name="FK_Invoice_Party">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_RoleType">
+          <End Role="RoleType" Type="Self.RoleType" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="RoleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceItem_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceItem">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Organization_Party">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="Organization" Type="Self.Organization" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Organization">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Party">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PartyRole">
+          <End Role="Party" Type="Self.Party" Multiplicity="*" />
+          <End Role="RoleType" Type="Self.RoleType" Multiplicity="0..1" />
+        </Association>
+        <EntityContainer Name="LocalDatabase" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+          <EntitySet Name="InvoiceItems" EntityType="Self.InvoiceItem" />
+          <EntitySet Name="Organizations" EntityType="Self.Organization" />
+          <EntitySet Name="Parties" EntityType="Self.Party" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="RoleTypes" EntityType="Self.RoleType" />
+          <AssociationSet Name="FK_Invoice_Party" Association="Self.FK_Invoice_Party">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_RoleType" Association="Self.FK_Invoice_RoleType">
+            <End Role="RoleType" EntitySet="RoleTypes" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Invoice" Association="Self.FK_InvoiceItem_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Organization_Party" Association="Self.FK_Organization_Party">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="Organization" EntitySet="Organizations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Party" Association="Self.FK_Person_Party">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="PartyRole" Association="Self.PartyRole">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="RoleType" EntitySet="RoleTypes" />
+          </AssociationSet>
+          <EntitySet Name="C__RefactorLog" EntityType="PayBook.DatabaseModel.C__RefactorLog" />
+          <EntitySet Name="InvoiceRoleTypes" EntityType="PayBook.DatabaseModel.InvoiceRoleType" />
+          <EntitySet Name="InvoiceStatus" EntityType="PayBook.DatabaseModel.InvoiceStatus" />
+          <EntitySet Name="InvoiceStatusTypes" EntityType="PayBook.DatabaseModel.InvoiceStatusType" />
+          <EntitySet Name="Payments" EntityType="PayBook.DatabaseModel.Payment" />
+          <EntitySet Name="PaymentApplications" EntityType="PayBook.DatabaseModel.PaymentApplication" />
+          <EntitySet Name="PaymentMethodTypes" EntityType="PayBook.DatabaseModel.PaymentMethodType" />
+          <EntitySet Name="Suppliers" EntityType="PayBook.DatabaseModel.Supplier" />
+          <EntitySet Name="InvoiceRoles" EntityType="PayBook.DatabaseModel.InvoiceRole" />
+          <AssociationSet Name="FK_InvoiceRole_Invoice" Association="PayBook.DatabaseModel.FK_InvoiceRole_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceRole" EntitySet="InvoiceRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceStatus_Invoice" Association="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceStatu" EntitySet="InvoiceStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceRole_RoleType" Association="PayBook.DatabaseModel.FK_InvoiceRole_RoleType">
+            <End Role="InvoiceRoleType" EntitySet="InvoiceRoleTypes" />
+            <End Role="InvoiceRole" EntitySet="InvoiceRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceRoleType_RoleType" Association="PayBook.DatabaseModel.FK_InvoiceRoleType_RoleType">
+            <End Role="RoleType" EntitySet="RoleTypes" />
+            <End Role="InvoiceRoleType" EntitySet="InvoiceRoleTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Party" Association="PayBook.DatabaseModel.FK_Supplier_Party">
+            <End Role="Organization" EntitySet="Organizations" />
+            <End Role="Supplier" EntitySet="Suppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceRole_Party" Association="PayBook.DatabaseModel.FK_InvoiceRole_Party">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="InvoiceRole" EntitySet="InvoiceRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_PartyFrom" Association="PayBook.DatabaseModel.FK_Payment_PartyFrom">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_PartyTo" Association="PayBook.DatabaseModel.FK_Payment_PartyTo">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_PaymentMethodType" Association="PayBook.DatabaseModel.FK_Payment_PaymentMethodType">
+            <End Role="PaymentMethodType" EntitySet="PaymentMethodTypes" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceStatus_InvoiceStatusType" Association="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType">
+            <End Role="InvoiceStatusType" EntitySet="InvoiceStatusTypes" />
+            <End Role="InvoiceStatu" EntitySet="InvoiceStatus" />
+          </AssociationSet>
+          <EntitySet Name="InvoiceTerms" EntityType="PayBook.DatabaseModel.InvoiceTerm" />
+          <EntitySet Name="TermTypes" EntityType="PayBook.DatabaseModel.TermType" />
+          <AssociationSet Name="FK_InvoiceTerm_Invoice" Association="PayBook.DatabaseModel.FK_InvoiceTerm_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceTerm" EntitySet="InvoiceTerms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceTerm_InvoiceItem" Association="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceItem">
+            <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+            <End Role="InvoiceTerm" EntitySet="InvoiceTerms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceTerm_InvoiceTermType" Association="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceTermType">
+            <End Role="TermType" EntitySet="TermTypes" />
+            <End Role="InvoiceTerm" EntitySet="InvoiceTerms" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="C__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InvoiceRoleType">
+          <Key>
+            <PropertyRef Name="RoleTypeId" />
+          </Key>
+          <Property Name="RoleTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="InvoiceRoles" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_RoleType" FromRole="InvoiceRoleType" ToRole="InvoiceRole" />
+          <NavigationProperty Name="RoleType" Relationship="PayBook.DatabaseModel.FK_InvoiceRoleType_RoleType" FromRole="InvoiceRoleType" ToRole="RoleType" />
+        </EntityType>
+        <EntityType Name="InvoiceStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="StatusDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Invoice" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice" FromRole="InvoiceStatu" ToRole="Invoice" />
+          <Property Name="InvoiceStatusTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="InvoiceStatusType" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType" FromRole="InvoiceStatu" ToRole="InvoiceStatusType" />
+        </EntityType>
+        <EntityType Name="InvoiceStatusType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="InvoiceStatus" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType" FromRole="InvoiceStatusType" ToRole="InvoiceStatu" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PaymentMethodTypeId" Type="Int32" Nullable="false" />
+          <Property Name="PartyIdFrom" Type="Int32" Nullable="false" />
+          <Property Name="PartyIdTo" Type="Int32" Nullable="false" />
+          <Property Name="EffectiveDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Currency" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Party" Relationship="PayBook.DatabaseModel.FK_Payment_PartyFrom" FromRole="Payment" ToRole="Party" />
+          <NavigationProperty Name="Party1" Relationship="PayBook.DatabaseModel.FK_Payment_PartyTo" FromRole="Payment" ToRole="Party" />
+          <NavigationProperty Name="PaymentMethodType" Relationship="PayBook.DatabaseModel.FK_Payment_PaymentMethodType" FromRole="Payment" ToRole="PaymentMethodType" />
+        </EntityType>
+        <EntityType Name="PaymentApplication">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="AmountApplied" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="BillingAccountId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentMethodType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Payments" Relationship="PayBook.DatabaseModel.FK_Payment_PaymentMethodType" FromRole="PaymentMethodType" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Organization" Relationship="PayBook.DatabaseModel.FK_Supplier_Party" FromRole="Supplier" ToRole="Organization" />
+        </EntityType>
+        <EntityType Name="InvoiceRole">
+          <Key>
+            <PropertyRef Name="PartyId" />
+            <PropertyRef Name="InvoiceId" />
+            <PropertyRef Name="RoleTypeId" />
+          </Key>
+          <Property Name="PartyId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="RoleTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Datetime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Invoice" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_Invoice" FromRole="InvoiceRole" ToRole="Invoice" />
+          <NavigationProperty Name="InvoiceRoleType" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_RoleType" FromRole="InvoiceRole" ToRole="InvoiceRoleType" />
+          <NavigationProperty Name="Party" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_Party" FromRole="InvoiceRole" ToRole="Party" />
+        </EntityType>
+        <Association Name="FK_InvoiceRole_Invoice">
+          <End Type="PayBook.DatabaseModel.Invoice" Role="Invoice" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.InvoiceRole" Role="InvoiceRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceRole">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceStatus_Invoice">
+          <End Type="PayBook.DatabaseModel.Invoice" Role="Invoice" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.InvoiceStatus" Role="InvoiceStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceStatu">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceRole_RoleType">
+          <End Type="PayBook.DatabaseModel.InvoiceRoleType" Role="InvoiceRoleType" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.InvoiceRole" Role="InvoiceRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceRoleType">
+              <PropertyRef Name="RoleTypeId" />
+            </Principal>
+            <Dependent Role="InvoiceRole">
+              <PropertyRef Name="RoleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceRoleType_RoleType">
+          <End Type="PayBook.DatabaseModel.RoleType" Role="RoleType" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.InvoiceRoleType" Role="InvoiceRoleType" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RoleType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceRoleType">
+              <PropertyRef Name="RoleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Party">
+          <End Type="PayBook.DatabaseModel.Organization" Role="Organization" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.Supplier" Role="Supplier" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceRole_Party">
+          <End Type="PayBook.DatabaseModel.Party" Role="Party" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.InvoiceRole" Role="InvoiceRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceRole">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_PartyFrom">
+          <End Type="PayBook.DatabaseModel.Party" Role="Party" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PartyIdFrom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_PartyTo">
+          <End Type="PayBook.DatabaseModel.Party" Role="Party" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PartyIdTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_PaymentMethodType">
+          <End Type="PayBook.DatabaseModel.PaymentMethodType" Role="PaymentMethodType" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethodType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PaymentMethodTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceStatus_InvoiceStatusType">
+          <End Type="PayBook.DatabaseModel.InvoiceStatusType" Role="InvoiceStatusType" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.InvoiceStatus" Role="InvoiceStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceStatusType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceStatu">
+              <PropertyRef Name="InvoiceStatusTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="InvoiceTerm">
+          <Key>
+            <PropertyRef Name="InvoiceTermId" />
+          </Key>
+          <Property Name="InvoiceTermId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TermTypeId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceId" Type="Int32" />
+          <Property Name="InvoiceItemId" Type="Int32" />
+          <Property Name="TermValue" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Invoice" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_Invoice" FromRole="InvoiceTerm" ToRole="Invoice" />
+          <NavigationProperty Name="InvoiceItem" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceItem" FromRole="InvoiceTerm" ToRole="InvoiceItem" />
+          <NavigationProperty Name="TermType" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceTermType" FromRole="InvoiceTerm" ToRole="TermType" />
+        </EntityType>
+        <EntityType Name="TermType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="InvoiceTerms" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceTermType" FromRole="TermType" ToRole="InvoiceTerm" />
+        </EntityType>
+        <Association Name="FK_InvoiceTerm_Invoice">
+          <End Type="PayBook.DatabaseModel.Invoice" Role="Invoice" Multiplicity="0..1" />
+          <End Type="PayBook.DatabaseModel.InvoiceTerm" Role="InvoiceTerm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceTerm">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceTerm_InvoiceItem">
+          <End Type="PayBook.DatabaseModel.InvoiceItem" Role="InvoiceItem" Multiplicity="0..1" />
+          <End Type="PayBook.DatabaseModel.InvoiceTerm" Role="InvoiceTerm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceTerm">
+              <PropertyRef Name="InvoiceItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceTerm_InvoiceTermType">
+          <End Type="PayBook.DatabaseModel.TermType" Role="TermType" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.InvoiceTerm" Role="InvoiceTerm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TermType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceTerm">
+              <PropertyRef Name="TermTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PayBookDatabaseModelStoreContainer" CdmEntityContainer="LocalDatabase">
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
+                <ScalarProperty Name="RoleTypeId" ColumnName="RoleTypeId" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceItems">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceItem">
+              <MappingFragment StoreEntitySet="InvoiceItem">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizations">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.Organization">
+              <MappingFragment StoreEntitySet="Organization">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parties">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.Party">
+              <MappingFragment StoreEntitySet="Party">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleTypes">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.RoleType">
+              <MappingFragment StoreEntitySet="RoleType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PartyRole" TypeName="PayBook.DatabaseModel.PartyRole" StoreEntitySet="PartyRole">
+            <EndProperty Name="Party">
+              <ScalarProperty Name="Id" ColumnName="PartyId" />
+            </EndProperty>
+            <EndProperty Name="RoleType">
+              <ScalarProperty Name="Id" ColumnName="RoleTypeId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="C__RefactorLog">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.C__RefactorLog">
+              <MappingFragment StoreEntitySet="__RefactorLog">
+                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceRoleTypes">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceRoleType">
+              <MappingFragment StoreEntitySet="InvoiceRoleType">
+                <ScalarProperty Name="RoleTypeId" ColumnName="RoleTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceStatus">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceStatus">
+              <MappingFragment StoreEntitySet="InvoiceStatus">
+                <ScalarProperty Name="InvoiceStatusTypeId" ColumnName="InvoiceStatusTypeId" />
+                <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceStatusTypes">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceStatusType">
+              <MappingFragment StoreEntitySet="InvoiceStatusType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="PartyIdTo" ColumnName="PartyIdTo" />
+                <ScalarProperty Name="PartyIdFrom" ColumnName="PartyIdFrom" />
+                <ScalarProperty Name="PaymentMethodTypeId" ColumnName="PaymentMethodTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentApplications">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.PaymentApplication">
+              <MappingFragment StoreEntitySet="PaymentApplication">
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="BillingAccountId" ColumnName="BillingAccountId" />
+                <ScalarProperty Name="AmountApplied" ColumnName="AmountApplied" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentMethodTypes">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.PaymentMethodType">
+              <MappingFragment StoreEntitySet="PaymentMethodType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceRoles">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceRole">
+              <MappingFragment StoreEntitySet="InvoiceRole">
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="RoleTypeId" ColumnName="RoleTypeId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceTerms">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceTerm">
+              <MappingFragment StoreEntitySet="InvoiceTerm">
+                <ScalarProperty Name="TermValue" ColumnName="TermValue" />
+                <ScalarProperty Name="InvoiceItemId" ColumnName="InvoiceItemId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="TermTypeId" ColumnName="TermTypeId" />
+                <ScalarProperty Name="InvoiceTermId" ColumnName="InvoiceTermId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TermTypes">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.TermType">
+              <MappingFragment StoreEntitySet="TermType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

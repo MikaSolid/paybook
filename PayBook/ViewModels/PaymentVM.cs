@@ -31,7 +31,7 @@ namespace PayBook.ViewModels
             }
         }
 
-        public Guid PartyId
+        public int PartyId
         {
             get
             {

@@ -15,7 +15,7 @@ namespace PayBook.ViewModels
         protected ICollectionView _collectionView;
         protected readonly ObservableCollection<BillVM> _billsInternal = new ObservableCollection<BillVM>();
         protected readonly ReadOnlyObservableCollection<BillVM> _bills;
-        private List<Party> _partys;
+        private List<Company> _partys;
 
         public BillsVM()
         {
@@ -65,7 +65,7 @@ namespace PayBook.ViewModels
                     dueDateIndex = bill.DueDate == dueDate;
             }
 
-            if (isPartyFiltered && bill.PartyId != Guid.Empty && bill.PartyName != null)
+            if (isPartyFiltered && bill.PartyId != 0 && bill.PartyName != null)
                 partyIndex = bill.PartyName.IndexOf(PartyName, 0, StringComparison.InvariantCultureIgnoreCase);
 
 
@@ -155,7 +155,7 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return ModelService.GetPartys().Select(v => v.Name).ToList();
+                return ModelService.GetSuppliers().Select(v => v.Name).ToList();
             }
         }
 
@@ -171,12 +171,12 @@ namespace PayBook.ViewModels
 
                 var party = ModelService.GetParty(bill.PartyId);
 
-                var partyVM = new PartyVM(party);
+                var partyVM = new CompanyVM(party);
 
                 partyVM.Payments = ModelService.GetPayments().Where(p => p.PartyId == party.Id).Select(p => new PaymentVM(p)).ToList();
                 partyVM.Bills = ModelService.GetBills().Where(b => b.PartyId == party.Id).Select(b => new BillVM(b, this)).ToList();
 
-                billVM.Party = partyVM;
+                billVM.Company = partyVM;
 
                 if (party != null)
                     billVM.PartyName = party.Name;
@@ -198,7 +198,7 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return NavigateTo(new BillEditorVM(new Bill()));
+                return NavigateTo(new BillEditorVM(Invoice.Create(InvoiceType.PurchaseInvoice)));
             }
         }
 
@@ -221,15 +221,14 @@ namespace PayBook.ViewModels
 
             var party = ModelService.GetParty(partyName);
 
-            ModelService.SaveBill(
-                new Bill
-                {
-                    PartyId = party.Id,
-                    Code = Number,
-                    Amount = Convert.ToDecimal(Amount),
-                    Date = Convert.ToDateTime(Date),
-                    DueDate = Convert.ToDateTime(DueDate),
-                });
+            var invoice = Invoice.Create(InvoiceType.PurchaseInvoice);
+            invoice.PartyId = party.Id;
+            invoice.Code = Number;
+            invoice.Items.Add(new InvoiceItem { Amount = Convert.ToDecimal(Amount) });
+            invoice.Date = Convert.ToDateTime(Date);
+            invoice.DueDate = Convert.ToDateTime(DueDate);
+
+            ModelService.SaveBill(invoice);
 
             PartyName = null;
             Number = null;

@@ -122,7 +122,7 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return ModelService.GetPartys().Select(v => v.Name).ToList();
+                return ModelService.GetSuppliers().Select(v => v.Name).ToList();
             }
         }
 

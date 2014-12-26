@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using PayBook.DataAccess;
 using PayBook.Model;
 using System;
 
@@ -6,12 +7,12 @@ namespace PayBook.ViewModels
 {
     public class BillVM : BaseVM
     {
-        private readonly Bill _bill;
+        private readonly Invoice _invoice;
         private readonly BillsVM _bills;
 
-        public BillVM(Bill bill, BillsVM bills)
+        public BillVM(Invoice invoice, BillsVM bills)
         {
-            _bill = bill;
+            _invoice = invoice;
             _bills = bills;
         }
 
@@ -30,19 +31,19 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return _bill.Code;
+                return _invoice.Code;
             }
             set
             {
-                if (_bill.Code == value) return;
-                _bill.Code = value;
+                if (_invoice.Code == value) return;
+                _invoice.Code = value;
                 OnPropertyChanged("Number");
             }
         }
 
         private string _partyName;
 
-        private PartyVM _party;
+        private CompanyVM _company;
 
         public string PartyName
         {
@@ -58,45 +59,45 @@ namespace PayBook.ViewModels
             }
         }
 
-        public Guid PartyId
+        public int PartyId
         {
             get
             {
-                return _bill.PartyId;
+                return _invoice.PartyId;
             }
             set
             {
-                if (_bill.PartyId == value) return;
-                _bill.PartyId = value;
+                if (_invoice.PartyId == value) return;
+                _invoice.PartyId = value;
                 OnPropertyChanged("PartyId");
             }
         }
 
 
-        public DateTime Date
+        public DateTime? Date
         {
             get
             {
-                return _bill.Date;
+                return _invoice.Date;
             }
             set
             {
-                if (_bill.Date == value) return;
-                _bill.Date = value;
+                if (_invoice.Date == value) return;
+                _invoice.Date = value;
                 OnPropertyChanged("Date");
             }
         }
 
-        public DateTime DueDate
+        public DateTime? DueDate
         {
             get
             {
-                return _bill.DueDate;
+                return _invoice.DueDate;
             }
             set
             {
-                if (_bill.DueDate == value) return;
-                _bill.DueDate = value;
+                if (_invoice.DueDate == value) return;
+                _invoice.DueDate = value;
                 OnPropertyChanged("DueDate");
             }
         }
@@ -105,20 +106,26 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return _bill.Amount;
+                return _invoice.Amount;
             }
             set
             {
-                if (_bill.Amount == value) return;
-                _bill.Amount = value;
-                OnPropertyChanged("Amount");
+                if (_invoice.Amount == value) return;
+                
+                var item = _invoice.Items.FirstOrDefault();
+                
+                if (item != null)
+                {
+                    item.Amount = value;
+                    OnPropertyChanged("Amount");
+                }
             }
         }
 
-        public PartyVM Party
+        public CompanyVM Company
         {
-            get { return _party; }
-            set { _party = value; }
+            get { return _company; }
+            set { _company = value; }
         }
 
         private bool _isMarkedForPayment;
@@ -139,7 +146,7 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return _bill.IsPayed;
+                return _invoice.IsPayed;
                 //return _bill.PaymentId != null && _bill.PaymentId != Guid.Empty;
                 //    decimal sum = Party.TotalAmountPayed;
 
@@ -162,13 +169,13 @@ namespace PayBook.ViewModels
             }
             set
             {
-                _bill.IsPayed = value;
-                Container.GetInstance().Resolve<IModelService>().SaveBill(_bill);
+                _invoice.IsPayed = value;
+                Container.GetInstance().Resolve<IModelService>().SaveBill(_invoice);
                 OnPropertyChanged("IsPayed");
                 OnPropertyChanged("IsMarkedForPayment");
             }
         }
 
-        public Guid Id { get { return _bill.Id; } }
+        public int Id { get { return _invoice.Id; } }
     }
 }

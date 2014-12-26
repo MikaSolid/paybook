@@ -28,7 +28,7 @@ namespace PayBook
                 {
                     foreach (BillVM bill in originalBills)
                     {
-                        if (bill != null && bill.DueDate.Date == date)
+                        if (bill != null && bill.DueDate.GetValueOrDefault().Date == date)
                         {
                             bills.Add(bill);
                         }

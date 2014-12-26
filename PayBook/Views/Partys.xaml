@@ -176,7 +176,7 @@
     </UserControl.Resources>
 
     <d:DataContext>
-        <viewModels:PartysVM />
+        <viewModels:CompaniesVM />
     </d:DataContext>
 
     <Grid>

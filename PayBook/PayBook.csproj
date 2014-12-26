@@ -94,18 +94,11 @@
     <Compile Include="Converters\BillsConverter.cs" />
     <Compile Include="Converters\BooleanToBrushConverter.cs" />
     <Compile Include="Converters\DayNameConverter.cs" />
-    <Compile Include="Core\BorderlessWindowBehavior.cs" />
-    <Compile Include="Core\ClockBehavior.cs" />
+    <Compile Include="Behaviors\BorderlessWindowBehavior.cs" />
+    <Compile Include="Behaviors\ClockBehavior.cs" />
     <Compile Include="Core\ExecuteCommandAction.cs" />
     <Compile Include="Core\ICollectionViewExtensions.cs" />
-    <Compile Include="Core\StringExtensions.cs" />
-    <Compile Include="Core\WindowSizeBehavior.cs" />
-    <Compile Include="Core\XElementExtensions.cs" />
-    <Compile Include="Model\Bill.cs" />
-    <Compile Include="Model\Company.cs" />
-    <Compile Include="Model\Core\ModelBootstrapper.cs" />
-    <Compile Include="Model\Payment.cs" />
-    <Compile Include="Model\Party.cs" />
+    <Compile Include="Behaviors\WindowSizeBehavior.cs" />
     <Compile Include="ViewModels\UnpayedBillsVM.cs" />
     <Compile Include="ViewModels\CalendarVM.cs" />
     <Compile Include="ViewModels\PaymentVM.cs" />
@@ -114,13 +107,13 @@
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="ViewModels\Core\ShellVM.cs" />
     <Compile Include="ViewModels\BillEditorVM.cs" />
-    <Compile Include="ViewModels\PartyBalanceVM.cs" />
-    <Compile Include="ViewModels\PartysVM.cs" />
+    <Compile Include="ViewModels\CompaniesBalanceVM.cs" />
+    <Compile Include="ViewModels\CompaniesVM.cs" />
     <Compile Include="ViewModels\BillsVM.cs" />
     <Compile Include="ViewModels\HubVM.cs" />
-    <Compile Include="ViewModels\PartyEditorVM.cs" />
+    <Compile Include="ViewModels\CompanyEditorVM.cs" />
     <Compile Include="ViewModels\BillVM.cs" />
-    <Compile Include="ViewModels\PartyVM.cs" />
+    <Compile Include="ViewModels\CompanyVM.cs" />
     <Compile Include="Views\BillEditor.xaml.cs">
       <DependentUpon>BillEditor.xaml</DependentUpon>
     </Compile>
@@ -181,9 +174,6 @@
     </Compile>
     <Compile Include="ViewModels\Core\BaseVM.cs" />
     <Compile Include="Core\Container.cs" />
-    <Compile Include="Model\Core\DesignTimeModelService.cs" />
-    <Compile Include="Model\Core\XmlModelService.cs" />
-    <Compile Include="Model\Core\IModelService.cs" />
     <Compile Include="Core\ViewModelLocator.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -262,7 +252,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PayBook.DataAccess\PayBook.DataAccess.csproj">
+      <Project>{fdcdd206-f2ee-4f45-b3e4-9e1842052c32}</Project>
+      <Name>PayBook.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PayBook.Model\PayBook.Model.csproj">
+      <Project>{f8cefbb4-91bf-49f7-9b0d-b7a4b9ec3260}</Project>
+      <Name>PayBook.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,18 +1,14 @@
 ﻿using PayBook.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace PayBook.ViewModels
 {
     public class BillEditorVM : BaseViewVM
     {
-        private readonly Bill _bill;
+        private readonly Invoice _invoice;
 
-        public BillEditorVM(Bill bill)
+        public BillEditorVM(Invoice invoice)
         {
-            _bill = bill;
+            _invoice = invoice;
         }
 
         public override void LoadModel()

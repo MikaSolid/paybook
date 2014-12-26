@@ -1,4 +1,4 @@
-﻿using PayBook.Model;
+﻿using PayBook.DataAccess;
 using PayBook.ViewModels;
 
 namespace PayBook

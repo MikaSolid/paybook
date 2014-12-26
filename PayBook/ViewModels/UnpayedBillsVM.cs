@@ -34,12 +34,12 @@ namespace PayBook.ViewModels
 
                 var party = ModelService.GetParty(bill.PartyId);
 
-                var partyVM = new PartyVM(party);
+                var partyVM = new CompanyVM(party);
 
                 partyVM.Payments = ModelService.GetPayments().Where(p => p.PartyId == party.Id).Select(p => new PaymentVM(p)).ToList();
                 partyVM.Bills = ModelService.GetBills().Where(b => b.PartyId == party.Id).Select(b => new BillVM(b, this)).ToList();
 
-                billVM.Party = partyVM;
+                billVM.Company = partyVM;
 
                 if (party != null)
                     billVM.PartyName = party.Name;
@@ -81,7 +81,7 @@ namespace PayBook.ViewModels
                         b.IsPayed = true;
 
                         var payment = new Payment();
-                        payment.Id = Guid.NewGuid();
+                        payment.Id = 0;
                         payment.BillId = b.Id;
                         payment.Amount = b.Amount;
                         payment.PartyId = b.PartyId;
