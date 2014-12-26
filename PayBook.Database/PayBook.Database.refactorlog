@@ -105,4 +105,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[FK_InvoiceTerm_InvoiceTermType]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="7811b1c8-b7b7-4a0b-912f-f88bad87ac91" ChangeDateTime="12/26/2014 21:36:04">
+    <Property Name="ElementName" Value="[dbo].[BillingAccountRole].[Description]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BillingAccountRole]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="B" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6990a7db-c325-48e8-8774-a9b92b82485a" ChangeDateTime="12/26/2014 21:36:13">
+    <Property Name="ElementName" Value="[dbo].[BillingAccountRole].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BillingAccountRole]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BillingAccountId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b2c08238-8aea-4c40-8d2e-ac3e2bfed0d6" ChangeDateTime="12/26/2014 21:36:19">
+    <Property Name="ElementName" Value="[dbo].[BillingAccountRole].[BillingAccountId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BillingAccountRole]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PartyId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="371243e0-3155-487d-b0c7-f7d9b36d5574" ChangeDateTime="12/26/2014 21:36:24">
+    <Property Name="ElementName" Value="[dbo].[BillingAccountRole].[B]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BillingAccountRole]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BillingAccountId" />
+  </Operation>
 </Operations>

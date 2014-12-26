@@ -12,20 +12,18 @@ namespace PayBook.DataAccess.Ef
     using System;
     using System.Collections.Generic;
     
-    public partial class RoleType
+    public partial class BillingAccount
     {
-        public RoleType()
+        public BillingAccount()
         {
-            this.Invoices = new HashSet<Invoice>();
-            this.Parties = new HashSet<Party>();
+            this.BillingAccountRoles = new HashSet<BillingAccountRole>();
         }
     
         public int Id { get; set; }
+        public Nullable<System.DateTime> FromDate { get; set; }
+        public Nullable<System.DateTime> ToDate { get; set; }
         public string Description { get; set; }
     
-        public virtual ICollection<Invoice> Invoices { get; set; }
-        public virtual ICollection<Party> Parties { get; set; }
-        public virtual InvoiceRoleType InvoiceRoleType { get; set; }
-        public virtual BillingAccountRoleType BillingAccountRoleType { get; set; }
+        public virtual ICollection<BillingAccountRole> BillingAccountRoles { get; set; }
     }
 }

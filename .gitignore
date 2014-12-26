@@ -1,0 +1,21 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/packages
+/PayBook/bin/Debug
+/PayBook.Bootstrapper/bin/Debug
+/PayBook/obj/Debug
+/PayBook.Bootstrapper/obj/Debug
+/PayBook.Core/bin/Debug
+/PayBook.Core/obj/Debug
+/PayBook.DataAccess/bin/Debug
+/PayBook.DataAccess/obj/Debug
+/PayBook.Database/bin/Debug
+/PayBook.Database/obj/Debug
+/PayBook.Model/bin/Debug
+/PayBook.Model/obj/Debug
+/PayBook.Setup/bin/Debug
+/PayBook.Setup/obj/Debug
+/PayBook.Test/bin/Debug
+/PayBook.Test/obj/Debug

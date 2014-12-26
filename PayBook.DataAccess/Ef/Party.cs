@@ -31,5 +31,6 @@ namespace PayBook.DataAccess.Ef
         public virtual ICollection<InvoiceRole> InvoiceRoles { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
         public virtual ICollection<Payment> Payments1 { get; set; }
+        public virtual BillingAccountRole BillingAccountRole { get; set; }
     }
 }

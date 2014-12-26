@@ -42,5 +42,8 @@ namespace PayBook.DataAccess.Ef
         public virtual DbSet<InvoiceRole> InvoiceRoles { get; set; }
         public virtual DbSet<InvoiceTerm> InvoiceTerms { get; set; }
         public virtual DbSet<TermType> TermTypes { get; set; }
+        public virtual DbSet<BillingAccount> BillingAccounts { get; set; }
+        public virtual DbSet<BillingAccountRole> BillingAccountRoles { get; set; }
+        public virtual DbSet<BillingAccountRoleType> BillingAccountRoleTypes { get; set; }
     }
 }

@@ -76,6 +76,9 @@
     <Build Include="Supplier.sql" />
     <Build Include="InvoiceTerm.sql" />
     <Build Include="TermType.sql" />
+    <Build Include="BillingAccount.sql" />
+    <Build Include="BillingAccountRole.sql" />
+    <Build Include="BillingAccountRoleType.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PayBook.Database.refactorlog" />

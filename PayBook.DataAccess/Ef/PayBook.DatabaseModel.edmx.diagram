@@ -41,6 +41,13 @@
         <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceTerm_Invoice" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceItem" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceTermType" />
+        <EntityTypeShape EntityType="PayBook.DatabaseModel.BillingAccount" Width="1.5" PointX="8.25" PointY="15.25" />
+        <EntityTypeShape EntityType="PayBook.DatabaseModel.BillingAccountRole" Width="1.5" PointX="10.5" PointY="11.875" />
+        <EntityTypeShape EntityType="PayBook.DatabaseModel.BillingAccountRoleType" Width="1.5" PointX="5.25" PointY="15.375" />
+        <AssociationConnector Association="PayBook.DatabaseModel.FK_BillingAccountRole_BillingAccount" />
+        <AssociationConnector Association="PayBook.DatabaseModel.FK_BillingAccountRole_Party" />
+        <AssociationConnector Association="PayBook.DatabaseModel.FK_BillingAccountRole_RoleType" />
+        <AssociationConnector Association="PayBook.DatabaseModel.FK_BillingAccountRoleType_RoleType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

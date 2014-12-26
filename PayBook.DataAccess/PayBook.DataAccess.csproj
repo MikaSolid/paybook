@@ -49,6 +49,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DesignTime\DesignTimeModelService.cs" />
+    <Compile Include="Ef\BillingAccount.cs">
+      <DependentUpon>PayBook.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\BillingAccountRole.cs">
+      <DependentUpon>PayBook.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\BillingAccountRoleType.cs">
+      <DependentUpon>PayBook.tt</DependentUpon>
+    </Compile>
     <Compile Include="Ef\C__RefactorLog.cs">
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
