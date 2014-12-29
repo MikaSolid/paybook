@@ -21,6 +21,7 @@ namespace PayBook.WebApplication.Controllers
         // POST api/values
         public void Post([FromBody] Supplier value)
         {
+            _service.SaveSupplier(value);
         }
 
         // PUT api/values/5

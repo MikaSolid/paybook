@@ -38,7 +38,19 @@ namespace PayBook.WebApiAgent
             }
         }
 
-        protected async Task<bool> Post<T>(string url, T entity) where T : new()
+        protected bool Post<T>(string url, T entity) where T : new()
+        {
+            using (var client = new HttpClient())
+            {
+                var response = client.PostAsJsonAsync(_baseServiceUrl + url, entity).Result;
+                
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception("Delete failed, exception: " + response.Content);
+                return true;
+            }
+        }
+
+        protected async Task<bool> PostAsync<T>(string url, T entity) where T : new()
         {
             using (var client = new HttpClient())
             {

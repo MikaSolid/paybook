@@ -6,39 +6,41 @@ namespace PayBook.ViewModels
 {
     public class CompanyVM : BaseVM
     {
-        private readonly Company _party;
+        private readonly Company _company;
         private List<BillVM> _bills = new List<BillVM>();
         private List<PaymentVM> _payments = new List<PaymentVM>();
 
-        public CompanyVM(Company party)
+        public CompanyVM(Company company)
         {
-            _party = party;
+            _company = company;
         }
 
         public string Code
         {
             get
             {
-                return _party.Code;
+                return _company.Code;
             }
             set
             {
-                if (_party.Code == value) return;
-                _party.Code = value;
+                if (_company.Code == value) return;
+                _company.Code = value;
                 OnPropertyChanged(() => Code);
             }
         }
+
+        public Company Company { get { return _company; } }
 
         public string Name
         {
             get
             {
-                return _party.Name;
+                return _company.Name;
             }
             set
             {
-                if (_party.Name == value) return;
-                _party.Name = value;
+                if (_company.Name == value) return;
+                _company.Name = value;
                 OnPropertyChanged(() => Name);
             }
         }
@@ -47,12 +49,12 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return _party.Account;
+                return _company.Account;
             }
             set
             {
-                if (_party.Account == value) return;
-                _party.Account = value;
+                if (_company.Account == value) return;
+                _company.Account = value;
                 OnPropertyChanged(() => Account);
             }
         }

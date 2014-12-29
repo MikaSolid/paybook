@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-
 using PayBook.ViewModels;
 
 namespace PayBook.WpfClient.Commands

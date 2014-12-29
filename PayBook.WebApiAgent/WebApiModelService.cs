@@ -25,7 +25,7 @@ namespace PayBook.WebApiAgent
 
         public override void SaveCompany(Company party)
         {
-            throw new System.NotImplementedException();
+            Post("supplierapi", party);
         }
 
         public override void SaveBill(Invoice invoice)

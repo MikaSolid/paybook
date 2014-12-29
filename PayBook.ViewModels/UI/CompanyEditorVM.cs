@@ -20,6 +20,8 @@ namespace PayBook.ViewModels
             Title = "partija";
         }
 
+        public Company Company { get { return _company; } }
+
         public string Code
         {
             get

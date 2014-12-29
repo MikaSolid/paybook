@@ -72,11 +72,15 @@
                                          Width="200"
                                          Grid.Column="2" />
 
-                                <Button Command="{Binding AddPartyCommand}"
-                                        Template="{StaticResource AddButtonTemplate}"
+                                <Button
+                                    Template="{StaticResource AddButtonTemplate}"
                                         Grid.Column="3"
                                         Margin="5,0,10,0"
-                                        Grid.Row="1" />
+                                        Grid.Row="1">
+                                    <Button.Command>
+                                        <commands:NavigateCommand ToViewModel="viewModels:CompanyEditorVM" />
+                                    </Button.Command>
+                                </Button>
                             </Grid>
                             <ScrollViewer x:Name="gridItems"
                                           Grid.Row="1">
@@ -90,9 +94,9 @@
         </Style>
 
         <DataTemplate x:Key="BillDataTemplate">
-            <Button>
+            <Button CommandParameter="{Binding Company}">
                 <Button.Command>
-                    <commands:NavigateCommand ToViewModel="viewModels:CompanyEditorVM" />
+                    <commands:EditCompanyCommand />
                 </Button.Command>
                 <Button.Template>
                     <ControlTemplate>

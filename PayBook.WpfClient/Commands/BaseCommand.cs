@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using PayBook.Model;
 using PayBook.ViewModels;
 
 namespace PayBook.WpfClient.Commands
@@ -8,6 +9,8 @@ namespace PayBook.WpfClient.Commands
     public abstract class BaseCommand : Freezable, ICommand
     {
         private INavigationService _navigationService;
+
+        private IModelService _modelService;
 
         public abstract void Execute(object parameter);
 
@@ -33,6 +36,17 @@ namespace PayBook.WpfClient.Commands
                     _navigationService = App.Container.GetExportedValue<INavigationService>();
 
                 return _navigationService;
+            }
+        }
+
+        public IModelService ModelService
+        {
+            get
+            {
+                if (_modelService == null)
+                    _modelService = App.Container.GetExportedValue<IModelService>();
+
+                return _modelService;
             }
         }
 
