@@ -18,7 +18,6 @@ namespace PayBook.DataAccess.Ef
         {
             this.InvoiceItems = new HashSet<InvoiceItem>();
             this.InvoiceRoles = new HashSet<InvoiceRole>();
-            this.InvoiceStatus = new HashSet<InvoiceStatus>();
             this.InvoiceTerms = new HashSet<InvoiceTerm>();
         }
     
@@ -31,7 +30,7 @@ namespace PayBook.DataAccess.Ef
         public virtual RoleType RoleType { get; set; }
         public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }
         public virtual ICollection<InvoiceRole> InvoiceRoles { get; set; }
-        public virtual ICollection<InvoiceStatus> InvoiceStatus { get; set; }
         public virtual ICollection<InvoiceTerm> InvoiceTerms { get; set; }
+        public virtual InvoiceStatu InvoiceStatu { get; set; }
     }
 }

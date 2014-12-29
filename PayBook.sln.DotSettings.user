@@ -1,5 +1,9 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/Environment/SearchAndNavigation/MergeOccurences/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=1517A72B69264AD6807E84B7809D4F9C/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=1517A72B69264AD6807E84B7809D4F9C/Name/@EntryValue">TestWebApi</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=1517A72B69264AD6807E84B7809D4F9C/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements /&gt;&lt;/Session&gt;</s:String>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=ABDB295BFE284231B61262EC1D984F7D/Name/@EntryValue">TestMethod1</s:String>
-	<s:Int64 x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=ABDB295BFE284231B61262EC1D984F7D/GroupingIndex/@EntryValue">4</s:Int64>
+	
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=ABDB295BFE284231B61262EC1D984F7D/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=ABDB295BFE284231B61262EC1D984F7D/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements /&gt;&lt;/Session&gt;</s:String></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=ABDB295BFE284231B61262EC1D984F7D/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements&gt;&lt;UnitTestElement Provider="MSTest" Id="MsTest:PayBook.Test.WebApiTests" type="MsTestTestClassElement" TypeName="PayBook.Test.WebApiTests" Project="7AA9E4F7-F9C9-4B66-A4E3-8A59F80ED3F7" /&gt;&lt;UnitTestElement Provider="MSTest" Id="MsTest:PayBook.Test.WebApiTests.TestWebApi" ParentId="MsTest:PayBook.Test.WebApiTests" type="MsTestTestMethodElement" MethodName="TestWebApi" TypeName="PayBook.Test.WebApiTests" Project="7AA9E4F7-F9C9-4B66-A4E3-8A59F80ED3F7" /&gt;&lt;/Elements&gt;&lt;/Session&gt;</s:String></wpf:ResourceDictionary>

@@ -607,8 +607,8 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <NavigationProperty Name="RoleType" Relationship="Self.FK_Invoice_RoleType" FromRole="Invoice" ToRole="RoleType" />
           <NavigationProperty Name="InvoiceItems" Relationship="Self.FK_InvoiceItem_Invoice" FromRole="Invoice" ToRole="InvoiceItem" />
           <NavigationProperty Name="InvoiceRoles" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_Invoice" FromRole="Invoice" ToRole="InvoiceRole" />
-          <NavigationProperty Name="InvoiceStatus" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice" FromRole="Invoice" ToRole="InvoiceStatu" />
           <NavigationProperty Name="InvoiceTerms" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_Invoice" FromRole="Invoice" ToRole="InvoiceTerm" />
+          <NavigationProperty Name="InvoiceStatu" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice" FromRole="Invoice" ToRole="InvoiceStatu" />
         </EntityType>
         <EntityType Name="InvoiceItem">
           <Key>
@@ -762,7 +762,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           </AssociationSet>
           <EntitySet Name="C__RefactorLog" EntityType="PayBook.DatabaseModel.C__RefactorLog" />
           <EntitySet Name="InvoiceRoleTypes" EntityType="PayBook.DatabaseModel.InvoiceRoleType" />
-          <EntitySet Name="InvoiceStatus" EntityType="PayBook.DatabaseModel.InvoiceStatus" />
           <EntitySet Name="InvoiceStatusTypes" EntityType="PayBook.DatabaseModel.InvoiceStatusType" />
           <EntitySet Name="Payments" EntityType="PayBook.DatabaseModel.Payment" />
           <EntitySet Name="PaymentApplications" EntityType="PayBook.DatabaseModel.PaymentApplication" />
@@ -772,10 +771,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <AssociationSet Name="FK_InvoiceRole_Invoice" Association="PayBook.DatabaseModel.FK_InvoiceRole_Invoice">
             <End Role="Invoice" EntitySet="Invoices" />
             <End Role="InvoiceRole" EntitySet="InvoiceRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InvoiceStatus_Invoice" Association="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice">
-            <End Role="Invoice" EntitySet="Invoices" />
-            <End Role="InvoiceStatu" EntitySet="InvoiceStatus" />
           </AssociationSet>
           <AssociationSet Name="FK_InvoiceRole_RoleType" Association="PayBook.DatabaseModel.FK_InvoiceRole_RoleType">
             <End Role="InvoiceRoleType" EntitySet="InvoiceRoleTypes" />
@@ -804,10 +799,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <AssociationSet Name="FK_Payment_PaymentMethodType" Association="PayBook.DatabaseModel.FK_Payment_PaymentMethodType">
             <End Role="PaymentMethodType" EntitySet="PaymentMethodTypes" />
             <End Role="Payment" EntitySet="Payments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InvoiceStatus_InvoiceStatusType" Association="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType">
-            <End Role="InvoiceStatusType" EntitySet="InvoiceStatusTypes" />
-            <End Role="InvoiceStatu" EntitySet="InvoiceStatus" />
           </AssociationSet>
           <EntitySet Name="InvoiceTerms" EntityType="PayBook.DatabaseModel.InvoiceTerm" />
           <EntitySet Name="TermTypes" EntityType="PayBook.DatabaseModel.TermType" />
@@ -842,7 +833,16 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             <End Role="RoleType" EntitySet="RoleTypes" />
             <End Role="BillingAccountRoleType" EntitySet="BillingAccountRoleTypes" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="InvoiceStatus" EntityType="PayBook.DatabaseModel.InvoiceStatu" />
+          <AssociationSet Name="FK_InvoiceStatus_Invoice" Association="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceStatu" EntitySet="InvoiceStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceStatus_InvoiceStatusType" Association="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType">
+            <End Role="InvoiceStatusType" EntitySet="InvoiceStatusTypes" />
+            <End Role="InvoiceStatu" EntitySet="InvoiceStatus" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="C__RefactorLog">
           <Key>
             <PropertyRef Name="OperationKey" />
@@ -856,17 +856,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <Property Name="RoleTypeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="InvoiceRoles" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_RoleType" FromRole="InvoiceRoleType" ToRole="InvoiceRole" />
           <NavigationProperty Name="RoleType" Relationship="PayBook.DatabaseModel.FK_InvoiceRoleType_RoleType" FromRole="InvoiceRoleType" ToRole="RoleType" />
-        </EntityType>
-        <EntityType Name="InvoiceStatus">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="StatusDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Invoice" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice" FromRole="InvoiceStatu" ToRole="Invoice" />
-          <Property Name="InvoiceStatusTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="InvoiceStatusType" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType" FromRole="InvoiceStatu" ToRole="InvoiceStatusType" />
         </EntityType>
         <EntityType Name="InvoiceStatusType">
           <Key>
@@ -939,18 +928,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="InvoiceRole">
-              <PropertyRef Name="InvoiceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_InvoiceStatus_Invoice">
-          <End Type="PayBook.DatabaseModel.Invoice" Role="Invoice" Multiplicity="1" />
-          <End Type="PayBook.DatabaseModel.InvoiceStatus" Role="InvoiceStatu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="InvoiceStatu">
               <PropertyRef Name="InvoiceId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1036,18 +1013,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             </Principal>
             <Dependent Role="Payment">
               <PropertyRef Name="PaymentMethodTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_InvoiceStatus_InvoiceStatusType">
-          <End Type="PayBook.DatabaseModel.InvoiceStatusType" Role="InvoiceStatusType" Multiplicity="1" />
-          <End Type="PayBook.DatabaseModel.InvoiceStatus" Role="InvoiceStatu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="InvoiceStatusType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="InvoiceStatu">
-              <PropertyRef Name="InvoiceStatusTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1187,7 +1152,41 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="InvoiceStatu">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+          </Key>
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceStatusTypeId" Type="Int32" Nullable="false" />
+          <Property Name="StatusDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Invoice" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice" FromRole="InvoiceStatu" ToRole="Invoice" />
+          <NavigationProperty Name="InvoiceStatusType" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType" FromRole="InvoiceStatu" ToRole="InvoiceStatusType" />
+        </EntityType>
+        <Association Name="FK_InvoiceStatus_Invoice">
+          <End Type="PayBook.DatabaseModel.Invoice" Role="Invoice" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.InvoiceStatu" Role="InvoiceStatu" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceStatu">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceStatus_InvoiceStatusType">
+          <End Type="PayBook.DatabaseModel.InvoiceStatusType" Role="InvoiceStatusType" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.InvoiceStatu" Role="InvoiceStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceStatusType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceStatu">
+              <PropertyRef Name="InvoiceStatusTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1265,15 +1264,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceRoleType">
               <MappingFragment StoreEntitySet="InvoiceRoleType">
                 <ScalarProperty Name="RoleTypeId" ColumnName="RoleTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="InvoiceStatus">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceStatus">
-              <MappingFragment StoreEntitySet="InvoiceStatus">
-                <ScalarProperty Name="InvoiceStatusTypeId" ColumnName="InvoiceStatusTypeId" />
-                <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1379,6 +1369,15 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             <EntityTypeMapping TypeName="PayBook.DatabaseModel.BillingAccountRoleType">
               <MappingFragment StoreEntitySet="BillingAccountRoleType">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceStatus">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceStatu">
+              <MappingFragment StoreEntitySet="InvoiceStatus">
+                <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
+                <ScalarProperty Name="InvoiceStatusTypeId" ColumnName="InvoiceStatusTypeId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

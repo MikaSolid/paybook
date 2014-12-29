@@ -19,15 +19,13 @@
         <AssociationConnector Association="PayBook.DatabaseModel.PartyRole" ManuallyRouted="false" />
         <EntityTypeShape EntityType="PayBook.DatabaseModel.C__RefactorLog" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="PayBook.DatabaseModel.InvoiceRoleType" Width="1.5" PointX="5.25" PointY="12.375" />
-        <EntityTypeShape EntityType="PayBook.DatabaseModel.InvoiceStatus" Width="1.5" PointX="7.5" PointY="11.5" />
-        <EntityTypeShape EntityType="PayBook.DatabaseModel.InvoiceStatusType" Width="1.5" PointX="5.375" PointY="2.75" />
+        <EntityTypeShape EntityType="PayBook.DatabaseModel.InvoiceStatusType" Width="2.125" PointX="5.375" PointY="2.75" />
         <EntityTypeShape EntityType="PayBook.DatabaseModel.Payment" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="PayBook.DatabaseModel.PaymentApplication" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="PayBook.DatabaseModel.PaymentMethodType" Width="1.5" PointX="0.75" PointY="1.875" />
         <EntityTypeShape EntityType="PayBook.DatabaseModel.Supplier" Width="1.5" PointX="5.25" PointY="5.25" />
         <EntityTypeShape EntityType="PayBook.DatabaseModel.InvoiceRole" Width="1.5" PointX="10.5" PointY="8.5" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceRole_Invoice" />
-        <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceRole_RoleType" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceRoleType_RoleType" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_Supplier_Party" />
@@ -35,7 +33,6 @@
         <AssociationConnector Association="PayBook.DatabaseModel.FK_Payment_PartyFrom" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_Payment_PartyTo" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_Payment_PaymentMethodType" />
-        <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType" />
         <EntityTypeShape EntityType="PayBook.DatabaseModel.InvoiceTerm" Width="1.5" PointX="9.75" PointY="5.125" />
         <EntityTypeShape EntityType="PayBook.DatabaseModel.TermType" Width="1.5" PointX="7.5" PointY="5.5" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceTerm_Invoice" />
@@ -48,7 +45,10 @@
         <AssociationConnector Association="PayBook.DatabaseModel.FK_BillingAccountRole_Party" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_BillingAccountRole_RoleType" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_BillingAccountRoleType_RoleType" />
-      </Diagram>
+        <EntityTypeShape EntityType="PayBook.DatabaseModel.InvoiceStatu" Width="1.5" PointX="9.625" PointY="1.75" />
+        <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice" />
+        <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

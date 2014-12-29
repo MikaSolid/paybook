@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesignTime\DesignTimeModelService.cs" />
     <Compile Include="Ef\BillingAccount.cs">
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
@@ -74,7 +73,7 @@
     <Compile Include="Ef\InvoiceRoleType.cs">
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
-    <Compile Include="Ef\InvoiceStatus.cs">
+    <Compile Include="Ef\InvoiceStatu.cs">
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
     <Compile Include="Ef\InvoiceStatusType.cs">
@@ -128,7 +127,6 @@
     <Compile Include="Ef\Translators\OrganizationTranslators.cs" />
     <Compile Include="Ef\Translators\InvoiceTranslators.cs" />
     <Compile Include="Ef\Translators\CompanyTranslators.cs" />
-    <Compile Include="IModelService.cs" />
     <Compile Include="Xml\ModelBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xml\XmlModelService.cs" />
@@ -169,7 +167,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DesignTime\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

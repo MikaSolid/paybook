@@ -301,6 +301,11 @@ namespace PayBook.DataAccess
             throw new NotImplementedException();
         }
 
+        public Supplier GetSupplier(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void SavePayment(Payment payment)
         {
             var paymentsXml = _paymentsXml.Element("Payments");

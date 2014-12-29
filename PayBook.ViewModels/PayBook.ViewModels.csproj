@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EE635B5A-B3F1-40A2-B5D6-8928C7E49EB2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PayBook.ViewModels</RootNamespace>
+    <AssemblyName>PayBook.ViewModels</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\BaseViewVM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\BaseVM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\ExportService.cs" />
+    <Compile Include="Core\ExportViewModel.cs" />
+    <Compile Include="Core\IContextAware.cs" />
+    <Compile Include="Core\IMefExportProvider.cs" />
+    <Compile Include="Core\IComposer.cs" />
+    <Compile Include="Core\IContainerProvider.cs" />
+    <Compile Include="Core\INavigationService.cs" />
+    <Compile Include="Core\MefExportProvider.cs" />
+    <Compile Include="Core\MefResolver.cs" />
+    <Compile Include="Core\NavigationService.cs" />
+    <Compile Include="Core\Observable.cs" />
+    <Compile Include="Core\ServiceType.cs" />
+    <Compile Include="Core\ShellVM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\BillEditorVM.cs" />
+    <Compile Include="UI\BillsVM.cs" />
+    <Compile Include="UI\BillVM.cs" />
+    <Compile Include="UI\CalendarVM.cs" />
+    <Compile Include="UI\CompaniesBalanceVM.cs" />
+    <Compile Include="UI\CompaniesVM.cs" />
+    <Compile Include="UI\CompanyEditorVM.cs" />
+    <Compile Include="UI\CompanyVM.cs" />
+    <Compile Include="UI\HubVM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\PaymentsVM.cs" />
+    <Compile Include="UI\PaymentVM.cs" />
+    <Compile Include="UI\UnpayedBillsVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PayBook.Model\PayBook.Model.csproj">
+      <Project>{F8CEFBB4-91BF-49F7-9B0D-B7A4B9EC3260}</Project>
+      <Name>PayBook.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

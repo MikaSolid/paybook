@@ -16,12 +16,12 @@ namespace PayBook.DataAccess.Ef
     {
         public InvoiceStatusType()
         {
-            this.InvoiceStatus = new HashSet<InvoiceStatus>();
+            this.InvoiceStatus = new HashSet<InvoiceStatu>();
         }
     
         public int Id { get; set; }
         public string Description { get; set; }
     
-        public virtual ICollection<InvoiceStatus> InvoiceStatus { get; set; }
+        public virtual ICollection<InvoiceStatu> InvoiceStatus { get; set; }
     }
 }

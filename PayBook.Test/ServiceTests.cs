@@ -38,5 +38,12 @@ namespace PayBook.Test
 
             service.SaveInvoice(invoice);
         }
+
+        [TestMethod]
+        public void TestPayBook()
+        {
+            var supplier = new Model.Supplier();
+
+        }
     }
 }

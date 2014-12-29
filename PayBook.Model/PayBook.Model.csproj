@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesignTimeModelService.cs" />
+    <Compile Include="IModelService.cs" />
     <Compile Include="Invoice\InvoiceStatus.cs" />
     <Compile Include="Invoice\InvoiceStatusType.cs" />
     <Compile Include="Organization\Company.cs" />

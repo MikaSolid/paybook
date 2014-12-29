@@ -9,7 +9,7 @@ namespace PayBook.DataAccess.Ef
     public class EfModelService : IModelService
     {
         SqlProviderServices _services = SqlProviderServices.Instance;
-        
+
         public List<Model.Invoice> GetBills()
         {
             throw new NotImplementedException();
@@ -24,7 +24,7 @@ namespace PayBook.DataAccess.Ef
         public List<Model.Payment> GetPayments()
         {
             var db = new LocalDatabase();
-//            return db.Invoices.ToModel().ToList();
+            //            return db.Invoices.ToModel().ToList();
             return new List<Model.Payment>();
         }
 
@@ -56,7 +56,7 @@ namespace PayBook.DataAccess.Ef
         public int SaveSupplier(Model.Supplier model)
         {
             var db = new LocalDatabase();
-                    
+
             Supplier supplier = supplier = db.Suppliers.SingleOrDefault(p => p.Id == model.Id);
 
             if (supplier == null)
@@ -72,7 +72,7 @@ namespace PayBook.DataAccess.Ef
             supplier.Organization.Name = model.Name;
 
             db.SaveChanges();
-            
+
             return supplier.Id;
         }
 
@@ -85,7 +85,7 @@ namespace PayBook.DataAccess.Ef
             if (invoice == null)
             {
                 invoice = new Invoice();
-                
+
                 invoice.RoleTypeId = model is PurchaseInvoice
                 ? db.RoleTypes.Single(rt => rt.Description == "PurchaseInvoice").Id
                 : db.RoleTypes.Single(rt => rt.Description == "SalesInvoice").Id;
@@ -104,6 +104,12 @@ namespace PayBook.DataAccess.Ef
             db.SaveChanges();
 
             return invoice.Id;
+        }
+
+        public Model.Supplier GetSupplier(int id)
+        {
+            var db = new LocalDatabase();
+            return db.Suppliers.Single(s => s.Id == id).ToModel();
         }
     }
 }

@@ -6,8 +6,6 @@
 
         public string Account { get; set; }  
 
-        public string Name { get; set; }
-
         public string CompanyNumber { get; set; }
 
         public string TaxNumber { get; set; }

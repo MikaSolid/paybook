@@ -1,0 +1,35 @@
+﻿using System.ComponentModel.Composition;
+using System.Linq;
+using PayBook.Model;
+
+namespace PayBook.ViewModels
+{
+    [Export]
+    public class CompaniesBalanceVM : CompaniesVM
+    {
+        [ImportingConstructor]
+        public CompaniesBalanceVM(IModelService modelService)
+            : base(modelService)
+        {
+            Title = "Presek stanja";
+        }
+
+        public override void LoadModel()
+        {
+            _partysInternal.Clear();
+
+            var partys = _modelService.GetSuppliers();
+
+            foreach (var party in partys)
+            {
+                var partyVM = new CompanyVM(party);
+
+                partyVM.Payments = _modelService.GetPayments().Where(p => p.PartyId == party.Id).Select(p => new PaymentVM(p)).ToList();
+                partyVM.Bills = _modelService.GetBills().Where(b => b.PartyId == party.Id).Select(b => new BillVM(b, null)).ToList();
+
+                if (partyVM.Bills.Any() || partyVM.Payments.Any())
+                    _partysInternal.Add(partyVM);
+            }
+        }
+    }
+}
