@@ -16,8 +16,6 @@ namespace PayBook.Model
 
         Company GetParty(string partyName);
 
-        Company GetParty(int guid);
-
         int SaveCompany(Company model);
 
         int SaveInvoice(Invoice model);

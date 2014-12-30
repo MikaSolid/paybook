@@ -114,6 +114,34 @@
             </Button.Content>
         </Button>
 
+        <Button Background="LightSteelBlue"
+                Margin="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="144"
+                Height="144">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:BillsVM}" />
+            </Button.Command>
+            <Button.Content>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="&#xE1D3;"
+                                   FontSize="76"
+                                   TextAlignment="Center"
+                                   Margin="0"
+                                   Foreground="White"
+                                   FontFamily="Segoe UI Symbol" />
+                        <TextBlock Margin="0,-5,0,0"
+                                   FontSize="18"
+                                   Width="100"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center">svi računi</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Button.Content>
+        </Button>
+        
         <Button Background="DarkRed"
                 Margin="8"
                 HorizontalContentAlignment="Center"
@@ -121,7 +149,7 @@
                 Width="144"
                 Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:UnpayedBillsVM}" />
             </Button.Command>
             <Button.Content>
                 <Grid>
@@ -142,33 +170,7 @@
             </Button.Content>
         </Button>
 
-        <Button Background="DimGray"
-                Margin="8"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Width="144"
-                Height="144">
-            <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
-            </Button.Command>
-            <Button.Content>
-                <Grid>
-                    <StackPanel>
-                        <TextBlock Text="&#xE1D3;"
-                                   FontSize="76"
-                                   TextAlignment="Center"
-                                   Margin="0"
-                                   Foreground="White"
-                                   FontFamily="Segoe UI Symbol" />
-                        <TextBlock Margin="0,-5,0,0"
-                                   FontSize="18"
-                                   Width="100"
-                                   TextWrapping="Wrap"
-                                   TextAlignment="Center">svi računi</TextBlock>
-                    </StackPanel>
-                </Grid>
-            </Button.Content>
-        </Button>
+      
 
         <Button Background="DimGray"
                 Margin="8"
@@ -198,14 +200,42 @@
             </Button.Content>
         </Button>
 
-        <Button Background="DimGray"
+        <Button Background="DarkOrange"
                 Margin="8"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Width="144"
                 Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:BillEditorVM}" />
+            </Button.Command>
+            <Button.Content>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="&#xE104;"
+                                   FontSize="76"
+                                   TextAlignment="Center"
+                                   Margin="0"
+                                   Foreground="White"
+                                   FontFamily="Segoe UI Symbol" />
+                        <TextBlock Margin="0,-5,0,0"
+                                   FontSize="18"
+                                   Width="100"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center">nov račun</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Button.Content>
+        </Button>
+
+        <Button Background="CornflowerBlue"
+                Margin="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="144"
+                Height="144">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:PaymentVM}" />
             </Button.Command>
             <Button.Content>
                 <Grid>
@@ -220,48 +250,20 @@
                                    FontSize="18"
                                    Width="100"
                                    TextWrapping="Wrap"
-                                   TextAlignment="Center">izdati računi</TextBlock>
+                                   TextAlignment="Center">nova isplata</TextBlock>
                     </StackPanel>
                 </Grid>
             </Button.Content>
         </Button>
 
-        <Button Background="DimGray"
+        <Button Background="DarkCyan"
                 Margin="8"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Width="144"
                 Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
-            </Button.Command>
-            <Button.Content>
-                <Grid>
-                    <StackPanel>
-                        <TextBlock Text="&#xE1D3;"
-                                   FontSize="76"
-                                   TextAlignment="Center"
-                                   Margin="0"
-                                   Foreground="White"
-                                   FontFamily="Segoe UI Symbol" />
-                        <TextBlock Margin="0,-5,0,0"
-                                   FontSize="18"
-                                   Width="100"
-                                   TextWrapping="Wrap"
-                                   TextAlignment="Center">uplate</TextBlock>
-                    </StackPanel>
-                </Grid>
-            </Button.Content>
-        </Button>
-
-        <Button Background="DimGray"
-                Margin="8"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Width="144"
-                Height="144">
-            <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:PaymentsVM}" />
             </Button.Command>
             <Button.Content>
                 <Grid>
@@ -282,19 +284,19 @@
             </Button.Content>
         </Button>
 
-        <Button Background="DimGray"
+        <Button Background="Gray"
                 Margin="8"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Width="144"
                 Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesBalanceVM}" />
             </Button.Command>
             <Button.Content>
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="&#xE1D3;"
+                        <TextBlock Text="&#xE14C;"
                                    FontSize="76"
                                    TextAlignment="Center"
                                    Margin="0"

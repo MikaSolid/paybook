@@ -136,7 +136,7 @@ namespace PayBook.ViewModels
             {
                 var paymentVM = new PaymentVM(payment);
 
-                var party = _modelService.GetParty(payment.PartyId);
+                var party = _modelService.GetCompany(payment.PartyId);
 
                 if (party != null)
                     paymentVM.PartyName = party.Name;
