@@ -8,6 +8,7 @@ namespace PayBook.DataAccess.Ef
 {
     public class EfModelService : IModelService
     {
+        // This line must exist in order to wire up EF sql provider services
         SqlProviderServices _services = SqlProviderServices.Instance;
 
         public List<Model.Invoice> GetBills()
@@ -18,13 +19,12 @@ namespace PayBook.DataAccess.Ef
         public List<Model.Company> GetCompanies()
         {
             var db = new LocalDatabase();
-            return db.Organizations.ToModel().ToList();
+            return db.Organizations.ToCompany().ToList();
         }
 
         public List<Model.Payment> GetPayments()
         {
             var db = new LocalDatabase();
-            //            return db.Invoices.ToModel().ToList();
             return new List<Model.Payment>();
         }
 
@@ -102,7 +102,13 @@ namespace PayBook.DataAccess.Ef
         public Model.Company GetCompany(int id)
         {
             var db = new LocalDatabase();
-            return db.Organizations.Single(s => s.Id == id).ToModel();
+            return db.Organizations.Single(s => s.Id == id).ToCompany();
+        }
+
+        public List<CompanyInfo> GetCompanyInfos()
+        {
+            var db = new LocalDatabase();
+            return db.Organizations.ToCompanyInfo().ToList();
         }
     }
 }

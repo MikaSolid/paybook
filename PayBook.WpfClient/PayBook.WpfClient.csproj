@@ -73,8 +73,8 @@
     <Compile Include="Views\PartyEditor.xaml.cs">
       <DependentUpon>PartyEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Partys.xaml.cs">
-      <DependentUpon>Partys.xaml</DependentUpon>
+    <Compile Include="Views\CompaniesView.xaml.cs">
+      <DependentUpon>CompaniesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PartysBalance.xaml.cs">
       <DependentUpon>PartysBalance.xaml</DependentUpon>
@@ -98,6 +98,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Assets\Geometries.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\DataTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Converters.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -160,7 +168,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Partys.xaml">
+    <Page Include="Views\CompaniesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,5 +1,4 @@
-﻿using PayBook.Model;
-using PayBook.ViewModels;
+﻿using PayBook.ViewModels;
 
 namespace PayBook.WpfClient.Commands
 {
@@ -7,7 +6,7 @@ namespace PayBook.WpfClient.Commands
     {
         public override void Execute(object parameter)
         {
-            NavigationService.Navigate(new CompanyEditorVM(ModelService, ((Company)parameter).Id));
+            NavigationService.Navigate(new CompanyEditorVM(ModelService, (int)parameter));
         }
     }
 }

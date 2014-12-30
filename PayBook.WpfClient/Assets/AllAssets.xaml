@@ -5,15 +5,15 @@
                     xmlns:viewModels="clr-namespace:PayBook.ViewModels"
                     mc:Ignorable="d">
 
-    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-
     <viewModels:ViewModelLocator x:Key="ViewModelLocator" />
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/PayBook.WpfClient;component/Assets/Converters.xaml" />
         <ResourceDictionary Source="pack://application:,,,/PayBook.WpfClient;component/Assets/Colors.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Paybook.WpfClient;component/Assets/Brushes.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Paybook.WpfClient;component/Assets/Geometries.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Paybook.WpfClient;component/Assets/Styles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Paybook.WpfClient;component/Assets/DataTemplates.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

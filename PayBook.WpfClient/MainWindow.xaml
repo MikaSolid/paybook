@@ -140,7 +140,7 @@
                         <views:Hub Margin="100,20,20,20" />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewModels:CompaniesVM}">
-                        <views:Partys />
+                        <views:CompaniesView />
                     </DataTemplate>
 
                     <DataTemplate DataType="{x:Type viewModels:CompaniesBalanceVM}">

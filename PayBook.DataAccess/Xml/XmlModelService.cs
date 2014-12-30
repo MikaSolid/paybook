@@ -303,6 +303,11 @@ namespace PayBook.DataAccess
             throw new NotImplementedException();
         }
 
+        public List<CompanyInfo> GetCompanyInfos()
+        {
+            throw new NotImplementedException();
+        }
+
         public void SavePayment(Payment payment)
         {
             var paymentsXml = _paymentsXml.Element("Payments");

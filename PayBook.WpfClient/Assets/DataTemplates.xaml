@@ -1,0 +1,85 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:model="clr-namespace:PayBook.Model;assembly=PayBook.Model"
+                    xmlns:commands="clr-namespace:PayBook.WpfClient.Commands">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Paybook.WpfClient;component/Assets/Converters.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <DataTemplate DataType="{x:Type model:CompanyInfo}">
+        <Button CommandParameter="{Binding Id}">
+            <Button.Command>
+                <commands:EditCompanyCommand />
+            </Button.Command>
+            <Button.Template>
+                <ControlTemplate>
+                    <Border BorderBrush="{DynamicResource ThemeBrush}"
+                            BorderThickness="1,0,1,1">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                         Storyboard.TargetName="grid"
+                                                         Duration="0"
+                                                         To="0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                         Storyboard.TargetName="grid"
+                                                         Duration="0"
+                                                         To="0.25" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid>
+
+                            <Grid Visibility="{Binding IsBalanceOverDue, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                  Background="#FFDDDD"></Grid>
+                            <Grid Visibility="{Binding IsBalanceDue, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                  Background="#DDFFDD"></Grid>
+                            <Grid x:Name="grid"
+                                  Background="{DynamicResource ThemeBrush}"></Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Margin="5,5,0,5"
+                                           Foreground="{DynamicResource ThemeBrush}"
+                                           Text="{Binding Code, StringFormat={}{0:D6}}"
+                                           TextAlignment="Center"
+                                           Width="{Binding ElementName=codeTextBox, Path=ActualWidth}" />
+
+                                <TextBlock Margin="5,5,0,5"
+                                           Foreground="{DynamicResource ThemeBrush}"
+                                           Grid.Column="1"
+                                           Text="{Binding Name}"
+                                           HorizontalAlignment="Left"
+                                           Width="{Binding ElementName=nameTextBox, Path=ActualWidth}"
+                                           FontFamily="/PayBook;component/Assets/#Segoe WP Light" />
+
+                                <TextBlock Margin="5,5,0,5"
+                                           Foreground="{DynamicResource ThemeBrush}"
+                                           TextAlignment="Center"
+                                           Grid.Column="2"
+                                           Text="{Binding Account}"
+                                           Width="{Binding ElementName=accountTextBox, Path=ActualWidth}" />
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </DataTemplate>
+
+</ResourceDictionary>

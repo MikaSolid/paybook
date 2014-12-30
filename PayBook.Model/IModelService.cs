@@ -23,5 +23,7 @@ namespace PayBook.Model
         int SaveInvoice(Invoice model);
         
         Company GetCompany(int id);
+
+        List<CompanyInfo> GetCompanyInfos();
     }
 }

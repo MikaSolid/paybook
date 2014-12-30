@@ -1,5 +1,10 @@
 ﻿namespace PayBook.Model
 {
+    public class CompanyInfo : Organization
+    {
+        public string BillingAccount { get; set; }
+    }
+
     public class Company : LegalOrganization
     {
         public int DefaultPaymentDays { get; set; }

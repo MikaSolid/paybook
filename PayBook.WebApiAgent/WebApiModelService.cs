@@ -32,6 +32,12 @@ namespace PayBook.WebApiAgent
             return Get<List<Company>>("Company");
         }
 
+        public List<CompanyInfo> GetCompanyInfos()
+        {
+            return Get<List<CompanyInfo>>("CompanyInfo");
+        }
+
+
         public Company GetCompany(int id)
         {
             return Get<Company>(String.Format("Company/{0}", id));

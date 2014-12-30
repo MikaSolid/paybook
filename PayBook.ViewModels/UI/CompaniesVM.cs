@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
-using System.Linq;
 using PayBook.Model;
 
 namespace PayBook.ViewModels
@@ -9,9 +7,7 @@ namespace PayBook.ViewModels
     [Export]
     public class CompaniesVM : BaseViewVM
     {
-        //private readonly ICollectionView _collectionView;
-        protected ObservableCollection<CompanyVM> _partysInternal = new ObservableCollection<CompanyVM>();
-        private readonly ReadOnlyObservableCollection<CompanyVM> _partys;
+        protected ObservableCollection<CompanyInfo> _partysInternal = new ObservableCollection<CompanyInfo>();
 
         [ImportingConstructor]
         public CompaniesVM(IModelService modelService)
@@ -19,8 +15,6 @@ namespace PayBook.ViewModels
         {
             Title = "Dobavljači";
 
-            _partys = new ReadOnlyObservableCollection<CompanyVM>(_partysInternal);
-            
             //_collectionView = CollectionViewSource.GetDefaultView(_partys);
 
             //_collectionView.Filter = delegate(object obj)
@@ -50,13 +44,13 @@ namespace PayBook.ViewModels
             //        && (!isNameFiltered || nameIndex > -1)
             //        && (!isAccountFiltered || accountIndex > -1);
             //};
-            
+
             // LoadModel();
         }
 
-        public ReadOnlyObservableCollection<CompanyVM> Partys
+        public ObservableCollection<CompanyInfo> Partys
         {
-            get { return _partys; }
+            get { return _partysInternal; }
         }
 
 
@@ -105,21 +99,13 @@ namespace PayBook.ViewModels
         public override void LoadModel()
         {
             _partysInternal.Clear();
-
-            var partys = _modelService.GetCompanies();
-
-            foreach (var party in partys)
-            {
-                var partyVM = new CompanyVM(party);
-                partyVM.Payments = _modelService.GetPayments().Where(p => p.PartyId == party.Id).Select(p => new PaymentVM(p)).ToList();
-                partyVM.Bills = _modelService.GetBills().Where(b => b.PartyId == party.Id).Select(b => new BillVM(b, null)).ToList();
-                _partysInternal.Add(partyVM);
-            }
+            _partysInternal = new ObservableCollection<CompanyInfo>(_modelService.GetCompanyInfos());
+            OnPropertyChanged("Partys");
         }
 
         public void Filter()
         {
-           // _collectionView.Refresh();
+            // _collectionView.Refresh();
             OnPropertyChanged("Partys");
         }
 

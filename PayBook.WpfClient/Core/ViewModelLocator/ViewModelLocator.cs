@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Windows;
 using PayBook.WpfClient;
 
 namespace PayBook.ViewModels
@@ -58,9 +57,7 @@ namespace PayBook.ViewModels
         {
             get
             {
-                var vm = GetBaseViewModel(typeName);
-                vm.LoadModel();
-                return vm;
+                return GetBaseViewModel(typeName);
             }
         }
     }

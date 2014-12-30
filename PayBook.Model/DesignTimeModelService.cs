@@ -66,6 +66,11 @@ namespace PayBook.Model
             throw new NotImplementedException();
         }
 
+        public List<CompanyInfo> GetCompanyInfos()
+        {
+            throw new NotImplementedException();
+        }
+
 
         public List<Payment> GetPayments()
         {

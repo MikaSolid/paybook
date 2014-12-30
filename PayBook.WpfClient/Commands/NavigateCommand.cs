@@ -8,11 +8,7 @@ namespace PayBook.WpfClient.Commands
     {
         public override void Execute(object parameter)
         {
-            BaseViewVM vm = ViewModelLocator.GetBaseViewModel(ToViewModel);
-            
-            vm.LoadModel();
-            
-            NavigationService.Navigate(vm);
+            NavigationService.Navigate(ViewModelLocator.GetBaseViewModel(ToViewModel));
         }
 
         public static readonly DependencyProperty ToViewModelProperty =
