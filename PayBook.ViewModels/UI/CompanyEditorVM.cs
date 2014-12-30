@@ -156,8 +156,7 @@ namespace PayBook.ViewModels
 
         public override void LoadModel()
         {
-            if (_companyId > 0)
-                _company = _modelService.GetCompany(_companyId);
+            _company = _companyId > 0 ? _modelService.GetCompany(_companyId) : new Company();
         }
     }
 }

@@ -6,35 +6,46 @@ namespace PayBook.DataAccess.Ef
 {
     public static class CompanyTranslators
     {
-        public static Company ToCompany(this Organization dataModel)
+        public static Model.Company ToCompany(this Company dataModel)
         {
-            var model = new Company();
+            var model = new Model.Company();
             model.Id = dataModel.Id;
-            model.Name = dataModel.Name;
+
+            if (dataModel.Organization.Party.BillingAccountRole != null)
+                model.Account = dataModel.Organization.Party.BillingAccountRole.BillingAccount.Description;
+            
+            model.Code = dataModel.Organization.Party.Code;
+            model.Name = dataModel.Organization.Name;
+
+            model.CompanyNumber = dataModel.CompanyNumber;
+            model.TaxNumber = dataModel.TaxNumber;
+            
             return model;
         }
 
-        public static IEnumerable<Company> ToCompany(this IEnumerable<Organization> dataModel)
+        public static IEnumerable<Model.Company> ToCompany(this IEnumerable<Company> dataModel)
         {
             return dataModel.Select(dm => dm.ToCompany());
         }
 
-        public static IEnumerable<CompanyInfo> ToCompanyInfo(this IEnumerable<Organization> dataModel)
+        public static IEnumerable<CompanyInfo> ToCompanyInfo(this IEnumerable<Company> dataModel)
         {
             return dataModel.Select(dm => dm.ToCompanyInfo());
         }
 
-        public static CompanyInfo ToCompanyInfo(this Organization dataModel)
+        public static CompanyInfo ToCompanyInfo(this Company dataModel)
         {
             var model = new CompanyInfo();
+            
             model.Id = dataModel.Id;
-            model.Name = dataModel.Name;
+            
+            model.Name = dataModel.Organization.Name;
+            
+            model.Code = dataModel.Organization.Party.Code;
 
-            if (dataModel.Party != null)
-            {
-                if (dataModel.Party.BillingAccountRole != null)
-                    model.BillingAccount = dataModel.Party.BillingAccountRole.BillingAccount.Description;
-            }
+            if (dataModel.Organization.Party.BillingAccountRole != null)
+                model.BillingAccount = dataModel.Organization.Party.BillingAccountRole.BillingAccount.Description;
+
             return model;
         }
 

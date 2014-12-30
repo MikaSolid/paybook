@@ -26,6 +26,5 @@ namespace PayBook.DataAccess.Ef
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual ICollection<Party> Parties { get; set; }
         public virtual InvoiceRoleType InvoiceRoleType { get; set; }
-        public virtual BillingAccountRoleType BillingAccountRoleType { get; set; }
     }
 }

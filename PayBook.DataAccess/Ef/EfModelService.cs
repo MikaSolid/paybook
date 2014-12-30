@@ -19,7 +19,7 @@ namespace PayBook.DataAccess.Ef
         public List<Model.Company> GetCompanies()
         {
             var db = new LocalDatabase();
-            return db.Organizations.ToCompany().ToList();
+            return db.Companies.ToCompany().ToList();
         }
 
         public List<Model.Payment> GetPayments()
@@ -53,20 +53,39 @@ namespace PayBook.DataAccess.Ef
         {
             var db = new LocalDatabase();
 
-            Organization organization  = db.Organizations.SingleOrDefault(p => p.Id == model.Id);
+            var company = db.Companies.SingleOrDefault(p => p.Id == model.Id);
 
-            if (organization == null)
+            if (company == null)
             {
-                organization = new Organization();
-                organization.Party = new Party();
-                db.Organizations.Add(organization);
+                company = new Company();
+                company.Organization = new Organization();
+                company.Organization.Party = new Party();
+                db.Companies.Add(company);
             }
 
-            organization.Name = model.Name;
+            company.Organization.Party.Code = model.Code;
+            company.Organization.Name = model.Name;
+            
+            company.CompanyNumber = model.CompanyNumber;
+            company.TaxNumber = model.TaxNumber;
+
+            var bar = company.Organization.Party.BillingAccountRole;
+
+            if (bar == null)
+            {
+                bar = new BillingAccountRole();
+                bar.BillingAccount = new BillingAccount();
+                bar.Party = company.Organization.Party;
+                bar.FromDate = DateTime.Now;
+                bar.ToDate = DateTime.Now;
+                company.Organization.Party.BillingAccountRole = bar;
+            }
+
+            bar.BillingAccount.Description = model.Account;
 
             db.SaveChanges();
 
-            return organization.Id;
+            return company.Id;
         }
 
         public int SaveInvoice(Model.Invoice model)
@@ -102,13 +121,13 @@ namespace PayBook.DataAccess.Ef
         public Model.Company GetCompany(int id)
         {
             var db = new LocalDatabase();
-            return db.Organizations.Single(s => s.Id == id).ToCompany();
+            return db.Companies.Single(s => s.Id == id).ToCompany();
         }
 
         public List<CompanyInfo> GetCompanyInfos()
         {
             var db = new LocalDatabase();
-            return db.Organizations.ToCompanyInfo().ToList();
+            return db.Companies.ToCompanyInfo().ToList();
         }
     }
 }

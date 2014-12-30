@@ -54,7 +54,7 @@
     <Compile Include="Ef\BillingAccountRole.cs">
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
-    <Compile Include="Ef\BillingAccountRoleType.cs">
+    <Compile Include="Ef\Company.cs">
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
     <Compile Include="Ef\C__RefactorLog.cs">
@@ -116,9 +116,6 @@
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
     <Compile Include="Ef\RoleType.cs">
-      <DependentUpon>PayBook.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ef\Supplier.cs">
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
     <Compile Include="Ef\TermType.cs">

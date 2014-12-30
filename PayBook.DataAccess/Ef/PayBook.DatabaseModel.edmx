@@ -26,15 +26,16 @@
           </Key>
           <Property Name="PartyId" Type="int" Nullable="false" />
           <Property Name="BillingAccountId" Type="int" Nullable="false" />
-          <Property Name="RoleTypeId" Type="int" Nullable="false" />
           <Property Name="FromDate" Type="datetime" />
           <Property Name="ToDate" Type="datetime" />
         </EntityType>
-        <EntityType Name="BillingAccountRoleType">
+        <EntityType Name="Company">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="TaxNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -110,6 +111,7 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PartyRole">
           <Key>
@@ -164,12 +166,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <EntityType Name="Supplier">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="TermType">
           <Key>
             <PropertyRef Name="Id" />
@@ -201,26 +197,14 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BillingAccountRole_RoleType">
-          <End Role="BillingAccountRoleType" Type="Self.BillingAccountRoleType" Multiplicity="1" />
-          <End Role="BillingAccountRole" Type="Self.BillingAccountRole" Multiplicity="*" />
+        <Association Name="FK_Company_Organization">
+          <End Role="Organization" Type="Self.Organization" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="BillingAccountRoleType">
+            <Principal Role="Organization">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="BillingAccountRole">
-              <PropertyRef Name="RoleTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BillingAccountRoleType_RoleType">
-          <End Role="RoleType" Type="Self.RoleType" Multiplicity="1" />
-          <End Role="BillingAccountRoleType" Type="Self.BillingAccountRoleType" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="RoleType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BillingAccountRoleType">
+            <Dependent Role="Company">
               <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
@@ -453,23 +437,11 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Supplier_Party">
-          <End Role="Organization" Type="Self.Organization" Multiplicity="1" />
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Organization">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Supplier">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="PayBookDatabaseModelStoreContainer">
           <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BillingAccount" EntityType="Self.BillingAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BillingAccountRole" EntityType="Self.BillingAccountRole" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BillingAccountRoleType" EntityType="Self.BillingAccountRoleType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InvoiceItem" EntityType="Self.InvoiceItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InvoiceRoleType" EntityType="Self.InvoiceRoleType" Schema="dbo" store:Type="Tables" />
@@ -484,7 +456,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <EntitySet Name="PaymentMethodType" EntityType="Self.PaymentMethodType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleType" EntityType="Self.RoleType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TermType" EntityType="Self.TermType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InvoiceRole" EntityType="Self.InvoiceRole" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -502,13 +473,9 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             <End Role="Party" EntitySet="Party" />
             <End Role="BillingAccountRole" EntitySet="BillingAccountRole" />
           </AssociationSet>
-          <AssociationSet Name="FK_BillingAccountRole_RoleType" Association="Self.FK_BillingAccountRole_RoleType">
-            <End Role="BillingAccountRoleType" EntitySet="BillingAccountRoleType" />
-            <End Role="BillingAccountRole" EntitySet="BillingAccountRole" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BillingAccountRoleType_RoleType" Association="Self.FK_BillingAccountRoleType_RoleType">
-            <End Role="RoleType" EntitySet="RoleType" />
-            <End Role="BillingAccountRoleType" EntitySet="BillingAccountRoleType" />
+          <AssociationSet Name="FK_Company_Organization" Association="Self.FK_Company_Organization">
+            <End Role="Organization" EntitySet="Organization" />
+            <End Role="Company" EntitySet="Company" />
           </AssociationSet>
           <AssociationSet Name="FK_Invoice_Party" Association="Self.FK_Invoice_Party">
             <End Role="Party" EntitySet="Party" />
@@ -586,10 +553,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             <End Role="Party" EntitySet="Party" />
             <End Role="Person" EntitySet="Person" />
           </AssociationSet>
-          <AssociationSet Name="FK_Supplier_Party" Association="Self.FK_Supplier_Party">
-            <End Role="Organization" EntitySet="Organization" />
-            <End Role="Supplier" EntitySet="Supplier" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -628,7 +591,7 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Party" Relationship="Self.FK_Organization_Party" FromRole="Organization" ToRole="Party" />
-          <NavigationProperty Name="Supplier" Relationship="PayBook.DatabaseModel.FK_Supplier_Party" FromRole="Organization" ToRole="Supplier" />
+          <NavigationProperty Name="Company" Relationship="PayBook.DatabaseModel.FK_Company_Organization" FromRole="Organization" ToRole="Company" />
         </EntityType>
         <EntityType Name="Party">
           <Key>
@@ -643,6 +606,7 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <NavigationProperty Name="Payments" Relationship="PayBook.DatabaseModel.FK_Payment_PartyFrom" FromRole="Party" ToRole="Payment" />
           <NavigationProperty Name="Payments1" Relationship="PayBook.DatabaseModel.FK_Payment_PartyTo" FromRole="Party" ToRole="Payment" />
           <NavigationProperty Name="BillingAccountRole" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_Party" FromRole="Party" ToRole="BillingAccountRole" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -663,7 +627,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_RoleType" FromRole="RoleType" ToRole="Invoice" />
           <NavigationProperty Name="Parties" Relationship="Self.PartyRole" FromRole="RoleType" ToRole="Party" />
           <NavigationProperty Name="InvoiceRoleType" Relationship="PayBook.DatabaseModel.FK_InvoiceRoleType_RoleType" FromRole="RoleType" ToRole="InvoiceRoleType" />
-          <NavigationProperty Name="BillingAccountRoleType" Relationship="PayBook.DatabaseModel.FK_BillingAccountRoleType_RoleType" FromRole="RoleType" ToRole="BillingAccountRoleType" />
         </EntityType>
         <Association Name="FK_Invoice_Party">
           <End Role="Party" Type="Self.Party" Multiplicity="1" />
@@ -810,24 +773,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             <End Role="InvoiceTerm" EntitySet="InvoiceTerms" />
           </AssociationSet>
           <EntitySet Name="BillingAccounts" EntityType="PayBook.DatabaseModel.BillingAccount" />
-          <EntitySet Name="BillingAccountRoles" EntityType="PayBook.DatabaseModel.BillingAccountRole" />
-          <EntitySet Name="BillingAccountRoleTypes" EntityType="PayBook.DatabaseModel.BillingAccountRoleType" />
-          <AssociationSet Name="FK_BillingAccountRole_BillingAccount" Association="PayBook.DatabaseModel.FK_BillingAccountRole_BillingAccount">
-            <End Role="BillingAccount" EntitySet="BillingAccounts" />
-            <End Role="BillingAccountRole" EntitySet="BillingAccountRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BillingAccountRole_Party" Association="PayBook.DatabaseModel.FK_BillingAccountRole_Party">
-            <End Role="Party" EntitySet="Parties" />
-            <End Role="BillingAccountRole" EntitySet="BillingAccountRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BillingAccountRole_RoleType" Association="PayBook.DatabaseModel.FK_BillingAccountRole_RoleType">
-            <End Role="BillingAccountRoleType" EntitySet="BillingAccountRoleTypes" />
-            <End Role="BillingAccountRole" EntitySet="BillingAccountRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BillingAccountRoleType_RoleType" Association="PayBook.DatabaseModel.FK_BillingAccountRoleType_RoleType">
-            <End Role="RoleType" EntitySet="RoleTypes" />
-            <End Role="BillingAccountRoleType" EntitySet="BillingAccountRoleTypes" />
-          </AssociationSet>
           <EntitySet Name="InvoiceStatus" EntityType="PayBook.DatabaseModel.InvoiceStatu" />
           <AssociationSet Name="FK_InvoiceStatus_Invoice" Association="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice">
             <End Role="Invoice" EntitySet="Invoices" />
@@ -837,10 +782,19 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             <End Role="InvoiceStatusType" EntitySet="InvoiceStatusTypes" />
             <End Role="InvoiceStatu" EntitySet="InvoiceStatus" />
           </AssociationSet>
-          <EntitySet Name="Suppliers" EntityType="PayBook.DatabaseModel.Supplier" />
-          <AssociationSet Name="FK_Supplier_Party" Association="PayBook.DatabaseModel.FK_Supplier_Party">
+          <EntitySet Name="BillingAccountRoles" EntityType="PayBook.DatabaseModel.BillingAccountRole" />
+          <AssociationSet Name="FK_BillingAccountRole_BillingAccount" Association="PayBook.DatabaseModel.FK_BillingAccountRole_BillingAccount">
+            <End Role="BillingAccount" EntitySet="BillingAccounts" />
+            <End Role="BillingAccountRole" EntitySet="BillingAccountRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillingAccountRole_Party" Association="PayBook.DatabaseModel.FK_BillingAccountRole_Party">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="BillingAccountRole" EntitySet="BillingAccountRoles" />
+          </AssociationSet>
+          <EntitySet Name="Companies" EntityType="PayBook.DatabaseModel.Company" />
+          <AssociationSet Name="FK_Company_Organization" Association="PayBook.DatabaseModel.FK_Company_Organization">
             <End Role="Organization" EntitySet="Organizations" />
-            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="Company" EntitySet="Companies" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__RefactorLog">
@@ -1064,75 +1018,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BillingAccountRoles" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_BillingAccount" FromRole="BillingAccount" ToRole="BillingAccountRole" />
         </EntityType>
-        <EntityType Name="BillingAccountRole">
-          <Key>
-            <PropertyRef Name="PartyId" />
-          </Key>
-          <Property Name="PartyId" Type="Int32" Nullable="false" />
-          <Property Name="BillingAccountId" Type="Int32" Nullable="false" />
-          <Property Name="RoleTypeId" Type="Int32" Nullable="false" />
-          <Property Name="FromDate" Type="DateTime" Precision="3" />
-          <Property Name="ToDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="BillingAccount" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_BillingAccount" FromRole="BillingAccountRole" ToRole="BillingAccount" />
-          <NavigationProperty Name="Party" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_Party" FromRole="BillingAccountRole" ToRole="Party" />
-          <NavigationProperty Name="BillingAccountRoleType" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_RoleType" FromRole="BillingAccountRole" ToRole="BillingAccountRoleType" />
-        </EntityType>
-        <EntityType Name="BillingAccountRoleType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="BillingAccountRoles" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_RoleType" FromRole="BillingAccountRoleType" ToRole="BillingAccountRole" />
-          <NavigationProperty Name="RoleType" Relationship="PayBook.DatabaseModel.FK_BillingAccountRoleType_RoleType" FromRole="BillingAccountRoleType" ToRole="RoleType" />
-        </EntityType>
-        <Association Name="FK_BillingAccountRole_BillingAccount">
-          <End Type="PayBook.DatabaseModel.BillingAccount" Role="BillingAccount" Multiplicity="1" />
-          <End Type="PayBook.DatabaseModel.BillingAccountRole" Role="BillingAccountRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BillingAccount">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BillingAccountRole">
-              <PropertyRef Name="BillingAccountId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BillingAccountRole_Party">
-          <End Type="PayBook.DatabaseModel.Party" Role="Party" Multiplicity="1" />
-          <End Type="PayBook.DatabaseModel.BillingAccountRole" Role="BillingAccountRole" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Party">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BillingAccountRole">
-              <PropertyRef Name="PartyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BillingAccountRole_RoleType">
-          <End Type="PayBook.DatabaseModel.BillingAccountRoleType" Role="BillingAccountRoleType" Multiplicity="1" />
-          <End Type="PayBook.DatabaseModel.BillingAccountRole" Role="BillingAccountRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BillingAccountRoleType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BillingAccountRole">
-              <PropertyRef Name="RoleTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BillingAccountRoleType_RoleType">
-          <End Type="PayBook.DatabaseModel.RoleType" Role="RoleType" Multiplicity="1" />
-          <End Type="PayBook.DatabaseModel.BillingAccountRoleType" Role="BillingAccountRoleType" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="RoleType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BillingAccountRoleType">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="InvoiceStatu">
           <Key>
             <PropertyRef Name="InvoiceId" />
@@ -1167,21 +1052,58 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Supplier">
+        <EntityType Name="BillingAccountRole">
+          <Key>
+            <PropertyRef Name="PartyId" />
+          </Key>
+          <Property Name="PartyId" Type="Int32" Nullable="false" />
+          <Property Name="BillingAccountId" Type="Int32" Nullable="false" />
+          <Property Name="FromDate" Type="DateTime" Precision="3" />
+          <Property Name="ToDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BillingAccount" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_BillingAccount" FromRole="BillingAccountRole" ToRole="BillingAccount" />
+          <NavigationProperty Name="Party" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_Party" FromRole="BillingAccountRole" ToRole="Party" />
+        </EntityType>
+        <Association Name="FK_BillingAccountRole_BillingAccount">
+          <End Type="PayBook.DatabaseModel.BillingAccount" Role="BillingAccount" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.BillingAccountRole" Role="BillingAccountRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BillingAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillingAccountRole">
+              <PropertyRef Name="BillingAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillingAccountRole_Party">
+          <End Type="PayBook.DatabaseModel.Party" Role="Party" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.BillingAccountRole" Role="BillingAccountRole" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillingAccountRole">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Company">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Organization" Relationship="PayBook.DatabaseModel.FK_Supplier_Party" FromRole="Supplier" ToRole="Organization" />
+          <Property Name="CompanyNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TaxNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Organization" Relationship="PayBook.DatabaseModel.FK_Company_Organization" FromRole="Company" ToRole="Organization" />
         </EntityType>
-        <Association Name="FK_Supplier_Party">
+        <Association Name="FK_Company_Organization">
           <End Type="PayBook.DatabaseModel.Organization" Role="Organization" Multiplicity="1" />
-          <End Type="PayBook.DatabaseModel.Supplier" Role="Supplier" Multiplicity="0..1" />
+          <End Type="PayBook.DatabaseModel.Company" Role="Company" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Organization">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Supplier">
+            <Dependent Role="Company">
               <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
@@ -1223,6 +1145,7 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <EntitySetMapping Name="Parties">
             <EntityTypeMapping TypeName="PayBook.DatabaseModel.Party">
               <MappingFragment StoreEntitySet="Party">
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1347,24 +1270,6 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BillingAccountRoles">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.BillingAccountRole">
-              <MappingFragment StoreEntitySet="BillingAccountRole">
-                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
-                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
-                <ScalarProperty Name="RoleTypeId" ColumnName="RoleTypeId" />
-                <ScalarProperty Name="BillingAccountId" ColumnName="BillingAccountId" />
-                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BillingAccountRoleTypes">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.BillingAccountRoleType">
-              <MappingFragment StoreEntitySet="BillingAccountRoleType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="InvoiceStatus">
             <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceStatu">
               <MappingFragment StoreEntitySet="InvoiceStatus">
@@ -1374,14 +1279,26 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Suppliers">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.Supplier">
-              <MappingFragment StoreEntitySet="Supplier">
+          <EntitySetMapping Name="BillingAccountRoles">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.BillingAccountRole">
+              <MappingFragment StoreEntitySet="BillingAccountRole">
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="BillingAccountId" ColumnName="BillingAccountId" />
+                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="TaxNumber" ColumnName="TaxNumber" />
+                <ScalarProperty Name="CompanyNumber" ColumnName="CompanyNumber" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

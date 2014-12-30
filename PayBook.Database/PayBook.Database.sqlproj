@@ -73,12 +73,11 @@
     <Build Include="InvoiceStatusType.sql" />
     <Build Include="InvoiceRoleType.sql" />
     <Build Include="InvoiceRole.sql" />
-    <Build Include="Supplier.sql" />
     <Build Include="InvoiceTerm.sql" />
     <Build Include="TermType.sql" />
     <Build Include="BillingAccount.sql" />
     <Build Include="BillingAccountRole.sql" />
-    <Build Include="BillingAccountRoleType.sql" />
+    <Build Include="Company.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PayBook.Database.refactorlog" />

@@ -16,12 +16,10 @@ namespace PayBook.DataAccess.Ef
     {
         public int PartyId { get; set; }
         public int BillingAccountId { get; set; }
-        public int RoleTypeId { get; set; }
         public Nullable<System.DateTime> FromDate { get; set; }
         public Nullable<System.DateTime> ToDate { get; set; }
     
         public virtual BillingAccount BillingAccount { get; set; }
         public virtual Party Party { get; set; }
-        public virtual BillingAccountRoleType BillingAccountRoleType { get; set; }
     }
 }

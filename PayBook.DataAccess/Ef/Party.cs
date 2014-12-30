@@ -23,6 +23,7 @@ namespace PayBook.DataAccess.Ef
         }
     
         public int Id { get; set; }
+        public string Code { get; set; }
     
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual Organization Organization { get; set; }

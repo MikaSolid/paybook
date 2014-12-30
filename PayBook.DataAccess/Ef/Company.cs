@@ -12,9 +12,11 @@ namespace PayBook.DataAccess.Ef
     using System;
     using System.Collections.Generic;
     
-    public partial class Supplier
+    public partial class Company
     {
         public int Id { get; set; }
+        public string CompanyNumber { get; set; }
+        public string TaxNumber { get; set; }
     
         public virtual Organization Organization { get; set; }
     }

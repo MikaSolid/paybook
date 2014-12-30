@@ -45,6 +45,7 @@
     <Compile Include="Invoice\InvoiceStatusType.cs" />
     <Compile Include="Organization\Company.cs" />
     <Compile Include="Core\PartyRole.cs" />
+    <Compile Include="Organization\CompanyInfo.cs" />
     <Compile Include="Person\Contact.cs" />
     <Compile Include="Person\Contractor.cs" />
     <Compile Include="Person\Customer.cs" />

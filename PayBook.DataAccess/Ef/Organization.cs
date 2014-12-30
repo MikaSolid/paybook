@@ -18,6 +18,6 @@ namespace PayBook.DataAccess.Ef
         public string Name { get; set; }
     
         public virtual Party Party { get; set; }
-        public virtual Supplier Supplier { get; set; }
+        public virtual Company Company { get; set; }
     }
 }
