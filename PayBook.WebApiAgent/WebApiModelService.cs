@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -14,7 +13,7 @@ namespace PayBook.WebApiAgent
 
         public WebApiModelService()
         {
-            _baseServiceUrl = ConfigurationManager.AppSettings["baseServiceUrl"];
+            _baseServiceUrl = Properties.Settings.Default.PayBookWebApiUrl;
 
             if (_baseServiceUrl == null)
                 throw new Exception("Web Api baseServiceUrl should be defined in .config");
