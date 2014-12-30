@@ -44,7 +44,6 @@ namespace PayBook.ViewModels
             //        && (!isNameFiltered || nameIndex > -1)
             //        && (!isAccountFiltered || accountIndex > -1);
             //};
-
             // LoadModel();
         }
 

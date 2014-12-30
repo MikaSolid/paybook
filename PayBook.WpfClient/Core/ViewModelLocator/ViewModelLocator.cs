@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Windows;
 using PayBook.WpfClient;
 
 namespace PayBook.ViewModels
@@ -35,7 +36,7 @@ namespace PayBook.ViewModels
             }
             catch (Exception ex)
             {
-               //  MessageBox.Show(ex.Message);
+               MessageBox.Show(ex.Message);
                 Debug.WriteLine("Error while resolving ViewModel. " + ex);
             }
 
@@ -57,7 +58,12 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return GetBaseViewModel(typeName);
+                var vm = GetBaseViewModel(typeName);
+
+                if (Mvvm.GetIsInDesignMode())
+                    vm.LoadModel();
+
+                return vm;
             }
         }
     }

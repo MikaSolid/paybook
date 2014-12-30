@@ -145,7 +145,7 @@
     <Compile Include="Behaviors\ClockBehavior.cs" />
     <Compile Include="Behaviors\WindowSizeBehavior.cs" />
     <Compile Include="Commands\CloseWindowCommand.cs" />
-    <Compile Include="Core\BaseWpfVM.cs" />
+    <Compile Include="Core\Mvvm.cs" />
     <Compile Include="Core\ViewModelLocator\WpfDesignTimeModelService.cs" />
     <Compile Include="Core\ViewModelLocator\WpfWebApiModelService.cs" />
     <Compile Include="Views\BillEditor.xaml.cs">

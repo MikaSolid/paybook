@@ -29,9 +29,10 @@ namespace PayBook.WpfClient
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(App).Assembly));
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(ShellVM).Assembly));
 
-            var wpfCatalog = new MvvmCatalog(catalog);
-
-            Container = new CompositionContainer(wpfCatalog);
+            Container = new CompositionContainer(
+                Mvvm.GetIsInDesignMode() ? 
+                new MvvmCatalog(catalog, true) : 
+                new MvvmCatalog(catalog));
         }
 
         private void RunInReleaseMode()

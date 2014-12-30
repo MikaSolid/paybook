@@ -55,7 +55,7 @@ namespace PayBook.Model
             return new Company { Name = "Mock name" };
         }
 
-        
+
         public int SaveInvoice(Invoice model)
         {
             throw new NotImplementedException();
@@ -68,7 +68,14 @@ namespace PayBook.Model
 
         public List<CompanyInfo> GetCompanyInfos()
         {
-            throw new NotImplementedException();
+            var list = new List<CompanyInfo>();
+
+            list.Add(new CompanyInfo() { Name = "Pera" });
+            list.Add(new CompanyInfo() { Name = "Mika" });
+            list.Add(new CompanyInfo() { Name = "Žika" });
+            list.Add(new CompanyInfo() { Name = "Laza" });
+
+            return list;
         }
 
 
