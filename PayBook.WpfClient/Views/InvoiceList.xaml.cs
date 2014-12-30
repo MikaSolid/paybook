@@ -17,9 +17,9 @@ namespace PayBook.Views
     /// <summary>
     /// Interaction logic for Bills.xaml
     /// </summary>
-    public partial class Bills : UserControl
+    public partial class InvoiceList : UserControl
     {
-        public Bills()
+        public InvoiceList()
         {
             InitializeComponent();
         }

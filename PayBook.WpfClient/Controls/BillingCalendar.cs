@@ -25,16 +25,16 @@ namespace PayBook.WpfClient
             DependencyProperty.Register
             (
                 "Bills",
-                typeof(ObservableCollection<BillVM>),
+                typeof(ObservableCollection<InvoiceVM>),
                 typeof(BillingCalendar)
             );
 
         /// <summary>
         /// The list of appointments. This is a dependency property.
         /// </summary>
-        public ObservableCollection<BillVM> Bills
+        public ObservableCollection<InvoiceVM> Bills
         {
-            get { return (ObservableCollection<BillVM>)GetValue(BillsProperty); }
+            get { return (ObservableCollection<InvoiceVM>)GetValue(BillsProperty); }
             set { SetValue(BillsProperty, value); }
         }
 
@@ -46,7 +46,7 @@ namespace PayBook.WpfClient
         public BillingCalendar()
             : base()
         {
-            SetValue(BillsProperty, new ObservableCollection<BillVM>());
+            SetValue(BillsProperty, new ObservableCollection<InvoiceVM>());
         }
 
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)

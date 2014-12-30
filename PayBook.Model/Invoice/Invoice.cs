@@ -26,14 +26,19 @@ namespace PayBook.Model
             return invoice;
         }
 
+        public static Invoice Create(InvoiceType type, Company party)
+        {
+            var invoice = Create(type);
+            invoice.Company = party;
+            return invoice;
+        }
+
         #endregion
 
         #region Properties
         public int Id { get; set; }
 
-        public int PartyId { get; set; }
-
-        public Party Party { get; private set; }
+        public Company Company { get; private set; }
 
         public DateTime? Date { get; set; }
 
@@ -73,6 +78,11 @@ namespace PayBook.Model
                 Invoice = this,
                 Status = status
             });
+        }
+
+        public void SetCompany(Company company)
+        {
+            Company = company;
         }
     }
 }

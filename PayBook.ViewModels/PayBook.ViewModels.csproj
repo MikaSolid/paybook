@@ -62,9 +62,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\BillEditorVM.cs" />
-    <Compile Include="UI\BillsVM.cs" />
-    <Compile Include="UI\BillVM.cs" />
+    <Compile Include="UI\InvoiceDetailsVM.cs" />
+    <Compile Include="UI\InvoiceListVM.cs" />
+    <Compile Include="UI\InvoiceVM.cs" />
     <Compile Include="UI\CalendarVM.cs" />
     <Compile Include="UI\CompaniesBalanceVM.cs" />
     <Compile Include="UI\CompaniesVM.cs" />
@@ -75,7 +75,7 @@
     </Compile>
     <Compile Include="UI\PaymentsVM.cs" />
     <Compile Include="UI\PaymentVM.cs" />
-    <Compile Include="UI\UnpayedBillsVM.cs" />
+    <Compile Include="UI\UnpayedInvoicesVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PayBook.Model\PayBook.Model.csproj">

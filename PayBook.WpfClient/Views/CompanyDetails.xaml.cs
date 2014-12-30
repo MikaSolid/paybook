@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace PayBook.Views
 {
     /// <summary>
-    /// Interaction logic for BillEditor.xaml
+    /// Interaction logic for PartyEditor.xaml
     /// </summary>
-    public partial class BillEditor : UserControl
+    public partial class CompanyDetails : UserControl
     {
-        public BillEditor()
+        public CompanyDetails()
         {
             InitializeComponent();
         }

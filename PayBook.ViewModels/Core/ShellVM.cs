@@ -35,8 +35,6 @@ namespace PayBook.ViewModels
             View = viewVm;
         }
 
- 
-
         private double _width;
 
         public double Width

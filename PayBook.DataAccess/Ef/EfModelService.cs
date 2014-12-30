@@ -11,7 +11,7 @@ namespace PayBook.DataAccess.Ef
         // This line must exist in order to wire up EF sql provider services
         SqlProviderServices _services = SqlProviderServices.Instance;
 
-        public List<Model.Invoice> GetBills()
+        public List<Model.Invoice> GetInvoices()
         {
             var db = new LocalDatabase();
             return db.Invoices.ToModel().ToList();
@@ -146,7 +146,8 @@ namespace PayBook.DataAccess.Ef
                 db.Invoices.Add(invoice);
             }
 
-            invoice.PartyId = model.PartyId;
+            invoice.PartyId = model.Company.Id;
+
             invoice.InvoiceDate = model.Date;
 
             db.SaveChanges();
@@ -163,6 +164,12 @@ namespace PayBook.DataAccess.Ef
         {
             var db = new LocalDatabase();
             return db.Companies.Single(s => s.Id == id).ToCompany();
+        }
+
+        public Model.Invoice GetInvoice(int id)
+        {
+            var db = new LocalDatabase();
+            return db.Invoices.Single(i => i.Id == id).ToModel();
         }
 
         public List<CompanyInfo> GetCompanyInfos()

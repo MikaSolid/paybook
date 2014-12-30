@@ -121,7 +121,7 @@
                 Width="144"
                 Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:BillsVM}" />
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:InvoiceListVM}" />
             </Button.Command>
             <Button.Content>
                 <Grid>
@@ -149,7 +149,7 @@
                 Width="144"
                 Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:UnpayedBillsVM}" />
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:UnpayedInvoicesVM}" />
             </Button.Command>
             <Button.Content>
                 <Grid>
@@ -207,7 +207,7 @@
                 Width="144"
                 Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:BillEditorVM}" />
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:InvoiceDetailsVM}" />
             </Button.Command>
             <Button.Content>
                 <Grid>

@@ -12,11 +12,9 @@ namespace PayBook.DataAccess.Ef
                 ? InvoiceType.SalesInvoice
                 : InvoiceType.PurchaseInvoice;
 
-
-            var model = Model.Invoice.Create(salesInvoice);
+            var model = Model.Invoice.Create(salesInvoice, dataModel.Party.Organization.Company.ToCompany());
 
             model.Id = dataModel.Id;
-            model.PartyId = dataModel.PartyId;
             model.Date = dataModel.InvoiceDate;
 
             return model;

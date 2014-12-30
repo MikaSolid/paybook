@@ -1,19 +1,18 @@
-﻿using System.ComponentModel;
-using System.Linq;
+﻿using System.Linq;
 using PayBook.Model;
 using System;
 
 namespace PayBook.ViewModels
 {
-    public class BillVM : BaseVM
+    public class InvoiceVM : BaseVM
     {
         private readonly Invoice _invoice;
-        private readonly BillsVM _bills;
+        private readonly InvoiceListVM _invoices;
 
-        public BillVM(Invoice invoice, BillsVM bills)
+        public InvoiceVM(Invoice invoice, InvoiceListVM invoices)
         {
             _invoice = invoice;
-            _bills = bills;
+            _invoices = invoices;
         }
 
         private bool _isDue;
@@ -63,12 +62,12 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return _invoice.PartyId;
+                return _invoice.Company.Id;
             }
             set
             {
-                if (_invoice.PartyId == value) return;
-                _invoice.PartyId = value;
+                if (_invoice.Company.Id == value) return;
+                _invoice.Company.Id = value;
                 OnPropertyChanged("PartyId");
             }
         }
@@ -137,8 +136,8 @@ namespace PayBook.ViewModels
             {
                 _isMarkedForPayment = value;
                 OnPropertyChanged("IsMarkedForPayment");
-                if (_bills != null)
-                    _bills.Invalidate();
+                if (_invoices != null)
+                    _invoices.Invalidate();
             }
         }
 

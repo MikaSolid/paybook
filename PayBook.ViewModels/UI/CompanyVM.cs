@@ -7,7 +7,7 @@ namespace PayBook.ViewModels
     public class CompanyVM : BaseVM
     {
         private readonly Company _company;
-        private List<BillVM> _bills = new List<BillVM>();
+        private List<InvoiceVM> _bills = new List<InvoiceVM>();
         private List<PaymentVM> _payments = new List<PaymentVM>();
 
         public CompanyVM(Company company)
@@ -59,7 +59,7 @@ namespace PayBook.ViewModels
             }
         }
 
-        public List<BillVM> Bills
+        public List<InvoiceVM> Bills
         {
             get { return _bills; }
             set { _bills = value; }

@@ -5,13 +5,32 @@ namespace PayBook.Model
 {
     public class DesignTimeModelService : IModelService
     {
-        public List<Invoice> GetBills()
+        public List<Invoice> GetInvoices()
         {
             var bills = new List<Invoice>();
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 3; i++)
             {
-                //bills.Add(Invoice.Create(InvoiceType.SalesInvoice) { Code = "5753", Date = DateTime.Now, DueDate = DateTime.Now.AddDays(5), Amount = 123 }));
+                var invoice = Invoice.Create(InvoiceType.SalesInvoice);
+                invoice.Code = "GTX";
+                invoice.Date = DateTime.Now.AddDays(-10);
+                invoice.DueDate = DateTime.Now.AddDays(-5);
+                invoice.Items.Add(new InvoiceItem() {Amount =  233});
+                invoice.Items.Add(new InvoiceItem() { Amount = 343 });
+                bills.Add(invoice);
+                invoice = Invoice.Create(InvoiceType.SalesInvoice);
+                invoice.Code = "GTD";
+                invoice.Date = DateTime.Now.AddDays(10);
+                invoice.DueDate = DateTime.Now.AddMonths(-5);
+                invoice.Items.Add(new InvoiceItem() { Amount = 2443 });
+                bills.Add(invoice);
+                invoice = Invoice.Create(InvoiceType.SalesInvoice);
+                invoice.Code = "ZRR";
+                invoice.Date = DateTime.Now.AddMonths(-2);
+                invoice.DueDate = DateTime.Now.AddDays(-15);
+                invoice.Items.Add(new InvoiceItem() { Amount = 343 });
+                invoice.Items.Add(new InvoiceItem() { Amount = 343 });
+                bills.Add(invoice);
                 //bills.Add(new PurchaseInvoice() { Code = "3337", Date = DateTime.Now.AddDays(-10), DueDate = DateTime.Now.AddDays(-5), Amount = 456 });
                 //bills.Add(new PurchaseInvoice() { Code = "1954", Date = DateTime.Now.AddMonths(-2), DueDate = DateTime.Now.AddDays(-25), Amount = 789 });
             }
@@ -62,6 +81,11 @@ namespace PayBook.Model
         }
 
         public Company GetCompany(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Invoice GetInvoice(int id)
         {
             throw new NotImplementedException();
         }

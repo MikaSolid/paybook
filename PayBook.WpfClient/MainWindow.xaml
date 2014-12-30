@@ -140,7 +140,7 @@
                         <views:Hub Margin="100,20,20,20" />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewModels:CompaniesVM}">
-                        <views:CompaniesView />
+                        <views:CompanyList />
                     </DataTemplate>
 
                     <DataTemplate DataType="{x:Type viewModels:CompaniesBalanceVM}">
@@ -148,15 +148,15 @@
                     </DataTemplate>
 
                     <DataTemplate DataType="{x:Type viewModels:CompanyEditorVM}">
-                        <views:PartyEditor />
+                        <views:CompanyDetails />
                     </DataTemplate>
 
-                    <DataTemplate DataType="{x:Type viewModels:BillsVM}">
-                        <views:Bills />
+                    <DataTemplate DataType="{x:Type viewModels:InvoiceListVM}">
+                        <views:InvoiceList />
                     </DataTemplate>
 
-                    <DataTemplate DataType="{x:Type viewModels:BillEditorVM}">
-                        <views:BillEditor />
+                    <DataTemplate DataType="{x:Type viewModels:InvoiceDetailsVM}">
+                        <views:InvoiceDetails />
                     </DataTemplate>
 
                     <DataTemplate DataType="{x:Type viewModels:PaymentsVM}">
@@ -167,7 +167,7 @@
                         <views:BillsCalendar />
                     </DataTemplate>
 
-                    <DataTemplate DataType="{x:Type viewModels:UnpayedBillsVM}">
+                    <DataTemplate DataType="{x:Type viewModels:UnpayedInvoicesVM}">
                         <views:UnpayedBills />
                     </DataTemplate>
 

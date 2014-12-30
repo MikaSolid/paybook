@@ -9,7 +9,7 @@ namespace PayBook.WpfClient
     /// <summary>
     /// Gets the appointments for the specified date.
     /// </summary>
-    [ValueConversion(typeof(ObservableCollection<BillVM>), typeof(ObservableCollection<BillVM>))]
+    [ValueConversion(typeof(ObservableCollection<InvoiceVM>), typeof(ObservableCollection<InvoiceVM>))]
     public class BillsConverter : IMultiValueConverter
     {
         #region IMultiValueConverter Members
@@ -18,15 +18,15 @@ namespace PayBook.WpfClient
         {
             DateTime date = (DateTime)values[1];
 
-            ObservableCollection<BillVM> bills = new ObservableCollection<BillVM>();
+            ObservableCollection<InvoiceVM> bills = new ObservableCollection<InvoiceVM>();
 
             if (values[0] != null)
             {
-                var originalBills = values[0] as IEnumerable<BillVM>;
+                var originalBills = values[0] as IEnumerable<InvoiceVM>;
 
                 if (originalBills != null)
                 {
-                    foreach (BillVM bill in originalBills)
+                    foreach (InvoiceVM bill in originalBills)
                     {
                         if (bill != null && bill.DueDate.GetValueOrDefault().Date == date)
                         {

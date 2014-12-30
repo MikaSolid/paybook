@@ -28,11 +28,11 @@ namespace PayBook.Test
 
             var invoice = Model.Invoice.Create(InvoiceType.PurchaseInvoice);
 
-            var Companys = service.GetCompanies();
+            var companys = service.GetCompanies();
 
-            var Company = Companys.FirstOrDefault();
+            var company = companys.FirstOrDefault();
 
-            invoice.PartyId = Company.Id;
+            invoice.Company.Id = company.Id;
 
             invoice.Items = new List<InvoiceItem> { new InvoiceItem { Amount = 7200, Description = "Test" } };
 
@@ -42,8 +42,7 @@ namespace PayBook.Test
         [TestMethod]
         public void TestPayBook()
         {
-            var Company = new Model.Company();
-
+            var company = new Model.Company();
         }
     }
 }

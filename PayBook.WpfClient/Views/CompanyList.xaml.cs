@@ -2,9 +2,9 @@
 
 namespace PayBook.Views
 {
-    public partial class CompaniesView : UserControl
+    public partial class CompanyList : UserControl
     {
-        public CompaniesView()
+        public CompanyList()
         {
             InitializeComponent();
         }

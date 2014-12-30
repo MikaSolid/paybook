@@ -4,7 +4,7 @@ using PayBook.Model;
 namespace PayBook.ViewModels
 {
     [Export]
-    public class CalendarVM : BillsVM
+    public class CalendarVM : InvoiceListVM
     {
         [ImportingConstructor]
         public CalendarVM(IModelService modelService)

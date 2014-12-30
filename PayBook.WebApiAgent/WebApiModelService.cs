@@ -19,7 +19,7 @@ namespace PayBook.WebApiAgent
                 throw new Exception("Web Api baseServiceUrl should be defined in .config");
         }
 
-        public List<Invoice> GetBills()
+        public List<Invoice> GetInvoices()
         {
             //throw new System.NotImplementedException();
             return new List<Invoice>();
@@ -30,6 +30,11 @@ namespace PayBook.WebApiAgent
         public List<Company> GetCompanies()
         {
             return Get<List<Company>>("Company");
+        }
+
+        public Invoice GetInvoice(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public List<CompanyInfo> GetCompanyInfos()

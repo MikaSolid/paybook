@@ -147,7 +147,7 @@ namespace PayBook.DataAccess
             }
         }
 
-        public List<Invoice> GetBills()
+        public List<Invoice> GetInvoices()
         {
             return Bills;
         }
@@ -264,7 +264,7 @@ namespace PayBook.DataAccess
             billXml.SetAttributeValue("Code", invoice.Code);
             billXml.SetAttributeValue("Date", invoice.Date);
             billXml.SetAttributeValue("DueDate", invoice.DueDate);
-            billXml.SetAttributeValue("PartyId", invoice.PartyId);
+            billXml.SetAttributeValue("PartyId", invoice.Company.Id);
             billXml.SetAttributeValue("Amount", invoice.Amount);
             billXml.SetAttributeValue("IsPayed", invoice.IsPayed);
 
@@ -299,6 +299,11 @@ namespace PayBook.DataAccess
         }
 
         public Company GetCompany(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Invoice GetInvoice(int id)
         {
             throw new NotImplementedException();
         }

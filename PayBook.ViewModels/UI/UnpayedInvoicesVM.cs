@@ -6,10 +6,10 @@ using PayBook.Model;
 namespace PayBook.ViewModels
 {
     [Export]
-    public class UnpayedBillsVM : BillsVM
+    public class UnpayedInvoicesVM : InvoiceListVM
     {
         [ImportingConstructor]
-        public UnpayedBillsVM(IModelService modelService)
+        public UnpayedInvoicesVM(IModelService modelService)
             : base(modelService)
         {
             Title = "Neplaćeni računi";
@@ -23,18 +23,19 @@ namespace PayBook.ViewModels
         {
             _billsInternal.Clear();
 
-            var bills = _modelService.GetBills();
+            var bills = _modelService.GetInvoices();
 
             foreach (var bill in bills)
             {
-                var billVM = new BillVM(bill, this);
+                var billVM = new InvoiceVM(bill, this);
 
-                var party = _modelService.GetCompany(bill.PartyId);
+                var party = _modelService.GetCompany(bill.Company.Id);
 
                 var partyVM = new CompanyVM(party);
 
                 partyVM.Payments = _modelService.GetPayments().Where(p => p.PartyId == party.Id).Select(p => new PaymentVM(p)).ToList();
-                partyVM.Bills = _modelService.GetBills().Where(b => b.PartyId == party.Id).Select(b => new BillVM(b, this)).ToList();
+                
+                partyVM.Bills = _modelService.GetInvoices().Where(b => b.Company.Id == party.Id).Select(b => new InvoiceVM(b, this)).ToList();
 
                 billVM.Company = partyVM;
 

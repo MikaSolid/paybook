@@ -51,6 +51,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -70,11 +74,11 @@
     <Compile Include="Core\ICollectionViewExtensions.cs" />
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Core\ViewModelLocator\ViewModelLocator.cs" />
-    <Compile Include="Views\PartyEditor.xaml.cs">
-      <DependentUpon>PartyEditor.xaml</DependentUpon>
+    <Compile Include="Views\CompanyDetails.xaml.cs">
+      <DependentUpon>CompanyDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CompaniesView.xaml.cs">
-      <DependentUpon>CompaniesView.xaml</DependentUpon>
+    <Compile Include="Views\CompanyList.xaml.cs">
+      <DependentUpon>CompanyList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PartysBalance.xaml.cs">
       <DependentUpon>PartysBalance.xaml</DependentUpon>
@@ -117,11 +121,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\BillEditor.xaml">
+    <Page Include="Views\InvoiceDetails.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Bills.xaml">
+    <Page Include="Views\InvoiceList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -148,11 +152,11 @@
     <Compile Include="Core\Mvvm.cs" />
     <Compile Include="Core\ViewModelLocator\WpfDesignTimeModelService.cs" />
     <Compile Include="Core\ViewModelLocator\WpfWebApiModelService.cs" />
-    <Compile Include="Views\BillEditor.xaml.cs">
-      <DependentUpon>BillEditor.xaml</DependentUpon>
+    <Compile Include="Views\InvoiceDetails.xaml.cs">
+      <DependentUpon>InvoiceDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Bills.xaml.cs">
-      <DependentUpon>Bills.xaml</DependentUpon>
+    <Compile Include="Views\InvoiceList.xaml.cs">
+      <DependentUpon>InvoiceList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BillsCalendar.xaml.cs">
       <DependentUpon>BillsCalendar.xaml</DependentUpon>
@@ -164,11 +168,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\PartyEditor.xaml">
+    <Page Include="Views\CompanyDetails.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\CompaniesView.xaml">
+    <Page Include="Views\CompanyList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

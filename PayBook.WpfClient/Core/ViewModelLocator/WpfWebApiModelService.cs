@@ -2,7 +2,6 @@
 using PayBook.Composition;
 using PayBook.DataAccess.Ef;
 using PayBook.Model;
-using PayBook.WebApiAgent;
 
 namespace PayBook.WpfClient
 {
