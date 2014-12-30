@@ -124,7 +124,6 @@
     <Compile Include="Ef\TermType.cs">
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
-    <Compile Include="Ef\Translators\OrganizationTranslators.cs" />
     <Compile Include="Ef\Translators\InvoiceTranslators.cs" />
     <Compile Include="Ef\Translators\CompanyTranslators.cs" />
     <Compile Include="Xml\ModelBootstrapper.cs" />

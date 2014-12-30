@@ -150,7 +150,7 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return _modelService.GetSuppliers().Select(v => v.Name).ToList();
+                return _modelService.GetCompanies().Select(v => v.Name).ToList();
             }
         }
 

@@ -1,66 +1,148 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using PayBook.Model;
 
 namespace PayBook.WebApiAgent
 {
-    public class WebApiModelService : WebApiProxy, IModelService
+    public class WebApiModelService : IModelService
     {
-        public override List<Invoice> GetBills()
+        private readonly string _baseServiceUrl;
+
+        public WebApiModelService()
+        {
+            _baseServiceUrl = ConfigurationManager.AppSettings["baseServiceUrl"];
+
+            if (_baseServiceUrl == null)
+                throw new Exception("Web Api baseServiceUrl should be defined in .config");
+        }
+
+        public List<Invoice> GetBills()
         {
             //throw new System.NotImplementedException();
             return new List<Invoice>();
         }
 
-        public override List<Supplier> GetSuppliers()
+        #region Company
+
+        public List<Company> GetCompanies()
         {
-            return Get<List<Supplier>>("supplierapi");
-            return GetAsync<List<Supplier>>("supplierapi").Result;
+            return Get<List<Company>>("Company");
         }
 
-        public override List<Payment> GetPayments()
+        public Company GetCompany(int id)
+        {
+            return Get<Company>(String.Format("Company/{0}", id));
+        }
+
+        public int SaveCompany(Company party)
+        {
+            Post("Company", party);
+            return party.Id;
+        }
+
+        #endregion
+
+        public List<Payment> GetPayments()
         {
             // throw new System.NotImplementedException();
             return new List<Payment>();
         }
 
-        public override void SaveCompany(Company party)
-        {
-            Post("supplierapi", party);
-        }
 
-        public override void SaveBill(Invoice invoice)
+        public void SaveBill(Invoice invoice)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void SavePayment(Payment payment)
+        public void SavePayment(Payment payment)
         {
             throw new System.NotImplementedException();
         }
 
-        public override Company GetParty(string partyName)
+        public Company GetParty(string partyName)
         {
             throw new System.NotImplementedException();
         }
 
-        public override Company GetParty(int guid)
+        public Company GetParty(int guid)
         {
             throw new System.NotImplementedException();
         }
 
-        public override int SaveSupplier(Supplier model)
+        public int SaveInvoice(Invoice model)
         {
             throw new System.NotImplementedException();
         }
 
-        public override int SaveInvoice(Invoice model)
+        #region Private methods
+
+        private T Get<T>(string url) where T : new()
         {
-            throw new System.NotImplementedException();
+            using (var client = new HttpClient())
+            {
+                var json = client.GetStringAsync(new Uri(_baseServiceUrl + url)).Result;
+                return JsonConvert.DeserializeObject<T>(json);
+            }
         }
 
-        public override Supplier GetSupplier(int id)
+        private async Task<T> GetAsync<T>(string url) where T : new()
         {
-            throw new System.NotImplementedException();
+            using (var client = new HttpClient())
+            {
+                var json = await client.GetStringAsync(new Uri(_baseServiceUrl + url));
+                return JsonConvert.DeserializeObject<T>(json);
+            }
         }
+
+        private bool Post<T>(string url, T entity) where T : new()
+        {
+            using (var client = new HttpClient())
+            {
+                var response = client.PostAsJsonAsync(_baseServiceUrl + url, entity).Result;
+
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception("Delete failed, exception: " + response.Content);
+                return true;
+            }
+        }
+
+        private async Task<bool> PostAsync<T>(string url, T entity) where T : new()
+        {
+            using (var client = new HttpClient())
+            {
+                var response = await client.PostAsJsonAsync(_baseServiceUrl + url, entity);
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception("Delete failed, exception: " + response.Content);
+                return true;
+            }
+        }
+
+        private async Task<bool> Put<T>(string url, T entity) where T : new()
+        {
+            using (var client = new HttpClient())
+            {
+                var response = await client.PutAsJsonAsync(_baseServiceUrl + url, entity);
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception("Delete failed, exception: " + response.Content);
+                return true;
+            }
+        }
+
+        private async Task<bool> Delete(string url)
+        {
+            using (var client = new HttpClient())
+            {
+                var response = await client.DeleteAsync(new Uri(_baseServiceUrl + url));
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception("Delete failed, exception: " + response.Content);
+                return true;
+            }
+        }
+
+        #endregion
     }
 }

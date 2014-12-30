@@ -19,22 +19,23 @@ namespace PayBook.Model
             return bills;
         }
 
-        public List<Supplier> GetSuppliers()
+        public List<Company> GetCompanies()
         {
-            var partys = new List<Supplier>();
+            var partys = new List<Company>();
             for (int i = 0; i < 20; i++)
             {
-                partys.Add(new Supplier() { Name = "Bambi", Account = "134-2345-44", Code = "001623" });
-                partys.Add(new Supplier() { Name = "Marbo", Account = "211-13432235-12", Code = "002772" });
-                partys.Add(new Supplier() { Name = "Vele Tabak", Account = "231-33211345", Code = "012 - 224" });
+                partys.Add(new Company() { Name = "Bambi", Account = "134-2345-44", Code = "001623" });
+                partys.Add(new Company() { Name = "Marbo", Account = "211-13432235-12", Code = "002772" });
+                partys.Add(new Company() { Name = "Vele Tabak", Account = "231-33211345", Code = "012 - 224" });
 
             }
 
             return partys;
         }
 
-        public void SaveCompany(Company party)
+        public int SaveCompany(Company party)
         {
+            throw new NotImplementedException();
         }
 
 
@@ -54,17 +55,13 @@ namespace PayBook.Model
             return new Company { Name = "Mock name" };
         }
 
-        public int SaveSupplier(Supplier supplier)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public int SaveInvoice(Invoice model)
         {
             throw new NotImplementedException();
         }
 
-        public Supplier GetSupplier(int id)
+        public Company GetCompany(int id)
         {
             throw new NotImplementedException();
         }

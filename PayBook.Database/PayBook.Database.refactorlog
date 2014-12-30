@@ -57,16 +57,16 @@
     <Property Name="NewName" Value="RoleTypeId" />
   </Operation>
   <Operation Name="Rename Refactor" Key="06a44f5a-4f26-488e-a3c2-c508126f3dd5" ChangeDateTime="12/26/2014 17:32:36">
-    <Property Name="ElementName" Value="[dbo].[Supplier].[Id]" />
+    <Property Name="ElementName" Value="[dbo].[Company].[Id]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
-    <Property Name="ParentElementName" Value="[dbo].[Supplier]" />
+    <Property Name="ParentElementName" Value="[dbo].[Company]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="OrganizationId" />
   </Operation>
   <Operation Name="Rename Refactor" Key="7ff0b372-1acc-4d02-9447-1431d1729ae1" ChangeDateTime="12/26/2014 17:34:31">
-    <Property Name="ElementName" Value="[dbo].[Supplier].[OrganizationId]" />
+    <Property Name="ElementName" Value="[dbo].[Company].[OrganizationId]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
-    <Property Name="ParentElementName" Value="[dbo].[Supplier]" />
+    <Property Name="ParentElementName" Value="[dbo].[Company]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Id" />
   </Operation>

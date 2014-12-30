@@ -37,7 +37,6 @@ namespace PayBook.DataAccess.Ef
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<PaymentApplication> PaymentApplications { get; set; }
         public virtual DbSet<PaymentMethodType> PaymentMethodTypes { get; set; }
-        public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<InvoiceRole> InvoiceRoles { get; set; }
         public virtual DbSet<InvoiceTerm> InvoiceTerms { get; set; }
         public virtual DbSet<TermType> TermTypes { get; set; }
@@ -45,5 +44,6 @@ namespace PayBook.DataAccess.Ef
         public virtual DbSet<BillingAccountRole> BillingAccountRoles { get; set; }
         public virtual DbSet<BillingAccountRoleType> BillingAccountRoleTypes { get; set; }
         public virtual DbSet<InvoiceStatu> InvoiceStatus { get; set; }
+        public virtual DbSet<Supplier> Suppliers { get; set; }
     }
 }

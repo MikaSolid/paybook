@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PayBook.Model
+﻿namespace PayBook.Model
 {
     public class Party
     {

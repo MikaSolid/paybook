@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition.Primitives;
+using System.Diagnostics;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace PayBook.Composition
 {
@@ -49,6 +51,7 @@ namespace PayBook.Composition
             IList<Tuple<ComposablePartDefinition, ExportDefinition>> result
                 = new List<Tuple<ComposablePartDefinition, ExportDefinition>>();
 
+
             // Walk through all parts in that catalog...
             foreach (ComposablePartDefinition partDef in Parts)
             {
@@ -56,6 +59,8 @@ namespace PayBook.Composition
                 // requested import definition.
                 foreach (ExportDefinition exportDef in partDef.ExportDefinitions)
                 {
+                    // MessageBox.Show(exportDef.ContractName);
+
                     if (importDef.IsConstraintSatisfiedBy(exportDef))
                     {
                         //ok the import definition is satisfied
@@ -63,6 +68,7 @@ namespace PayBook.Composition
                         matchingExport = new Tuple<ComposablePartDefinition, ExportDefinition>(partDef, exportDef);
                         object designTimeMetadata;
                         exportDef.Metadata.TryGetValue("DesignTime", out designTimeMetadata);
+                        Debug.WriteLine("Test");
                         //if DesignTimeAttribute is set then ToBool returns the assigend value
                         //ohterwise it returns false 
                         bool hasDesignTimeAttribute = ToBool(designTimeMetadata);

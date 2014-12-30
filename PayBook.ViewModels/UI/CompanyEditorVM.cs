@@ -6,18 +6,18 @@ namespace PayBook.ViewModels
     [Export]
     public class CompanyEditorVM : BaseViewVM
     {
-        private readonly Company _company;
+        private readonly int _companyId;
+        private Company _company = new Company();
 
         [ImportingConstructor]
-        public CompanyEditorVM(IModelService modelService) : this(modelService, new Company()) { }
-
-
-        public CompanyEditorVM(IModelService modelService, Company company)
-            : base(modelService)
+        public CompanyEditorVM(IModelService modelService) : base(modelService)
         {
-            _company = company;
+            Title = "snabdevači";
+        }
 
-            Title = "partija";
+        public CompanyEditorVM(IModelService modelService, int companyId) : this (modelService)
+        {
+            _companyId = companyId;
         }
 
         public Company Company { get { return _company; } }
@@ -156,18 +156,8 @@ namespace PayBook.ViewModels
 
         public override void LoadModel()
         {
+            if (_companyId > 0)
+                _company = _modelService.GetCompany(_companyId);
         }
-
-        //public ICommand SaveCommand
-        //{
-        //    get
-        //    {
-        //        return new RelayCommand(arg =>
-        //        {
-        //            ModelService.SaveCompany(_company);
-        //            Shell.Navigate(new CompaniesVM());
-        //        });
-        //    }
-        //}
     }
 }

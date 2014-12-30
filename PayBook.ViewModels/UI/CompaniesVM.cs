@@ -106,7 +106,7 @@ namespace PayBook.ViewModels
         {
             _partysInternal.Clear();
 
-            var partys = _modelService.GetSuppliers();
+            var partys = _modelService.GetCompanies();
 
             foreach (var party in partys)
             {

@@ -12,13 +12,13 @@ namespace PayBook.Test
     public class ServiceTests
     {
         [TestMethod]
-        public void TestCreateSupplier()
+        public void TestCreateCompany()
         {
             var service = new EfModelService();
 
-            var model = new Model.Supplier();
+            var model = new Model.Company();
             model.Name = DateTime.Now.Millisecond.ToString();
-            service.SaveSupplier(model);
+            service.SaveCompany(model);
         }
 
         [TestMethod]
@@ -28,11 +28,11 @@ namespace PayBook.Test
 
             var invoice = Model.Invoice.Create(InvoiceType.PurchaseInvoice);
 
-            var suppliers = service.GetSuppliers();
+            var Companys = service.GetCompanies();
 
-            var supplier = suppliers.FirstOrDefault();
+            var Company = Companys.FirstOrDefault();
 
-            invoice.PartyId = supplier.Id;
+            invoice.PartyId = Company.Id;
 
             invoice.Items = new List<InvoiceItem> { new InvoiceItem { Amount = 7200, Description = "Test" } };
 
@@ -42,7 +42,7 @@ namespace PayBook.Test
         [TestMethod]
         public void TestPayBook()
         {
-            var supplier = new Model.Supplier();
+            var Company = new Model.Company();
 
         }
     }

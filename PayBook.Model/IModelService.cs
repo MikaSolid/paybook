@@ -6,11 +6,9 @@ namespace PayBook.Model
     {
         List<Invoice> GetBills();
 
-        List<Supplier> GetSuppliers();
+        List<Company> GetCompanies();
 
         List<Payment> GetPayments();
-
-        void SaveCompany(Company party);
 
         void SaveBill(Invoice invoice);
 
@@ -20,10 +18,10 @@ namespace PayBook.Model
 
         Company GetParty(int guid);
 
-        int SaveSupplier(Supplier model);
+        int SaveCompany(Company model);
 
         int SaveInvoice(Invoice model);
         
-        Supplier GetSupplier(int id);
+        Company GetCompany(int id);
     }
 }

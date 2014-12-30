@@ -23,12 +23,10 @@
         <EntityTypeShape EntityType="PayBook.DatabaseModel.Payment" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="PayBook.DatabaseModel.PaymentApplication" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="PayBook.DatabaseModel.PaymentMethodType" Width="1.5" PointX="0.75" PointY="1.875" />
-        <EntityTypeShape EntityType="PayBook.DatabaseModel.Supplier" Width="1.5" PointX="5.25" PointY="5.25" />
         <EntityTypeShape EntityType="PayBook.DatabaseModel.InvoiceRole" Width="1.5" PointX="10.5" PointY="8.5" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceRole_Invoice" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceRole_RoleType" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceRoleType_RoleType" />
-        <AssociationConnector Association="PayBook.DatabaseModel.FK_Supplier_Party" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceRole_Party" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_Payment_PartyFrom" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_Payment_PartyTo" />
@@ -48,6 +46,8 @@
         <EntityTypeShape EntityType="PayBook.DatabaseModel.InvoiceStatu" Width="1.5" PointX="9.625" PointY="1.75" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice" />
         <AssociationConnector Association="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType" />
+        <EntityTypeShape EntityType="PayBook.DatabaseModel.Supplier" Width="1.5" PointX="5.25" PointY="18.25" />
+        <AssociationConnector Association="PayBook.DatabaseModel.FK_Supplier_Party" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -13,7 +13,7 @@ namespace PayBook.Test
         public void TestWebApi()
         {
             var webApi = new WebApiModelService();
-            IList<Supplier> suppliers = webApi.GetSuppliers();
+            IList<Company> Companys = webApi.GetCompanies();
         }
     }
 }

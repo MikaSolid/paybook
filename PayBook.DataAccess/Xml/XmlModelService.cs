@@ -172,7 +172,7 @@ namespace PayBook.DataAccess
             }
         }
 
-        public List<Supplier> GetSuppliers()
+        public List<Company> GetCompanies()
         {
             throw new NotImplementedException();
             //return Partys;
@@ -203,7 +203,7 @@ namespace PayBook.DataAccess
             return Payments;
         }
 
-        public void SaveCompany(Company party)
+        public int SaveCompany(Company party)
         {
             bool isNew = party.Id == 0;
 
@@ -236,6 +236,8 @@ namespace PayBook.DataAccess
 
             if (_partys != null && isNew)
                 _partys.Add(party);
+
+            return party.Id;
         }
 
         public void SaveBill(Invoice invoice)
@@ -291,17 +293,12 @@ namespace PayBook.DataAccess
             return Partys.SingleOrDefault(v => v.Id == guid);
         }
 
-        public int SaveSupplier(Supplier model)
-        {
-            throw new NotImplementedException();
-        }
-
         public int SaveInvoice(Invoice model)
         {
             throw new NotImplementedException();
         }
 
-        public Supplier GetSupplier(int id)
+        public Company GetCompany(int id)
         {
             throw new NotImplementedException();
         }

@@ -15,10 +15,10 @@ namespace PayBook.DataAccess.Ef
             throw new NotImplementedException();
         }
 
-        public List<Model.Supplier> GetSuppliers()
+        public List<Model.Company> GetCompanies()
         {
             var db = new LocalDatabase();
-            return db.Suppliers.ToModel().ToList();
+            return db.Organizations.ToModel().ToList();
         }
 
         public List<Model.Payment> GetPayments()
@@ -26,11 +26,6 @@ namespace PayBook.DataAccess.Ef
             var db = new LocalDatabase();
             //            return db.Invoices.ToModel().ToList();
             return new List<Model.Payment>();
-        }
-
-        public void SaveCompany(Company party)
-        {
-            throw new NotImplementedException();
         }
 
         public void SaveBill(Model.Invoice invoice)
@@ -43,37 +38,35 @@ namespace PayBook.DataAccess.Ef
             throw new NotImplementedException();
         }
 
-        public Company GetParty(string partyName)
+        public Model.Company GetParty(string partyName)
         {
             throw new NotImplementedException();
         }
 
-        public Company GetParty(int guid)
+        public Model.Company GetParty(int guid)
         {
             throw new NotImplementedException();
         }
 
-        public int SaveSupplier(Model.Supplier model)
+
+        public int SaveCompany(Model.Company model)
         {
             var db = new LocalDatabase();
 
-            Supplier supplier = supplier = db.Suppliers.SingleOrDefault(p => p.Id == model.Id);
+            Organization organization  = db.Organizations.SingleOrDefault(p => p.Id == model.Id);
 
-            if (supplier == null)
+            if (organization == null)
             {
-                supplier = new Supplier();
-
-                supplier.Organization = new Organization();
-                supplier.Organization.Party = new Party();
-
-                db.Suppliers.Add(supplier);
+                organization = new Organization();
+                organization.Party = new Party();
+                db.Organizations.Add(organization);
             }
 
-            supplier.Organization.Name = model.Name;
+            organization.Name = model.Name;
 
             db.SaveChanges();
 
-            return supplier.Id;
+            return organization.Id;
         }
 
         public int SaveInvoice(Model.Invoice model)
@@ -106,10 +99,10 @@ namespace PayBook.DataAccess.Ef
             return invoice.Id;
         }
 
-        public Model.Supplier GetSupplier(int id)
+        public Model.Company GetCompany(int id)
         {
             var db = new LocalDatabase();
-            return db.Suppliers.Single(s => s.Id == id).ToModel();
+            return db.Organizations.Single(s => s.Id == id).ToModel();
         }
     }
 }
