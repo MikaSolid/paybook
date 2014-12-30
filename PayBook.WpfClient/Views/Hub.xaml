@@ -1,0 +1,229 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels1="clr-namespace:PayBook.ViewModels;assembly=PayBook.ViewModels"
+             xmlns:commands="clr-namespace:PayBook.WpfClient.Commands"
+             x:Class="PayBook.Views.Hub"
+             mc:Ignorable="d"
+             d:DesignHeight="500"
+             d:DesignWidth="1366">
+
+    <UserControl.Resources>
+        <Style x:Key="BillsButtonStyle"
+               TargetType="{x:Type Button}">
+            <Setter Property="Background"
+                    Value="{DynamicResource ThemeBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Margin="16"
+                              Cursor="Hand"
+                              Background="{TemplateBinding Background}"
+                              Height="160"
+                              Width="240">
+                            <TextBlock Text="{TemplateBinding Content}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="28"
+                                       TextWrapping="Wrap"
+                                       FontFamily="/PayBook;component/Assets/#Segoe WP Light"
+                                       Foreground="{DynamicResource ForegroundBrush}" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <WrapPanel Margin="0,48,0,0"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               Orientation="Horizontal">
+
+        <Button Background="DarkGreen"
+                Margin="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="144"
+                Height="144">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
+            </Button.Command>
+            <Button.Content>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="&#xE125;"
+                                   FontSize="76"
+                                   TextAlignment="Center"
+                                   Margin="0"
+                                   Foreground="White"
+                                   FontFamily="Segoe UI Symbol" />
+                        <TextBlock TextAlignment="Center">kontakti</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Button.Content>
+        </Button>
+
+        <Button Background="DarkSlateGray"
+                Margin="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="144"
+                Height="144">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
+            </Button.Command>
+            <Button.Content>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="&#x0046;"
+                                   FontSize="76"
+                                   TextAlignment="Center"
+                                   Margin="0"
+                                   Foreground="White"
+                                   FontFamily="Webdings" />
+                        <TextBlock TextAlignment="Center">preduzeća</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Button.Content>
+        </Button>
+
+        <Button Background="DarkSlateBlue"
+                Margin="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="144"
+                Height="144">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
+            </Button.Command>
+            <Button.Content>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="&#xE163;"
+                                   FontSize="76"
+                                   TextAlignment="Center"
+                                   Margin="0"
+                                   Foreground="White"
+                                   FontFamily="Segoe UI Symbol" />
+                        <TextBlock FontSize="18"
+                                   TextAlignment="Center">kalendar</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Button.Content>
+        </Button>
+
+        <Button Background="DarkRed"
+                Margin="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="144"
+                Height="144">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
+            </Button.Command>
+            <Button.Content>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="&#xE1D3;"
+                                   FontSize="76"
+                                   TextAlignment="Center"
+                                   Margin="0"
+                                   Foreground="White"
+                                   FontFamily="Segoe UI Symbol" />
+                        <TextBlock Margin="0,-5,0,0"
+                            FontSize="18"
+                                   Width="100"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center">neplaćeni računi</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Button.Content>
+        </Button>
+
+        <Button Background="DimGray"
+                Margin="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="144"
+                Height="144">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
+            </Button.Command>
+            <Button.Content>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="&#xE1D3;"
+                                   FontSize="76"
+                                   TextAlignment="Center"
+                                   Margin="0"
+                                   Foreground="White"
+                                   FontFamily="Segoe UI Symbol" />
+                        <TextBlock Margin="0,-5,0,0"
+                                   FontSize="18"
+                                   Width="100"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center">svi računi</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Button.Content>
+        </Button>
+
+        <Button Style="{DynamicResource BillsButtonStyle}"
+                Content="Neplaćeni primljeni računi">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:UnpayedBillsVM}" />
+            </Button.Command>
+        </Button>
+
+        <Button Style="{DynamicResource BillsButtonStyle}"
+                Content="Primljeni računi">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:BillsVM}" />
+            </Button.Command>
+        </Button>
+        <Button Style="{DynamicResource BillsButtonStyle}"
+                Content="Plaćanja">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:PaymentsVM}" />
+            </Button.Command>
+        </Button>
+
+        <Button Style="{DynamicResource BillsButtonStyle}"
+                Content="Neplaćeni izdati računi">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:UnpayedBillsVM}" />
+            </Button.Command>
+        </Button>
+
+        <Button Style="{DynamicResource BillsButtonStyle}"
+                Content="Izdati računi">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:BillsVM}" />
+            </Button.Command>
+        </Button>
+
+        <Button Style="{DynamicResource BillsButtonStyle}"
+                Content="Uplate">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:PaymentsVM}" />
+            </Button.Command>
+        </Button>
+
+        <Button Style="{DynamicResource BillsButtonStyle}"
+                Content="Presek stanja">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesBalanceVM}" />
+            </Button.Command>
+        </Button>
+
+        <Button Style="{DynamicResource BillsButtonStyle}"
+                Content="Kalendar">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CalendarVM}" />
+            </Button.Command>
+        </Button>
+
+    </WrapPanel>
+</UserControl>

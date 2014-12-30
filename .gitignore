@@ -19,3 +19,11 @@
 /PayBook.Setup/obj/Debug
 /PayBook.Test/bin/Debug
 /PayBook.Test/obj/Debug
+/PayBook.WpfClient/bin/Debug
+/PayBook.WebApplication/bin
+/PayBook.WebApiAgent/bin/Debug
+/PayBook.ViewModels/bin/Debug
+/PayBook.ViewModels/obj/Debug
+/PayBook.Views/obj/Debug
+/PayBook.WebApiAgent/obj/Debug
+/PayBook.WebApplication/obj/Debug
