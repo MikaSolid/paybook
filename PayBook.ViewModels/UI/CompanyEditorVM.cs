@@ -12,7 +12,7 @@ namespace PayBook.ViewModels
         [ImportingConstructor]
         public CompanyEditorVM(IModelService modelService) : base(modelService)
         {
-            Title = "snabdevači";
+            Title = "preduzeće";
         }
 
         public CompanyEditorVM(IModelService modelService, int companyId) : this (modelService)

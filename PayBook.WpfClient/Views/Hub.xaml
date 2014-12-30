@@ -96,7 +96,7 @@
                 Width="144"
                 Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CalendarVM}" />
             </Button.Command>
             <Button.Content>
                 <Grid>
@@ -170,59 +170,144 @@
             </Button.Content>
         </Button>
 
-        <Button Style="{DynamicResource BillsButtonStyle}"
-                Content="Neplaćeni primljeni računi">
+        <Button Background="DimGray"
+                Margin="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="144"
+                Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:UnpayedBillsVM}" />
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
             </Button.Command>
+            <Button.Content>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="&#xE1D3;"
+                                   FontSize="76"
+                                   TextAlignment="Center"
+                                   Margin="0"
+                                   Foreground="White"
+                                   FontFamily="Segoe UI Symbol" />
+                        <TextBlock Margin="0,-5,0,0"
+                                   FontSize="18"
+                                   Width="100"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center">primljeni računi</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Button.Content>
         </Button>
 
-        <Button Style="{DynamicResource BillsButtonStyle}"
-                Content="Primljeni računi">
+        <Button Background="DimGray"
+                Margin="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="144"
+                Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:BillsVM}" />
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
             </Button.Command>
-        </Button>
-        <Button Style="{DynamicResource BillsButtonStyle}"
-                Content="Plaćanja">
-            <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:PaymentsVM}" />
-            </Button.Command>
-        </Button>
-
-        <Button Style="{DynamicResource BillsButtonStyle}"
-                Content="Neplaćeni izdati računi">
-            <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:UnpayedBillsVM}" />
-            </Button.Command>
-        </Button>
-
-        <Button Style="{DynamicResource BillsButtonStyle}"
-                Content="Izdati računi">
-            <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:BillsVM}" />
-            </Button.Command>
-        </Button>
-
-        <Button Style="{DynamicResource BillsButtonStyle}"
-                Content="Uplate">
-            <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:PaymentsVM}" />
-            </Button.Command>
+            <Button.Content>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="&#xE1D3;"
+                                   FontSize="76"
+                                   TextAlignment="Center"
+                                   Margin="0"
+                                   Foreground="White"
+                                   FontFamily="Segoe UI Symbol" />
+                        <TextBlock Margin="0,-5,0,0"
+                                   FontSize="18"
+                                   Width="100"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center">izdati računi</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Button.Content>
         </Button>
 
-        <Button Style="{DynamicResource BillsButtonStyle}"
-                Content="Presek stanja">
+        <Button Background="DimGray"
+                Margin="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="144"
+                Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesBalanceVM}" />
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
             </Button.Command>
+            <Button.Content>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="&#xE1D3;"
+                                   FontSize="76"
+                                   TextAlignment="Center"
+                                   Margin="0"
+                                   Foreground="White"
+                                   FontFamily="Segoe UI Symbol" />
+                        <TextBlock Margin="0,-5,0,0"
+                                   FontSize="18"
+                                   Width="100"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center">uplate</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Button.Content>
         </Button>
 
-        <Button Style="{DynamicResource BillsButtonStyle}"
-                Content="Kalendar">
+        <Button Background="DimGray"
+                Margin="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="144"
+                Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CalendarVM}" />
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
             </Button.Command>
+            <Button.Content>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="&#xE1D3;"
+                                   FontSize="76"
+                                   TextAlignment="Center"
+                                   Margin="0"
+                                   Foreground="White"
+                                   FontFamily="Segoe UI Symbol" />
+                        <TextBlock Margin="0,-5,0,0"
+                                   FontSize="18"
+                                   Width="100"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center">isplate</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Button.Content>
+        </Button>
+
+        <Button Background="DimGray"
+                Margin="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="144"
+                Height="144">
+            <Button.Command>
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
+            </Button.Command>
+            <Button.Content>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="&#xE1D3;"
+                                   FontSize="76"
+                                   TextAlignment="Center"
+                                   Margin="0"
+                                   Foreground="White"
+                                   FontFamily="Segoe UI Symbol" />
+                        <TextBlock Margin="0,-5,0,0"
+                                   FontSize="18"
+                                   Width="100"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center">presek stanja</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Button.Content>
         </Button>
 
     </WrapPanel>

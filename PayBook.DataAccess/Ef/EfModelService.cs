@@ -13,7 +13,8 @@ namespace PayBook.DataAccess.Ef
 
         public List<Model.Invoice> GetBills()
         {
-            throw new NotImplementedException();
+            var db = new LocalDatabase();
+            return db.Invoices.ToModel().ToList();
         }
 
         public List<Model.Company> GetCompanies()

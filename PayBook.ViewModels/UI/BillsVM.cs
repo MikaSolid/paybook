@@ -164,7 +164,7 @@ namespace PayBook.ViewModels
             {
                 var billVM = new BillVM(bill, this);
 
-                var party = _modelService.GetParty(bill.PartyId);
+                var party = _modelService.GetCompany(bill.PartyId);
 
                 var partyVM = new CompanyVM(party);
 
