@@ -4,18 +4,18 @@ using PayBook.Model;
 namespace PayBook.ViewModels
 {
     [Export]
-    public class CompanyEditorVM : BaseViewVM
+    public class CompanyDetailsVM : BaseViewVM
     {
         private readonly int _companyId;
         private Company _company = new Company();
 
         [ImportingConstructor]
-        public CompanyEditorVM(IModelService modelService) : base(modelService)
+        public CompanyDetailsVM(IModelService modelService) : base(modelService)
         {
             Title = "preduzeće";
         }
 
-        public CompanyEditorVM(IModelService modelService, int companyId) : this (modelService)
+        public CompanyDetailsVM(IModelService modelService, int companyId) : this (modelService)
         {
             _companyId = companyId;
         }

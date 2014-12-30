@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             xmlns:commands="clr-namespace:PayBook.WpfClient.Commands"
              mc:Ignorable="d"
              d:DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=[PayBook.ViewModels.InvoiceDetailsVM]}"
              d:DesignHeight="300"
@@ -12,7 +13,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -36,7 +39,18 @@
                                   Grid.Row="1"
                                   SelectedItem="{Binding SelectedCompany, Mode=TwoWay}"
                                   ItemsSource="{Binding Companies}" />
-        <StackPanel Grid.Row="2"
+
+        <TextBlock Foreground="Gray"
+                   FontSize="18"
+                   Grid.Row="2"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center">Iznos</TextBlock>
+
+        <TextBox Grid.Column="1"
+                 Grid.Row="2"
+                 Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <StackPanel Grid.Row="3"
                     Grid.Column="1">
             <TextBlock Foreground="Black"
                        Text="{Binding Company.Address1}" />
@@ -55,5 +69,20 @@
             <TextBlock Foreground="Black"
                        Text="{Binding Company.CompanyNumber}" />
         </StackPanel>
+
+        <Grid  Grid.Row="4"
+               Grid.ColumnSpan="2"
+               Background="{DynamicResource ThemeBrush}">
+            <Button Cursor="Hand"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,20,0"
+                    CommandParameter="{Binding Invoice}"
+                    Content="{DynamicResource CheckGeometry}"
+                    Style="{DynamicResource CircleButtonStyle}">
+                <Button.Command>
+                    <commands:SaveInvoiceCommand />
+                </Button.Command>
+            </Button>
+        </Grid>
     </Grid>
 </UserControl>

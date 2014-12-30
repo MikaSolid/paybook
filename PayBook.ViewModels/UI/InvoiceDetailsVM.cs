@@ -13,6 +13,7 @@ namespace PayBook.ViewModels
         private Invoice _invoice;
         private List<CompanyInfo> _companyInfos;
         private string _selectedCompany;
+        private string _amount;
 
         [ImportingConstructor]
         public InvoiceDetailsVM(IModelService modelService)
@@ -34,7 +35,19 @@ namespace PayBook.ViewModels
             _companyInfos = _modelService.GetCompanyInfos();
         }
 
+        public string Amount
+        {
+            get { return _invoice.Amount.ToString(); }
+            set
+            {
+                _invoice.SetAmount(value);
+                OnPropertyChanged(() => Amount);
+            }
+        }
+
         public Company Company { get { return _invoice.Company; } }
+
+        public Invoice Invoice { get { return _invoice; } }
 
         public IEnumerable<string> Companies { get { return _companyInfos.Select(c => c.Name); } }
 

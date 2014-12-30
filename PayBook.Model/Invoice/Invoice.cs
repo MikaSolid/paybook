@@ -84,5 +84,20 @@ namespace PayBook.Model
         {
             Company = company;
         }
+
+        public void SetAmount(string amount)
+        {
+            var val = Convert.ToDecimal(amount);
+
+            InvoiceItem item =  _items.FirstOrDefault();
+
+            if (item == null)
+            {
+                item = new InvoiceItem();
+                _items.Add(item);
+            }
+
+            item.Amount = val;
+        }
     }
 }

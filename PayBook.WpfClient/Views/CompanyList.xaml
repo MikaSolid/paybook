@@ -78,7 +78,7 @@
                                         Margin="5,0,10,0"
                                         Grid.Row="1">
                                     <Button.Command>
-                                        <commands:NavigateCommand ToViewModel="viewModels:CompanyEditorVM" />
+                                        <commands:NavigateCommand ToViewModel="viewModels:CompanyDetailsVM" />
                                     </Button.Command>
                                 </Button>
                             </Grid>

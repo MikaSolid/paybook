@@ -6,7 +6,7 @@ namespace PayBook.WpfClient.Commands
     {
         public override void Execute(object parameter)
         {
-            NavigationService.Navigate(new CompanyEditorVM(ModelService, (int)parameter));
+            NavigationService.Navigate(new CompanyDetailsVM(ModelService, (int)parameter));
         }
     }
 }

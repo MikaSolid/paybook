@@ -68,7 +68,7 @@
     <Compile Include="UI\CalendarVM.cs" />
     <Compile Include="UI\CompaniesBalanceVM.cs" />
     <Compile Include="UI\CompaniesVM.cs" />
-    <Compile Include="UI\CompanyEditorVM.cs" />
+    <Compile Include="UI\CompanyDetailsVM.cs" />
     <Compile Include="UI\CompanyVM.cs" />
     <Compile Include="UI\HubVM.cs">
       <SubType>Code</SubType>

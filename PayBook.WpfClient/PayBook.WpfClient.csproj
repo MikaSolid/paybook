@@ -66,6 +66,7 @@
     <Compile Include="Commands\EditCompanyCommand.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\ResizeWindowCommand.cs" />
+    <Compile Include="Commands\SaveInvoiceCommand.cs" />
     <Compile Include="Controls\BillingCalendar.cs" />
     <Compile Include="Converters\BillsConverter.cs" />
     <Compile Include="Converters\BooleanToBrushConverter.cs" />

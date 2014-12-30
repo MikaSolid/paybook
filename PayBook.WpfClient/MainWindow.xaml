@@ -147,7 +147,7 @@
                         <views:PartysBalance />
                     </DataTemplate>
 
-                    <DataTemplate DataType="{x:Type viewModels:CompanyEditorVM}">
+                    <DataTemplate DataType="{x:Type viewModels:CompanyDetailsVM}">
                         <views:CompanyDetails />
                     </DataTemplate>
 
