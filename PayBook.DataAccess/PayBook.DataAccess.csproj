@@ -57,10 +57,16 @@
     <Compile Include="Ef\Company.cs">
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
+    <Compile Include="Ef\ContactMechanism.cs">
+      <DependentUpon>PayBook.tt</DependentUpon>
+    </Compile>
     <Compile Include="Ef\C__RefactorLog.cs">
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
     <Compile Include="Ef\EfModelService.cs" />
+    <Compile Include="Ef\EmailAddress.cs">
+      <DependentUpon>PayBook.tt</DependentUpon>
+    </Compile>
     <Compile Include="Ef\Invoice.cs">
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
@@ -88,6 +94,9 @@
     <Compile Include="Ef\Party.cs">
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
+    <Compile Include="Ef\PartyContactMechanism.cs">
+      <DependentUpon>PayBook.tt</DependentUpon>
+    </Compile>
     <Compile Include="Ef\PayBook.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -113,6 +122,12 @@
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
     <Compile Include="Ef\Person.cs">
+      <DependentUpon>PayBook.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\Phone.cs">
+      <DependentUpon>PayBook.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ef\PostalAddress.cs">
       <DependentUpon>PayBook.tt</DependentUpon>
     </Compile>
     <Compile Include="Ef\RoleType.cs">

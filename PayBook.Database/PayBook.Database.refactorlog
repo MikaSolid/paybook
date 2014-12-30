@@ -133,4 +133,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="BillingAccountId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="4f78dfa4-95f9-4df5-b8ea-2843893f330e" ChangeDateTime="12/30/2014 18:50:55">
+    <Property Name="ElementName" Value="[dbo].[PartyContactMechanism].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PartyContactMechanism]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PartyId" />
+  </Operation>
 </Operations>

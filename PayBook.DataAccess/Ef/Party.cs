@@ -18,6 +18,7 @@ namespace PayBook.DataAccess.Ef
         {
             this.Invoices = new HashSet<Invoice>();
             this.InvoiceRoles = new HashSet<InvoiceRole>();
+            this.PartyContactMechanism = new HashSet<PartyContactMechanism>();
             this.Payments = new HashSet<Payment>();
             this.Payments1 = new HashSet<Payment>();
         }
@@ -25,13 +26,14 @@ namespace PayBook.DataAccess.Ef
         public int Id { get; set; }
         public string Code { get; set; }
     
+        public virtual BillingAccountRole BillingAccountRole { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual Organization Organization { get; set; }
-        public virtual Person Person { get; set; }
-        public virtual RoleType RoleType { get; set; }
         public virtual ICollection<InvoiceRole> InvoiceRoles { get; set; }
+        public virtual ICollection<PartyContactMechanism> PartyContactMechanism { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
         public virtual ICollection<Payment> Payments1 { get; set; }
-        public virtual BillingAccountRole BillingAccountRole { get; set; }
+        public virtual Person Person { get; set; }
+        public virtual RoleType RoleType { get; set; }
     }
 }

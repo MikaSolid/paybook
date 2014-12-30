@@ -30,7 +30,7 @@ namespace PayBook.DataAccess.Ef
         public virtual RoleType RoleType { get; set; }
         public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }
         public virtual ICollection<InvoiceRole> InvoiceRoles { get; set; }
-        public virtual ICollection<InvoiceTerm> InvoiceTerms { get; set; }
         public virtual InvoiceStatu InvoiceStatu { get; set; }
+        public virtual ICollection<InvoiceTerm> InvoiceTerms { get; set; }
     }
 }

@@ -37,6 +37,19 @@
           <Property Name="CompanyNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="TaxNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="ContactMechanism">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmailAddress">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
         <EntityType Name="Invoice">
           <Key>
             <PropertyRef Name="Id" />
@@ -113,6 +126,15 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="PartyContactMechanism">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartyId" Type="int" Nullable="false" />
+          <Property Name="ContactMechanismId" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="PartyRole">
           <Key>
             <PropertyRef Name="PartyId" />
@@ -158,6 +180,26 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PostalAddress">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="200" />
+          <Property Name="Address2" Type="nchar" MaxLength="200" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="RoleType">
           <Key>
@@ -205,6 +247,18 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Company">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailAddress_ContactMechanism">
+          <End Role="ContactMechanism" Type="Self.ContactMechanism" Multiplicity="1" />
+          <End Role="EmailAddress" Type="Self.EmailAddress" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ContactMechanism">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailAddress">
               <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
@@ -365,6 +419,30 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PartyContactMechanism_ContactMechanism">
+          <End Role="ContactMechanism" Type="Self.ContactMechanism" Multiplicity="1" />
+          <End Role="PartyContactMechanism" Type="Self.PartyContactMechanism" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContactMechanism">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartyContactMechanism">
+              <PropertyRef Name="ContactMechanismId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartyContactMechanism_Party">
+          <End Role="Party" Type="Self.Party" Multiplicity="1" />
+          <End Role="PartyContactMechanism" Type="Self.PartyContactMechanism" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartyContactMechanism">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PartyRole_Party">
           <End Role="Party" Type="Self.Party" Multiplicity="1" />
           <End Role="PartyRole" Type="Self.PartyRole" Multiplicity="0..1" />
@@ -437,11 +515,37 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Phone_ContactMechanism">
+          <End Role="ContactMechanism" Type="Self.ContactMechanism" Multiplicity="1" />
+          <End Role="Phone" Type="Self.Phone" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ContactMechanism">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Phone">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostalAddress_ContactMechanism">
+          <End Role="ContactMechanism" Type="Self.ContactMechanism" Multiplicity="1" />
+          <End Role="PostalAddress" Type="Self.PostalAddress" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ContactMechanism">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostalAddress">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PayBookDatabaseModelStoreContainer">
           <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BillingAccount" EntityType="Self.BillingAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BillingAccountRole" EntityType="Self.BillingAccountRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactMechanism" EntityType="Self.ContactMechanism" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailAddress" EntityType="Self.EmailAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InvoiceItem" EntityType="Self.InvoiceItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InvoiceRoleType" EntityType="Self.InvoiceRoleType" Schema="dbo" store:Type="Tables" />
@@ -450,11 +554,14 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <EntitySet Name="InvoiceTerm" EntityType="Self.InvoiceTerm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Party" EntityType="Self.Party" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartyContactMechanism" EntityType="Self.PartyContactMechanism" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartyRole" EntityType="Self.PartyRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentApplication" EntityType="Self.PaymentApplication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentMethodType" EntityType="Self.PaymentMethodType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Phone" EntityType="Self.Phone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PostalAddress" EntityType="Self.PostalAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleType" EntityType="Self.RoleType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TermType" EntityType="Self.TermType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InvoiceRole" EntityType="Self.InvoiceRole" store:Type="Tables" store:Schema="dbo">
@@ -476,6 +583,10 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <AssociationSet Name="FK_Company_Organization" Association="Self.FK_Company_Organization">
             <End Role="Organization" EntitySet="Organization" />
             <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailAddress_ContactMechanism" Association="Self.FK_EmailAddress_ContactMechanism">
+            <End Role="ContactMechanism" EntitySet="ContactMechanism" />
+            <End Role="EmailAddress" EntitySet="EmailAddress" />
           </AssociationSet>
           <AssociationSet Name="FK_Invoice_Party" Association="Self.FK_Invoice_Party">
             <End Role="Party" EntitySet="Party" />
@@ -529,6 +640,14 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             <End Role="Party" EntitySet="Party" />
             <End Role="Organization" EntitySet="Organization" />
           </AssociationSet>
+          <AssociationSet Name="FK_PartyContactMechanism_ContactMechanism" Association="Self.FK_PartyContactMechanism_ContactMechanism">
+            <End Role="ContactMechanism" EntitySet="ContactMechanism" />
+            <End Role="PartyContactMechanism" EntitySet="PartyContactMechanism" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartyContactMechanism_Party" Association="Self.FK_PartyContactMechanism_Party">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="PartyContactMechanism" EntitySet="PartyContactMechanism" />
+          </AssociationSet>
           <AssociationSet Name="FK_PartyRole_Party" Association="Self.FK_PartyRole_Party">
             <End Role="Party" EntitySet="Party" />
             <End Role="PartyRole" EntitySet="PartyRole" />
@@ -553,186 +672,99 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             <End Role="Party" EntitySet="Party" />
             <End Role="Person" EntitySet="Person" />
           </AssociationSet>
+          <AssociationSet Name="FK_Phone_ContactMechanism" Association="Self.FK_Phone_ContactMechanism">
+            <End Role="ContactMechanism" EntitySet="ContactMechanism" />
+            <End Role="Phone" EntitySet="Phone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostalAddress_ContactMechanism" Association="Self.FK_PostalAddress_ContactMechanism">
+            <End Role="ContactMechanism" EntitySet="ContactMechanism" />
+            <End Role="PostalAddress" EntitySet="PostalAddress" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PayBook.DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Invoice">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="PartyId" Type="Int32" Nullable="false" />
-          <Property Name="RoleTypeId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Party" Relationship="Self.FK_Invoice_Party" FromRole="Invoice" ToRole="Party" />
-          <NavigationProperty Name="RoleType" Relationship="Self.FK_Invoice_RoleType" FromRole="Invoice" ToRole="RoleType" />
-          <NavigationProperty Name="InvoiceItems" Relationship="Self.FK_InvoiceItem_Invoice" FromRole="Invoice" ToRole="InvoiceItem" />
-          <NavigationProperty Name="InvoiceRoles" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_Invoice" FromRole="Invoice" ToRole="InvoiceRole" />
-          <NavigationProperty Name="InvoiceTerms" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_Invoice" FromRole="Invoice" ToRole="InvoiceTerm" />
-          <NavigationProperty Name="InvoiceStatu" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice" FromRole="Invoice" ToRole="InvoiceStatu" />
-        </EntityType>
-        <EntityType Name="InvoiceItem">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <NavigationProperty Name="Invoice" Relationship="Self.FK_InvoiceItem_Invoice" FromRole="InvoiceItem" ToRole="Invoice" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="InvoiceTerms" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceItem" FromRole="InvoiceItem" ToRole="InvoiceTerm" />
-        </EntityType>
-        <EntityType Name="Organization">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Party" Relationship="Self.FK_Organization_Party" FromRole="Organization" ToRole="Party" />
-          <NavigationProperty Name="Company" Relationship="PayBook.DatabaseModel.FK_Company_Organization" FromRole="Organization" ToRole="Company" />
-        </EntityType>
-        <EntityType Name="Party">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_Party" FromRole="Party" ToRole="Invoice" />
-          <NavigationProperty Name="Organization" Relationship="Self.FK_Organization_Party" FromRole="Party" ToRole="Organization" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Person_Party" FromRole="Party" ToRole="Person" />
-          <NavigationProperty Name="RoleType" Relationship="Self.PartyRole" FromRole="Party" ToRole="RoleType" />
-          <NavigationProperty Name="InvoiceRoles" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_Party" FromRole="Party" ToRole="InvoiceRole" />
-          <NavigationProperty Name="Payments" Relationship="PayBook.DatabaseModel.FK_Payment_PartyFrom" FromRole="Party" ToRole="Payment" />
-          <NavigationProperty Name="Payments1" Relationship="PayBook.DatabaseModel.FK_Payment_PartyTo" FromRole="Party" ToRole="Payment" />
-          <NavigationProperty Name="BillingAccountRole" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_Party" FromRole="Party" ToRole="BillingAccountRole" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Person">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Party" Relationship="Self.FK_Person_Party" FromRole="Person" ToRole="Party" />
-        </EntityType>
-        <EntityType Name="RoleType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_RoleType" FromRole="RoleType" ToRole="Invoice" />
-          <NavigationProperty Name="Parties" Relationship="Self.PartyRole" FromRole="RoleType" ToRole="Party" />
-          <NavigationProperty Name="InvoiceRoleType" Relationship="PayBook.DatabaseModel.FK_InvoiceRoleType_RoleType" FromRole="RoleType" ToRole="InvoiceRoleType" />
-        </EntityType>
-        <Association Name="FK_Invoice_Party">
-          <End Role="Party" Type="Self.Party" Multiplicity="1" />
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Party">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Invoice">
-              <PropertyRef Name="PartyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Invoice_RoleType">
-          <End Role="RoleType" Type="Self.RoleType" Multiplicity="1" />
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RoleType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Invoice">
-              <PropertyRef Name="RoleTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_InvoiceItem_Invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="InvoiceItem">
-              <PropertyRef Name="InvoiceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Organization_Party">
-          <End Role="Party" Type="Self.Party" Multiplicity="1" />
-          <End Role="Organization" Type="Self.Organization" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Party">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Organization">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Person_Party">
-          <End Role="Party" Type="Self.Party" Multiplicity="1" />
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Party">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Person">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PartyRole">
-          <End Role="Party" Type="Self.Party" Multiplicity="*" />
-          <End Role="RoleType" Type="Self.RoleType" Multiplicity="0..1" />
-        </Association>
         <EntityContainer Name="LocalDatabase" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
-          <EntitySet Name="InvoiceItems" EntityType="Self.InvoiceItem" />
-          <EntitySet Name="Organizations" EntityType="Self.Organization" />
-          <EntitySet Name="Parties" EntityType="Self.Party" />
-          <EntitySet Name="People" EntityType="Self.Person" />
-          <EntitySet Name="RoleTypes" EntityType="Self.RoleType" />
-          <AssociationSet Name="FK_Invoice_Party" Association="Self.FK_Invoice_Party">
-            <End Role="Party" EntitySet="Parties" />
-            <End Role="Invoice" EntitySet="Invoices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Invoice_RoleType" Association="Self.FK_Invoice_RoleType">
-            <End Role="RoleType" EntitySet="RoleTypes" />
-            <End Role="Invoice" EntitySet="Invoices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InvoiceItem_Invoice" Association="Self.FK_InvoiceItem_Invoice">
-            <End Role="Invoice" EntitySet="Invoices" />
-            <End Role="InvoiceItem" EntitySet="InvoiceItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Organization_Party" Association="Self.FK_Organization_Party">
-            <End Role="Party" EntitySet="Parties" />
-            <End Role="Organization" EntitySet="Organizations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Person_Party" Association="Self.FK_Person_Party">
-            <End Role="Party" EntitySet="Parties" />
-            <End Role="Person" EntitySet="People" />
-          </AssociationSet>
-          <AssociationSet Name="PartyRole" Association="Self.PartyRole">
-            <End Role="Party" EntitySet="Parties" />
-            <End Role="RoleType" EntitySet="RoleTypes" />
-          </AssociationSet>
           <EntitySet Name="C__RefactorLog" EntityType="PayBook.DatabaseModel.C__RefactorLog" />
+          <EntitySet Name="BillingAccounts" EntityType="PayBook.DatabaseModel.BillingAccount" />
+          <EntitySet Name="BillingAccountRoles" EntityType="PayBook.DatabaseModel.BillingAccountRole" />
+          <EntitySet Name="Companies" EntityType="PayBook.DatabaseModel.Company" />
+          <EntitySet Name="ContactMechanism" EntityType="PayBook.DatabaseModel.ContactMechanism" />
+          <EntitySet Name="EmailAddresses" EntityType="PayBook.DatabaseModel.EmailAddress" />
+          <EntitySet Name="Invoices" EntityType="PayBook.DatabaseModel.Invoice" />
+          <EntitySet Name="InvoiceItems" EntityType="PayBook.DatabaseModel.InvoiceItem" />
           <EntitySet Name="InvoiceRoleTypes" EntityType="PayBook.DatabaseModel.InvoiceRoleType" />
+          <EntitySet Name="InvoiceStatus" EntityType="PayBook.DatabaseModel.InvoiceStatu" />
           <EntitySet Name="InvoiceStatusTypes" EntityType="PayBook.DatabaseModel.InvoiceStatusType" />
+          <EntitySet Name="InvoiceTerms" EntityType="PayBook.DatabaseModel.InvoiceTerm" />
+          <EntitySet Name="Organizations" EntityType="PayBook.DatabaseModel.Organization" />
+          <EntitySet Name="Parties" EntityType="PayBook.DatabaseModel.Party" />
+          <EntitySet Name="PartyContactMechanism" EntityType="PayBook.DatabaseModel.PartyContactMechanism" />
           <EntitySet Name="Payments" EntityType="PayBook.DatabaseModel.Payment" />
           <EntitySet Name="PaymentApplications" EntityType="PayBook.DatabaseModel.PaymentApplication" />
           <EntitySet Name="PaymentMethodTypes" EntityType="PayBook.DatabaseModel.PaymentMethodType" />
+          <EntitySet Name="People" EntityType="PayBook.DatabaseModel.Person" />
+          <EntitySet Name="Phones" EntityType="PayBook.DatabaseModel.Phone" />
+          <EntitySet Name="PostalAddresses" EntityType="PayBook.DatabaseModel.PostalAddress" />
+          <EntitySet Name="RoleTypes" EntityType="PayBook.DatabaseModel.RoleType" />
+          <EntitySet Name="TermTypes" EntityType="PayBook.DatabaseModel.TermType" />
           <EntitySet Name="InvoiceRoles" EntityType="PayBook.DatabaseModel.InvoiceRole" />
+          <AssociationSet Name="FK_BillingAccountRole_BillingAccount" Association="PayBook.DatabaseModel.FK_BillingAccountRole_BillingAccount">
+            <End Role="BillingAccount" EntitySet="BillingAccounts" />
+            <End Role="BillingAccountRole" EntitySet="BillingAccountRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillingAccountRole_Party" Association="PayBook.DatabaseModel.FK_BillingAccountRole_Party">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="BillingAccountRole" EntitySet="BillingAccountRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_Organization" Association="PayBook.DatabaseModel.FK_Company_Organization">
+            <End Role="Organization" EntitySet="Organizations" />
+            <End Role="Company" EntitySet="Companies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailAddress_ContactMechanism" Association="PayBook.DatabaseModel.FK_EmailAddress_ContactMechanism">
+            <End Role="ContactMechanism" EntitySet="ContactMechanism" />
+            <End Role="EmailAddress" EntitySet="EmailAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartyContactMechanism_ContactMechanism" Association="PayBook.DatabaseModel.FK_PartyContactMechanism_ContactMechanism">
+            <End Role="ContactMechanism" EntitySet="ContactMechanism" />
+            <End Role="PartyContactMechanism" EntitySet="PartyContactMechanism" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phone_ContactMechanism" Association="PayBook.DatabaseModel.FK_Phone_ContactMechanism">
+            <End Role="ContactMechanism" EntitySet="ContactMechanism" />
+            <End Role="Phone" EntitySet="Phones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostalAddress_ContactMechanism" Association="PayBook.DatabaseModel.FK_PostalAddress_ContactMechanism">
+            <End Role="ContactMechanism" EntitySet="ContactMechanism" />
+            <End Role="PostalAddress" EntitySet="PostalAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Party" Association="PayBook.DatabaseModel.FK_Invoice_Party">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_RoleType" Association="PayBook.DatabaseModel.FK_Invoice_RoleType">
+            <End Role="RoleType" EntitySet="RoleTypes" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Invoice" Association="PayBook.DatabaseModel.FK_InvoiceItem_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+          </AssociationSet>
           <AssociationSet Name="FK_InvoiceRole_Invoice" Association="PayBook.DatabaseModel.FK_InvoiceRole_Invoice">
             <End Role="Invoice" EntitySet="Invoices" />
             <End Role="InvoiceRole" EntitySet="InvoiceRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceStatus_Invoice" Association="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceStatu" EntitySet="InvoiceStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceTerm_Invoice" Association="PayBook.DatabaseModel.FK_InvoiceTerm_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceTerm" EntitySet="InvoiceTerms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceTerm_InvoiceItem" Association="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceItem">
+            <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+            <End Role="InvoiceTerm" EntitySet="InvoiceTerms" />
           </AssociationSet>
           <AssociationSet Name="FK_InvoiceRole_RoleType" Association="PayBook.DatabaseModel.FK_InvoiceRole_RoleType">
             <End Role="InvoiceRoleType" EntitySet="InvoiceRoleTypes" />
@@ -742,9 +774,25 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             <End Role="RoleType" EntitySet="RoleTypes" />
             <End Role="InvoiceRoleType" EntitySet="InvoiceRoleTypes" />
           </AssociationSet>
+          <AssociationSet Name="FK_InvoiceStatus_InvoiceStatusType" Association="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType">
+            <End Role="InvoiceStatusType" EntitySet="InvoiceStatusTypes" />
+            <End Role="InvoiceStatu" EntitySet="InvoiceStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceTerm_InvoiceTermType" Association="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceTermType">
+            <End Role="TermType" EntitySet="TermTypes" />
+            <End Role="InvoiceTerm" EntitySet="InvoiceTerms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Organization_Party" Association="PayBook.DatabaseModel.FK_Organization_Party">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="Organization" EntitySet="Organizations" />
+          </AssociationSet>
           <AssociationSet Name="FK_InvoiceRole_Party" Association="PayBook.DatabaseModel.FK_InvoiceRole_Party">
             <End Role="Party" EntitySet="Parties" />
             <End Role="InvoiceRole" EntitySet="InvoiceRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartyContactMechanism_Party" Association="PayBook.DatabaseModel.FK_PartyContactMechanism_Party">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="PartyContactMechanism" EntitySet="PartyContactMechanism" />
           </AssociationSet>
           <AssociationSet Name="FK_Payment_PartyFrom" Association="PayBook.DatabaseModel.FK_Payment_PartyFrom">
             <End Role="Party" EntitySet="Parties" />
@@ -754,54 +802,98 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             <End Role="Party" EntitySet="Parties" />
             <End Role="Payment" EntitySet="Payments" />
           </AssociationSet>
+          <AssociationSet Name="FK_Person_Party" Association="PayBook.DatabaseModel.FK_Person_Party">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
           <AssociationSet Name="FK_Payment_PaymentMethodType" Association="PayBook.DatabaseModel.FK_Payment_PaymentMethodType">
             <End Role="PaymentMethodType" EntitySet="PaymentMethodTypes" />
             <End Role="Payment" EntitySet="Payments" />
           </AssociationSet>
-          <EntitySet Name="InvoiceTerms" EntityType="PayBook.DatabaseModel.InvoiceTerm" />
-          <EntitySet Name="TermTypes" EntityType="PayBook.DatabaseModel.TermType" />
-          <AssociationSet Name="FK_InvoiceTerm_Invoice" Association="PayBook.DatabaseModel.FK_InvoiceTerm_Invoice">
-            <End Role="Invoice" EntitySet="Invoices" />
-            <End Role="InvoiceTerm" EntitySet="InvoiceTerms" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InvoiceTerm_InvoiceItem" Association="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceItem">
-            <End Role="InvoiceItem" EntitySet="InvoiceItems" />
-            <End Role="InvoiceTerm" EntitySet="InvoiceTerms" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InvoiceTerm_InvoiceTermType" Association="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceTermType">
-            <End Role="TermType" EntitySet="TermTypes" />
-            <End Role="InvoiceTerm" EntitySet="InvoiceTerms" />
-          </AssociationSet>
-          <EntitySet Name="BillingAccounts" EntityType="PayBook.DatabaseModel.BillingAccount" />
-          <EntitySet Name="InvoiceStatus" EntityType="PayBook.DatabaseModel.InvoiceStatu" />
-          <AssociationSet Name="FK_InvoiceStatus_Invoice" Association="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice">
-            <End Role="Invoice" EntitySet="Invoices" />
-            <End Role="InvoiceStatu" EntitySet="InvoiceStatus" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InvoiceStatus_InvoiceStatusType" Association="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType">
-            <End Role="InvoiceStatusType" EntitySet="InvoiceStatusTypes" />
-            <End Role="InvoiceStatu" EntitySet="InvoiceStatus" />
-          </AssociationSet>
-          <EntitySet Name="BillingAccountRoles" EntityType="PayBook.DatabaseModel.BillingAccountRole" />
-          <AssociationSet Name="FK_BillingAccountRole_BillingAccount" Association="PayBook.DatabaseModel.FK_BillingAccountRole_BillingAccount">
-            <End Role="BillingAccount" EntitySet="BillingAccounts" />
-            <End Role="BillingAccountRole" EntitySet="BillingAccountRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BillingAccountRole_Party" Association="PayBook.DatabaseModel.FK_BillingAccountRole_Party">
+          <AssociationSet Name="PartyRole" Association="PayBook.DatabaseModel.PartyRole">
             <End Role="Party" EntitySet="Parties" />
-            <End Role="BillingAccountRole" EntitySet="BillingAccountRoles" />
+            <End Role="RoleType" EntitySet="RoleTypes" />
           </AssociationSet>
-          <EntitySet Name="Companies" EntityType="PayBook.DatabaseModel.Company" />
-          <AssociationSet Name="FK_Company_Organization" Association="PayBook.DatabaseModel.FK_Company_Organization">
-            <End Role="Organization" EntitySet="Organizations" />
-            <End Role="Company" EntitySet="Companies" />
-          </AssociationSet>
-          </EntityContainer>
+        </EntityContainer>
         <EntityType Name="C__RefactorLog">
           <Key>
             <PropertyRef Name="OperationKey" />
           </Key>
           <Property Name="OperationKey" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BillingAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromDate" Type="DateTime" Precision="3" />
+          <Property Name="ToDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BillingAccountRoles" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_BillingAccount" FromRole="BillingAccount" ToRole="BillingAccountRole" />
+        </EntityType>
+        <EntityType Name="BillingAccountRole">
+          <Key>
+            <PropertyRef Name="PartyId" />
+          </Key>
+          <Property Name="PartyId" Type="Int32" Nullable="false" />
+          <Property Name="BillingAccountId" Type="Int32" Nullable="false" />
+          <Property Name="FromDate" Type="DateTime" Precision="3" />
+          <Property Name="ToDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BillingAccount" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_BillingAccount" FromRole="BillingAccountRole" ToRole="BillingAccount" />
+          <NavigationProperty Name="Party" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_Party" FromRole="BillingAccountRole" ToRole="Party" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CompanyNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TaxNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Organization" Relationship="PayBook.DatabaseModel.FK_Company_Organization" FromRole="Company" ToRole="Organization" />
+        </EntityType>
+        <EntityType Name="ContactMechanism">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="EmailAddress" Relationship="PayBook.DatabaseModel.FK_EmailAddress_ContactMechanism" FromRole="ContactMechanism" ToRole="EmailAddress" />
+          <NavigationProperty Name="PartyContactMechanism" Relationship="PayBook.DatabaseModel.FK_PartyContactMechanism_ContactMechanism" FromRole="ContactMechanism" ToRole="PartyContactMechanism" />
+          <NavigationProperty Name="Phone" Relationship="PayBook.DatabaseModel.FK_Phone_ContactMechanism" FromRole="ContactMechanism" ToRole="Phone" />
+          <NavigationProperty Name="PostalAddress" Relationship="PayBook.DatabaseModel.FK_PostalAddress_ContactMechanism" FromRole="ContactMechanism" ToRole="PostalAddress" />
+        </EntityType>
+        <EntityType Name="EmailAddress">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ContactMechanism" Relationship="PayBook.DatabaseModel.FK_EmailAddress_ContactMechanism" FromRole="EmailAddress" ToRole="ContactMechanism" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartyId" Type="Int32" Nullable="false" />
+          <Property Name="RoleTypeId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Party" Relationship="PayBook.DatabaseModel.FK_Invoice_Party" FromRole="Invoice" ToRole="Party" />
+          <NavigationProperty Name="RoleType" Relationship="PayBook.DatabaseModel.FK_Invoice_RoleType" FromRole="Invoice" ToRole="RoleType" />
+          <NavigationProperty Name="InvoiceItems" Relationship="PayBook.DatabaseModel.FK_InvoiceItem_Invoice" FromRole="Invoice" ToRole="InvoiceItem" />
+          <NavigationProperty Name="InvoiceRoles" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_Invoice" FromRole="Invoice" ToRole="InvoiceRole" />
+          <NavigationProperty Name="InvoiceStatu" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice" FromRole="Invoice" ToRole="InvoiceStatu" />
+          <NavigationProperty Name="InvoiceTerms" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_Invoice" FromRole="Invoice" ToRole="InvoiceTerm" />
+        </EntityType>
+        <EntityType Name="InvoiceItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Invoice" Relationship="PayBook.DatabaseModel.FK_InvoiceItem_Invoice" FromRole="InvoiceItem" ToRole="Invoice" />
+          <NavigationProperty Name="InvoiceTerms" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceItem" FromRole="InvoiceItem" ToRole="InvoiceTerm" />
         </EntityType>
         <EntityType Name="InvoiceRoleType">
           <Key>
@@ -811,6 +903,16 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <NavigationProperty Name="InvoiceRoles" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_RoleType" FromRole="InvoiceRoleType" ToRole="InvoiceRole" />
           <NavigationProperty Name="RoleType" Relationship="PayBook.DatabaseModel.FK_InvoiceRoleType_RoleType" FromRole="InvoiceRoleType" ToRole="RoleType" />
         </EntityType>
+        <EntityType Name="InvoiceStatu">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+          </Key>
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceStatusTypeId" Type="Int32" Nullable="false" />
+          <Property Name="StatusDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Invoice" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice" FromRole="InvoiceStatu" ToRole="Invoice" />
+          <NavigationProperty Name="InvoiceStatusType" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType" FromRole="InvoiceStatu" ToRole="InvoiceStatusType" />
+        </EntityType>
         <EntityType Name="InvoiceStatusType">
           <Key>
             <PropertyRef Name="Id" />
@@ -818,6 +920,55 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="InvoiceStatus" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType" FromRole="InvoiceStatusType" ToRole="InvoiceStatu" />
+        </EntityType>
+        <EntityType Name="InvoiceTerm">
+          <Key>
+            <PropertyRef Name="InvoiceTermId" />
+          </Key>
+          <Property Name="InvoiceTermId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TermTypeId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceId" Type="Int32" />
+          <Property Name="InvoiceItemId" Type="Int32" />
+          <Property Name="TermValue" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Invoice" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_Invoice" FromRole="InvoiceTerm" ToRole="Invoice" />
+          <NavigationProperty Name="InvoiceItem" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceItem" FromRole="InvoiceTerm" ToRole="InvoiceItem" />
+          <NavigationProperty Name="TermType" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceTermType" FromRole="InvoiceTerm" ToRole="TermType" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="PayBook.DatabaseModel.FK_Company_Organization" FromRole="Organization" ToRole="Company" />
+          <NavigationProperty Name="Party" Relationship="PayBook.DatabaseModel.FK_Organization_Party" FromRole="Organization" ToRole="Party" />
+        </EntityType>
+        <EntityType Name="Party">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BillingAccountRole" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_Party" FromRole="Party" ToRole="BillingAccountRole" />
+          <NavigationProperty Name="Invoices" Relationship="PayBook.DatabaseModel.FK_Invoice_Party" FromRole="Party" ToRole="Invoice" />
+          <NavigationProperty Name="Organization" Relationship="PayBook.DatabaseModel.FK_Organization_Party" FromRole="Party" ToRole="Organization" />
+          <NavigationProperty Name="InvoiceRoles" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_Party" FromRole="Party" ToRole="InvoiceRole" />
+          <NavigationProperty Name="PartyContactMechanism" Relationship="PayBook.DatabaseModel.FK_PartyContactMechanism_Party" FromRole="Party" ToRole="PartyContactMechanism" />
+          <NavigationProperty Name="Payments" Relationship="PayBook.DatabaseModel.FK_Payment_PartyFrom" FromRole="Party" ToRole="Payment" />
+          <NavigationProperty Name="Payments1" Relationship="PayBook.DatabaseModel.FK_Payment_PartyTo" FromRole="Party" ToRole="Payment" />
+          <NavigationProperty Name="Person" Relationship="PayBook.DatabaseModel.FK_Person_Party" FromRole="Party" ToRole="Person" />
+          <NavigationProperty Name="RoleType" Relationship="PayBook.DatabaseModel.PartyRole" FromRole="Party" ToRole="RoleType" />
+        </EntityType>
+        <EntityType Name="PartyContactMechanism">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PartyId" Type="Int32" Nullable="false" />
+          <Property Name="ContactMechanismId" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ContactMechanism" Relationship="PayBook.DatabaseModel.FK_PartyContactMechanism_ContactMechanism" FromRole="PartyContactMechanism" ToRole="ContactMechanism" />
+          <NavigationProperty Name="Party" Relationship="PayBook.DatabaseModel.FK_PartyContactMechanism_Party" FromRole="PartyContactMechanism" ToRole="Party" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -853,6 +1004,56 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Payments" Relationship="PayBook.DatabaseModel.FK_Payment_PaymentMethodType" FromRole="PaymentMethodType" ToRole="Payment" />
         </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Party" Relationship="PayBook.DatabaseModel.FK_Person_Party" FromRole="Person" ToRole="Party" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ContactMechanism" Relationship="PayBook.DatabaseModel.FK_Phone_ContactMechanism" FromRole="Phone" ToRole="ContactMechanism" />
+        </EntityType>
+        <EntityType Name="PostalAddress">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Address1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ContactMechanism" Relationship="PayBook.DatabaseModel.FK_PostalAddress_ContactMechanism" FromRole="PostalAddress" ToRole="ContactMechanism" />
+        </EntityType>
+        <EntityType Name="RoleType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Invoices" Relationship="PayBook.DatabaseModel.FK_Invoice_RoleType" FromRole="RoleType" ToRole="Invoice" />
+          <NavigationProperty Name="InvoiceRoleType" Relationship="PayBook.DatabaseModel.FK_InvoiceRoleType_RoleType" FromRole="RoleType" ToRole="InvoiceRoleType" />
+          <NavigationProperty Name="Parties" Relationship="PayBook.DatabaseModel.PartyRole" FromRole="RoleType" ToRole="Party" />
+        </EntityType>
+        <EntityType Name="TermType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="InvoiceTerms" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceTermType" FromRole="TermType" ToRole="InvoiceTerm" />
+        </EntityType>
         <EntityType Name="InvoiceRole">
           <Key>
             <PropertyRef Name="PartyId" />
@@ -867,6 +1068,126 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
           <NavigationProperty Name="InvoiceRoleType" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_RoleType" FromRole="InvoiceRole" ToRole="InvoiceRoleType" />
           <NavigationProperty Name="Party" Relationship="PayBook.DatabaseModel.FK_InvoiceRole_Party" FromRole="InvoiceRole" ToRole="Party" />
         </EntityType>
+        <Association Name="FK_BillingAccountRole_BillingAccount">
+          <End Type="PayBook.DatabaseModel.BillingAccount" Role="BillingAccount" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.BillingAccountRole" Role="BillingAccountRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BillingAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillingAccountRole">
+              <PropertyRef Name="BillingAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillingAccountRole_Party">
+          <End Type="PayBook.DatabaseModel.Party" Role="Party" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.BillingAccountRole" Role="BillingAccountRole" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillingAccountRole">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_Organization">
+          <End Type="PayBook.DatabaseModel.Organization" Role="Organization" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.Company" Role="Company" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailAddress_ContactMechanism">
+          <End Type="PayBook.DatabaseModel.ContactMechanism" Role="ContactMechanism" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.EmailAddress" Role="EmailAddress" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ContactMechanism">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailAddress">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartyContactMechanism_ContactMechanism">
+          <End Type="PayBook.DatabaseModel.ContactMechanism" Role="ContactMechanism" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.PartyContactMechanism" Role="PartyContactMechanism" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContactMechanism">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartyContactMechanism">
+              <PropertyRef Name="ContactMechanismId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phone_ContactMechanism">
+          <End Type="PayBook.DatabaseModel.ContactMechanism" Role="ContactMechanism" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.Phone" Role="Phone" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ContactMechanism">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Phone">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostalAddress_ContactMechanism">
+          <End Type="PayBook.DatabaseModel.ContactMechanism" Role="ContactMechanism" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.PostalAddress" Role="PostalAddress" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ContactMechanism">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostalAddress">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Party">
+          <End Type="PayBook.DatabaseModel.Party" Role="Party" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_RoleType">
+          <End Type="PayBook.DatabaseModel.RoleType" Role="RoleType" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="RoleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceItem_Invoice">
+          <End Type="PayBook.DatabaseModel.Invoice" Role="Invoice" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceItem">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_InvoiceRole_Invoice">
           <End Type="PayBook.DatabaseModel.Invoice" Role="Invoice" Multiplicity="1" />
           <End Type="PayBook.DatabaseModel.InvoiceRole" Role="InvoiceRole" Multiplicity="*" />
@@ -876,6 +1197,42 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             </Principal>
             <Dependent Role="InvoiceRole">
               <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceStatus_Invoice">
+          <End Type="PayBook.DatabaseModel.Invoice" Role="Invoice" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.InvoiceStatu" Role="InvoiceStatu" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceStatu">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceTerm_Invoice">
+          <End Type="PayBook.DatabaseModel.Invoice" Role="Invoice" Multiplicity="0..1" />
+          <End Type="PayBook.DatabaseModel.InvoiceTerm" Role="InvoiceTerm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceTerm">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceTerm_InvoiceItem">
+          <End Type="PayBook.DatabaseModel.InvoiceItem" Role="InvoiceItem" Multiplicity="0..1" />
+          <End Type="PayBook.DatabaseModel.InvoiceTerm" Role="InvoiceTerm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceTerm">
+              <PropertyRef Name="InvoiceItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -903,6 +1260,42 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_InvoiceStatus_InvoiceStatusType">
+          <End Type="PayBook.DatabaseModel.InvoiceStatusType" Role="InvoiceStatusType" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.InvoiceStatu" Role="InvoiceStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceStatusType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceStatu">
+              <PropertyRef Name="InvoiceStatusTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceTerm_InvoiceTermType">
+          <End Type="PayBook.DatabaseModel.TermType" Role="TermType" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.InvoiceTerm" Role="InvoiceTerm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TermType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceTerm">
+              <PropertyRef Name="TermTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Organization_Party">
+          <End Type="PayBook.DatabaseModel.Party" Role="Party" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.Organization" Role="Organization" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Organization">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_InvoiceRole_Party">
           <End Type="PayBook.DatabaseModel.Party" Role="Party" Multiplicity="1" />
           <End Type="PayBook.DatabaseModel.InvoiceRole" Role="InvoiceRole" Multiplicity="*" />
@@ -911,6 +1304,18 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="InvoiceRole">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartyContactMechanism_Party">
+          <End Type="PayBook.DatabaseModel.Party" Role="Party" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.PartyContactMechanism" Role="PartyContactMechanism" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartyContactMechanism">
               <PropertyRef Name="PartyId" />
             </Dependent>
           </ReferentialConstraint>
@@ -939,6 +1344,18 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Person_Party">
+          <End Type="PayBook.DatabaseModel.Party" Role="Party" Multiplicity="1" />
+          <End Type="PayBook.DatabaseModel.Person" Role="Person" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Payment_PaymentMethodType">
           <End Type="PayBook.DatabaseModel.PaymentMethodType" Role="PaymentMethodType" Multiplicity="1" />
           <End Type="PayBook.DatabaseModel.Payment" Role="Payment" Multiplicity="*" />
@@ -951,162 +1368,9 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="InvoiceTerm">
-          <Key>
-            <PropertyRef Name="InvoiceTermId" />
-          </Key>
-          <Property Name="InvoiceTermId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TermTypeId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceId" Type="Int32" />
-          <Property Name="InvoiceItemId" Type="Int32" />
-          <Property Name="TermValue" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="Invoice" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_Invoice" FromRole="InvoiceTerm" ToRole="Invoice" />
-          <NavigationProperty Name="InvoiceItem" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceItem" FromRole="InvoiceTerm" ToRole="InvoiceItem" />
-          <NavigationProperty Name="TermType" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceTermType" FromRole="InvoiceTerm" ToRole="TermType" />
-        </EntityType>
-        <EntityType Name="TermType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="InvoiceTerms" Relationship="PayBook.DatabaseModel.FK_InvoiceTerm_InvoiceTermType" FromRole="TermType" ToRole="InvoiceTerm" />
-        </EntityType>
-        <Association Name="FK_InvoiceTerm_Invoice">
-          <End Type="PayBook.DatabaseModel.Invoice" Role="Invoice" Multiplicity="0..1" />
-          <End Type="PayBook.DatabaseModel.InvoiceTerm" Role="InvoiceTerm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="InvoiceTerm">
-              <PropertyRef Name="InvoiceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_InvoiceTerm_InvoiceItem">
-          <End Type="PayBook.DatabaseModel.InvoiceItem" Role="InvoiceItem" Multiplicity="0..1" />
-          <End Type="PayBook.DatabaseModel.InvoiceTerm" Role="InvoiceTerm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="InvoiceItem">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="InvoiceTerm">
-              <PropertyRef Name="InvoiceItemId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_InvoiceTerm_InvoiceTermType">
-          <End Type="PayBook.DatabaseModel.TermType" Role="TermType" Multiplicity="1" />
-          <End Type="PayBook.DatabaseModel.InvoiceTerm" Role="InvoiceTerm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TermType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="InvoiceTerm">
-              <PropertyRef Name="TermTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="BillingAccount">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FromDate" Type="DateTime" Precision="3" />
-          <Property Name="ToDate" Type="DateTime" Precision="3" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="BillingAccountRoles" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_BillingAccount" FromRole="BillingAccount" ToRole="BillingAccountRole" />
-        </EntityType>
-        <EntityType Name="InvoiceStatu">
-          <Key>
-            <PropertyRef Name="InvoiceId" />
-          </Key>
-          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceStatusTypeId" Type="Int32" Nullable="false" />
-          <Property Name="StatusDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Invoice" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_Invoice" FromRole="InvoiceStatu" ToRole="Invoice" />
-          <NavigationProperty Name="InvoiceStatusType" Relationship="PayBook.DatabaseModel.FK_InvoiceStatus_InvoiceStatusType" FromRole="InvoiceStatu" ToRole="InvoiceStatusType" />
-        </EntityType>
-        <Association Name="FK_InvoiceStatus_Invoice">
-          <End Type="PayBook.DatabaseModel.Invoice" Role="Invoice" Multiplicity="1" />
-          <End Type="PayBook.DatabaseModel.InvoiceStatu" Role="InvoiceStatu" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="InvoiceStatu">
-              <PropertyRef Name="InvoiceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_InvoiceStatus_InvoiceStatusType">
-          <End Type="PayBook.DatabaseModel.InvoiceStatusType" Role="InvoiceStatusType" Multiplicity="1" />
-          <End Type="PayBook.DatabaseModel.InvoiceStatu" Role="InvoiceStatu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="InvoiceStatusType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="InvoiceStatu">
-              <PropertyRef Name="InvoiceStatusTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="BillingAccountRole">
-          <Key>
-            <PropertyRef Name="PartyId" />
-          </Key>
-          <Property Name="PartyId" Type="Int32" Nullable="false" />
-          <Property Name="BillingAccountId" Type="Int32" Nullable="false" />
-          <Property Name="FromDate" Type="DateTime" Precision="3" />
-          <Property Name="ToDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="BillingAccount" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_BillingAccount" FromRole="BillingAccountRole" ToRole="BillingAccount" />
-          <NavigationProperty Name="Party" Relationship="PayBook.DatabaseModel.FK_BillingAccountRole_Party" FromRole="BillingAccountRole" ToRole="Party" />
-        </EntityType>
-        <Association Name="FK_BillingAccountRole_BillingAccount">
-          <End Type="PayBook.DatabaseModel.BillingAccount" Role="BillingAccount" Multiplicity="1" />
-          <End Type="PayBook.DatabaseModel.BillingAccountRole" Role="BillingAccountRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BillingAccount">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BillingAccountRole">
-              <PropertyRef Name="BillingAccountId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BillingAccountRole_Party">
-          <End Type="PayBook.DatabaseModel.Party" Role="Party" Multiplicity="1" />
-          <End Type="PayBook.DatabaseModel.BillingAccountRole" Role="BillingAccountRole" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Party">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BillingAccountRole">
-              <PropertyRef Name="PartyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Company">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="CompanyNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TaxNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Organization" Relationship="PayBook.DatabaseModel.FK_Company_Organization" FromRole="Company" ToRole="Organization" />
-        </EntityType>
-        <Association Name="FK_Company_Organization">
-          <End Type="PayBook.DatabaseModel.Organization" Role="Organization" Multiplicity="1" />
-          <End Type="PayBook.DatabaseModel.Company" Role="Company" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Organization">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Company">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="PartyRole">
+          <End Type="PayBook.DatabaseModel.Party" Role="Party" Multiplicity="*" />
+          <End Type="PayBook.DatabaseModel.RoleType" Role="RoleType" Multiplicity="0..1" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1114,13 +1378,64 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PayBookDatabaseModelStoreContainer" CdmEntityContainer="LocalDatabase">
+          <EntitySetMapping Name="C__RefactorLog">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.C__RefactorLog">
+              <MappingFragment StoreEntitySet="__RefactorLog">
+                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillingAccounts">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.BillingAccount">
+              <MappingFragment StoreEntitySet="BillingAccount">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillingAccountRoles">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.BillingAccountRole">
+              <MappingFragment StoreEntitySet="BillingAccountRole">
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="BillingAccountId" ColumnName="BillingAccountId" />
+                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="TaxNumber" ColumnName="TaxNumber" />
+                <ScalarProperty Name="CompanyNumber" ColumnName="CompanyNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactMechanism">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.ContactMechanism">
+              <MappingFragment StoreEntitySet="ContactMechanism">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailAddresses">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.EmailAddress">
+              <MappingFragment StoreEntitySet="EmailAddress">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Invoices">
             <EntityTypeMapping TypeName="PayBook.DatabaseModel.Invoice">
               <MappingFragment StoreEntitySet="Invoice">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
-                <ScalarProperty Name="RoleTypeId" ColumnName="RoleTypeId" />
                 <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="RoleTypeId" ColumnName="RoleTypeId" />
+                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1128,17 +1443,52 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
             <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceItem">
               <MappingFragment StoreEntitySet="InvoiceItem">
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceRoleTypes">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceRoleType">
+              <MappingFragment StoreEntitySet="InvoiceRoleType">
+                <ScalarProperty Name="RoleTypeId" ColumnName="RoleTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceStatus">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceStatu">
+              <MappingFragment StoreEntitySet="InvoiceStatus">
+                <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
+                <ScalarProperty Name="InvoiceStatusTypeId" ColumnName="InvoiceStatusTypeId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceStatusTypes">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceStatusType">
+              <MappingFragment StoreEntitySet="InvoiceStatusType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceTerms">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceTerm">
+              <MappingFragment StoreEntitySet="InvoiceTerm">
+                <ScalarProperty Name="TermValue" ColumnName="TermValue" />
+                <ScalarProperty Name="InvoiceItemId" ColumnName="InvoiceItemId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="TermTypeId" ColumnName="TermTypeId" />
+                <ScalarProperty Name="InvoiceTermId" ColumnName="InvoiceTermId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Organizations">
             <EntityTypeMapping TypeName="PayBook.DatabaseModel.Organization">
               <MappingFragment StoreEntitySet="Organization">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1150,50 +1500,12 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="People">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.Person">
-              <MappingFragment StoreEntitySet="Person">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <EntitySetMapping Name="PartyContactMechanism">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.PartyContactMechanism">
+              <MappingFragment StoreEntitySet="PartyContactMechanism">
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RoleTypes">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.RoleType">
-              <MappingFragment StoreEntitySet="RoleType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="PartyRole" TypeName="PayBook.DatabaseModel.PartyRole" StoreEntitySet="PartyRole">
-            <EndProperty Name="Party">
-              <ScalarProperty Name="Id" ColumnName="PartyId" />
-            </EndProperty>
-            <EndProperty Name="RoleType">
-              <ScalarProperty Name="Id" ColumnName="RoleTypeId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <EntitySetMapping Name="C__RefactorLog">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.C__RefactorLog">
-              <MappingFragment StoreEntitySet="__RefactorLog">
-                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="InvoiceRoleTypes">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceRoleType">
-              <MappingFragment StoreEntitySet="InvoiceRoleType">
-                <ScalarProperty Name="RoleTypeId" ColumnName="RoleTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="InvoiceStatusTypes">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceStatusType">
-              <MappingFragment StoreEntitySet="InvoiceStatusType">
-                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ContactMechanismId" ColumnName="ContactMechanismId" />
+                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1231,24 +1543,43 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="InvoiceRoles">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceRole">
-              <MappingFragment StoreEntitySet="InvoiceRole">
-                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
-                <ScalarProperty Name="RoleTypeId" ColumnName="RoleTypeId" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="InvoiceTerms">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceTerm">
-              <MappingFragment StoreEntitySet="InvoiceTerm">
-                <ScalarProperty Name="TermValue" ColumnName="TermValue" />
-                <ScalarProperty Name="InvoiceItemId" ColumnName="InvoiceItemId" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-                <ScalarProperty Name="TermTypeId" ColumnName="TermTypeId" />
-                <ScalarProperty Name="InvoiceTermId" ColumnName="InvoiceTermId" />
+          <EntitySetMapping Name="Phones">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.Phone">
+              <MappingFragment StoreEntitySet="Phone">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostalAddresses">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.PostalAddress">
+              <MappingFragment StoreEntitySet="PostalAddress">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleTypes">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.RoleType">
+              <MappingFragment StoreEntitySet="RoleType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1260,45 +1591,26 @@ warning 6002: The table/view 'PayBook.Database.dbo.InvoiceRole' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BillingAccounts">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.BillingAccount">
-              <MappingFragment StoreEntitySet="BillingAccount">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
-                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="InvoiceStatus">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceStatu">
-              <MappingFragment StoreEntitySet="InvoiceStatus">
-                <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
-                <ScalarProperty Name="InvoiceStatusTypeId" ColumnName="InvoiceStatusTypeId" />
+          <EntitySetMapping Name="InvoiceRoles">
+            <EntityTypeMapping TypeName="PayBook.DatabaseModel.InvoiceRole">
+              <MappingFragment StoreEntitySet="InvoiceRole">
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="RoleTypeId" ColumnName="RoleTypeId" />
                 <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BillingAccountRoles">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.BillingAccountRole">
-              <MappingFragment StoreEntitySet="BillingAccountRole">
-                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
-                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
-                <ScalarProperty Name="BillingAccountId" ColumnName="BillingAccountId" />
                 <ScalarProperty Name="PartyId" ColumnName="PartyId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Companies">
-            <EntityTypeMapping TypeName="PayBook.DatabaseModel.Company">
-              <MappingFragment StoreEntitySet="Company">
-                <ScalarProperty Name="TaxNumber" ColumnName="TaxNumber" />
-                <ScalarProperty Name="CompanyNumber" ColumnName="CompanyNumber" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          </EntityContainerMapping>
+          <AssociationSetMapping Name="PartyRole" TypeName="PayBook.DatabaseModel.PartyRole" StoreEntitySet="PartyRole">
+            <EndProperty Name="RoleType">
+              <ScalarProperty Name="Id" ColumnName="RoleTypeId" />
+            </EndProperty>
+            <EndProperty Name="Party">
+              <ScalarProperty Name="Id" ColumnName="PartyId" />
+            </EndProperty>
+            <Condition ColumnName="RoleTypeId" IsNull="false" />
+          </AssociationSetMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

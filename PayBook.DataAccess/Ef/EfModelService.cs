@@ -65,7 +65,7 @@ namespace PayBook.DataAccess.Ef
 
             company.Organization.Party.Code = model.Code;
             company.Organization.Name = model.Name;
-            
+
             company.CompanyNumber = model.CompanyNumber;
             company.TaxNumber = model.TaxNumber;
 
@@ -82,6 +82,46 @@ namespace PayBook.DataAccess.Ef
             }
 
             bar.BillingAccount.Description = model.Account;
+
+            var email = company.Organization.Party.PartyContactMechanism.SingleOrDefault(e => e.ContactMechanism.EmailAddress != null);
+
+            if (email == null)
+            {
+                email = new PartyContactMechanism();
+                email.ContactMechanism = new ContactMechanism();
+                email.Party = company.Organization.Party;
+                email.ContactMechanism.EmailAddress = new EmailAddress();
+                company.Organization.Party.PartyContactMechanism.Add(email);
+            }
+
+            email.ContactMechanism.EmailAddress.Address = model.Email;
+
+            var phone = company.Organization.Party.PartyContactMechanism.SingleOrDefault(e => e.ContactMechanism.Phone != null);
+
+            if (phone == null)
+            {
+                phone = new PartyContactMechanism();
+                phone.ContactMechanism = new ContactMechanism();
+                phone.Party = company.Organization.Party;
+                phone.ContactMechanism.Phone = new Phone();
+                company.Organization.Party.PartyContactMechanism.Add(phone);
+            }
+
+            phone.ContactMechanism.Phone.Number = model.Phone;
+
+            var postalAddress = company.Organization.Party.PartyContactMechanism.SingleOrDefault(e => e.ContactMechanism.PostalAddress != null);
+
+            if (postalAddress == null)
+            {
+                postalAddress = new PartyContactMechanism();
+                postalAddress.ContactMechanism = new ContactMechanism();
+                postalAddress.Party = company.Organization.Party;
+                postalAddress.ContactMechanism.PostalAddress = new PostalAddress();
+                company.Organization.Party.PartyContactMechanism.Add(postalAddress);
+            }
+
+            postalAddress.ContactMechanism.PostalAddress.Address1 = model.Address1;
+            postalAddress.ContactMechanism.PostalAddress.Address2 = model.Address2;
 
             db.SaveChanges();
 

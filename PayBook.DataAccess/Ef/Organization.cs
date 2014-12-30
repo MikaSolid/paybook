@@ -17,7 +17,7 @@ namespace PayBook.DataAccess.Ef
         public int Id { get; set; }
         public string Name { get; set; }
     
-        public virtual Party Party { get; set; }
         public virtual Company Company { get; set; }
+        public virtual Party Party { get; set; }
     }
 }

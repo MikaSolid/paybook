@@ -78,6 +78,11 @@
     <Build Include="BillingAccount.sql" />
     <Build Include="BillingAccountRole.sql" />
     <Build Include="Company.sql" />
+    <Build Include="ContactMechanism.sql" />
+    <Build Include="Phone.sql" />
+    <Build Include="EmailAddress.sql" />
+    <Build Include="PostalAddress.sql" />
+    <Build Include="PartyContactMechanism.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PayBook.Database.refactorlog" />
