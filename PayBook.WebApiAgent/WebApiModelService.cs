@@ -34,7 +34,7 @@ namespace PayBook.WebApiAgent
 
         public Invoice GetInvoice(int id)
         {
-            throw new NotImplementedException();
+            return Get<PurchaseInvoice>("PurcaseInvoice");
         }
 
         public List<CompanyInfo> GetCompanyInfos()

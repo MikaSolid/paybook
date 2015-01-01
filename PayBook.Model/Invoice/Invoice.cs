@@ -75,7 +75,6 @@ namespace PayBook.Model
             InvoiceStatus.Add(new InvoiceStatus
             {
                 DateTime = DateTime.Now,
-                Invoice = this,
                 Status = status
             });
         }

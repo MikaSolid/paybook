@@ -2,6 +2,6 @@
 {
     public class PurchaseInvoice : Invoice
     {
-        internal PurchaseInvoice() { }
+        public PurchaseInvoice() { }
     }
 }
