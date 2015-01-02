@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.SqlServer;
+using System.Data.Entity.Validation;
 using System.Linq;
 using PayBook.Model;
 
@@ -124,7 +125,23 @@ namespace PayBook.DataAccess.Ef
             postalAddress.ContactMechanism.PostalAddress.Address1 = model.Address1;
             postalAddress.ContactMechanism.PostalAddress.Address2 = model.Address2;
 
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+            }
 
             return company.Id;
         }

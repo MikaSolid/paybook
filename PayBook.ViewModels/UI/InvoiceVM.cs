@@ -31,7 +31,7 @@ namespace PayBook.ViewModels
             {
                 if (_invoice.Code == value) return;
                 _invoice.Code = value;
-                OnPropertyChanged("Number");
+                OnPropertyChanged(() => Number);
             }
         }
 
@@ -45,7 +45,7 @@ namespace PayBook.ViewModels
             {
                 if (_invoice.Company.Name == value) return;
                 _invoice.Company.Name = value;
-                OnPropertyChanged("PartyName");
+                OnPropertyChanged(() => PartyName);
             }
         }
 
@@ -59,7 +59,7 @@ namespace PayBook.ViewModels
             {
                 if (_invoice.Company.Id == value) return;
                 _invoice.Company.Id = value;
-                OnPropertyChanged("PartyId");
+                OnPropertyChanged(() => PartyId);
             }
         }
 
@@ -74,7 +74,7 @@ namespace PayBook.ViewModels
             {
                 if (_invoice.Date == value) return;
                 _invoice.Date = value;
-                OnPropertyChanged("Date");
+                OnPropertyChanged(() => Date);
             }
         }
 
@@ -88,7 +88,7 @@ namespace PayBook.ViewModels
             {
                 if (_invoice.DueDate == value) return;
                 _invoice.DueDate = value;
-                OnPropertyChanged("DueDate");
+                OnPropertyChanged(() => DueDate);
             }
         }
 
@@ -109,7 +109,7 @@ namespace PayBook.ViewModels
                 if (item != null)
                 {
                     item.Amount = value;
-                    OnPropertyChanged("Amount");
+                    OnPropertyChanged(() => Amount);
                 }
             }
         }
@@ -122,7 +122,7 @@ namespace PayBook.ViewModels
             set
             {
                 _isMarkedForPayment = value;
-                OnPropertyChanged("IsMarkedForPayment");
+                OnPropertyChanged(() => IsMarkedForPayment);
                 if (_invoices != null)
                     _invoices.Invalidate();
             }
@@ -157,8 +157,8 @@ namespace PayBook.ViewModels
             {
                 _invoice.IsPayed = value;
                 // Container.GetInstance().Resolve<IModelService>().SaveBill(_invoice);
-                OnPropertyChanged("IsPayed");
-                OnPropertyChanged("IsMarkedForPayment");
+                OnPropertyChanged(() => IsPayed);
+                OnPropertyChanged(() => IsMarkedForPayment);
             }
         }
 

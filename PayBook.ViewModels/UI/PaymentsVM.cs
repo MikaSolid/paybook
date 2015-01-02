@@ -71,7 +71,7 @@ namespace PayBook.ViewModels
             {
                 if (_partyName == value) return;
                 _partyName = value;
-                OnPropertyChanged("PartyName");
+                OnPropertyChanged(() => PartyName);
                 Refresh();
             }
         }
@@ -85,7 +85,7 @@ namespace PayBook.ViewModels
             {
                 if (_date == value) return;
                 _date = value;
-                OnPropertyChanged("Date");
+                OnPropertyChanged(() => Date);
                 Refresh();
             }
         }
@@ -99,7 +99,7 @@ namespace PayBook.ViewModels
             {
                 if (_amount == value) return;
                 _amount = value;
-                OnPropertyChanged("Amount");
+                OnPropertyChanged(() => Amount);
                 Refresh();
             }
         }
@@ -113,7 +113,7 @@ namespace PayBook.ViewModels
             {
                 if (_dueDate == value) return;
                 _dueDate = value;
-                OnPropertyChanged("DueDate");
+                OnPropertyChanged(() => DueDate);
                 Refresh();
             }
         }
@@ -151,7 +151,7 @@ namespace PayBook.ViewModels
         {
             // _collectionView.Refresh();
 
-            OnPropertyChanged("Payments");
+            OnPropertyChanged(() => Payments);
         }
 
         //private ICommand _addPayment;

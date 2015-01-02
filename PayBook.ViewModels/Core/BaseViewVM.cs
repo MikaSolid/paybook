@@ -14,8 +14,12 @@ namespace PayBook.ViewModels
             {
                 if (_title == value) return;
                 _title = value;
-                OnPropertyChanged("Title");
+                OnPropertyChanged(() => Title);
             }
+        }
+
+        protected BaseViewVM()
+        {
         }
 
         protected BaseViewVM(IModelService modelService)

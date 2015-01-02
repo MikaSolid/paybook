@@ -25,7 +25,7 @@ namespace PayBook.ViewModels
             {
                 if (_view == value) return;
                 _view = value;
-                OnPropertyChanged("View");
+                OnPropertyChanged(() => View);
             }
         }
 
@@ -62,7 +62,7 @@ namespace PayBook.ViewModels
         //    set
         //    {
         //        _windowState = value;
-        //        OnPropertyChanged("WindowState");
+        //        OnPropertyChanged(() => WindowState");
         //    }
         //}
     }

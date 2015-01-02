@@ -62,7 +62,7 @@ namespace PayBook.ViewModels
             {
                 if (_codeFilter == value) return;
                 _codeFilter = value;
-                OnPropertyChanged("CodeFilter");
+                OnPropertyChanged(() => CodeFilter);
                 Filter();
             }
         }
@@ -75,7 +75,7 @@ namespace PayBook.ViewModels
             {
                 if (_accountFilter == value) return;
                 _accountFilter = value;
-                OnPropertyChanged("AccountFilter");
+                OnPropertyChanged(() => AccountFilter);
                 Filter();
             }
         }
@@ -89,7 +89,7 @@ namespace PayBook.ViewModels
             {
                 if (_nameFilter == value) return;
                 _nameFilter = value;
-                OnPropertyChanged("NameFilter");
+                OnPropertyChanged(() => NameFilter);
                 Filter();
             }
         }
@@ -99,13 +99,13 @@ namespace PayBook.ViewModels
         {
             _partysInternal.Clear();
             _partysInternal = new ObservableCollection<CompanyInfo>(_modelService.GetCompanyInfos());
-            OnPropertyChanged("Partys");
+            OnPropertyChanged(() => Partys);
         }
 
         public void Filter()
         {
             // _collectionView.Refresh();
-            OnPropertyChanged("Partys");
+            OnPropertyChanged(() => Partys);
         }
 
         //public ICommand NavigateToPartyEditor

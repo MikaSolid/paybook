@@ -24,7 +24,7 @@ namespace PayBook.ViewModels
             {
                 if (_partyName == value) return;
                 _partyName = value;
-                OnPropertyChanged("PartyName");
+                OnPropertyChanged(() => PartyName);
             }
         }
 
@@ -38,7 +38,7 @@ namespace PayBook.ViewModels
             {
                 if (_payment.PartyId == value) return;
                 _payment.PartyId = value;
-                OnPropertyChanged("PartyId");
+                OnPropertyChanged(() => PartyId);
             }
         }
 
@@ -53,7 +53,7 @@ namespace PayBook.ViewModels
             {
                 if (_payment.Date == value) return;
                 _payment.Date = value;
-                OnPropertyChanged("Date");
+                OnPropertyChanged(() => Date);
             }
         }
 
@@ -67,7 +67,7 @@ namespace PayBook.ViewModels
             {
                 if (_payment.Amount == value) return;
                 _payment.Amount = value;
-                OnPropertyChanged("Amount");
+                OnPropertyChanged(() => Amount);
             }
         }
     }

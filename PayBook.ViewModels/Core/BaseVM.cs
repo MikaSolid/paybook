@@ -17,7 +17,7 @@ namespace PayBook
 
                 _isBusy = value;
 
-                OnPropertyChanged("IsBusy");
+                OnPropertyChanged(() => IsBusy);
             }
         }
 

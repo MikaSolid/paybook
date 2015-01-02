@@ -91,7 +91,7 @@ namespace PayBook.ViewModels
             {
                 if (_partyName == value) return;
                 _partyName = value;
-                OnPropertyChanged("PartyName");
+                OnPropertyChanged(() => PartyName);
                 Refresh();
             }
         }
@@ -105,7 +105,7 @@ namespace PayBook.ViewModels
             {
                 if (_number == value) return;
                 _number = value;
-                OnPropertyChanged("Number");
+                OnPropertyChanged(() => Number);
                 Refresh();
             }
         }
@@ -119,7 +119,7 @@ namespace PayBook.ViewModels
             {
                 if (_date == value) return;
                 _date = value;
-                OnPropertyChanged("Date");
+                OnPropertyChanged(() => Date);
                 Refresh();
             }
         }
@@ -133,7 +133,7 @@ namespace PayBook.ViewModels
             {
                 if (_amount == value) return;
                 _amount = value;
-                OnPropertyChanged("Amount");
+                OnPropertyChanged(() => Amount);
                 Refresh();
             }
         }
@@ -147,7 +147,7 @@ namespace PayBook.ViewModels
             {
                 if (_dueDate == value) return;
                 _dueDate = value;
-                OnPropertyChanged("DueDate");
+                OnPropertyChanged(() => DueDate);
                 Refresh();
             }
         }
@@ -196,6 +196,11 @@ namespace PayBook.ViewModels
 
             OnPropertyChanged(() => Invoices);
         }
+
+        internal void Invalidate()
+        {
+        }
+ 
 
         //public ICommand NavigateToBillEditor
         //{
@@ -284,9 +289,5 @@ namespace PayBook.ViewModels
         //    }
         //}
 
-        internal void Invalidate()
-        {
-            OnPropertyChanged("SelectedAmount");
-        }
     }
 }

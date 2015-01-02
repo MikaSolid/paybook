@@ -6,18 +6,13 @@ namespace PayBook.ViewModels
     [Export]
     public class CompanyDetailsVM : BaseViewVM
     {
-        private readonly int _companyId;
+        private int _companyId;
         private Company _company = new Company();
 
         [ImportingConstructor]
         public CompanyDetailsVM(IModelService modelService) : base(modelService)
         {
             Title = "preduzeće";
-        }
-
-        public CompanyDetailsVM(IModelService modelService, int companyId) : this (modelService)
-        {
-            _companyId = companyId;
         }
 
         public Company Company { get { return _company; } }
@@ -32,7 +27,7 @@ namespace PayBook.ViewModels
             {
                 if (_company.Code == value) return;
                 _company.Code = value;
-                OnPropertyChanged("Code");
+                OnPropertyChanged(() => Code);
             }
         }
 
@@ -46,7 +41,7 @@ namespace PayBook.ViewModels
             {
                 if (_company.Name == value) return;
                 _company.Name = value;
-                OnPropertyChanged("Name");
+                OnPropertyChanged(() => Name);
             }
         }
 
@@ -60,7 +55,7 @@ namespace PayBook.ViewModels
             {
                 if (_company.Account == value) return;
                 _company.Account = value;
-                OnPropertyChanged("Account");
+                OnPropertyChanged(() => Account);
             }
         }
 
@@ -72,7 +67,7 @@ namespace PayBook.ViewModels
             {
                 if (_company.CompanyNumber == value) return;
                 _company.CompanyNumber = value;
-                OnPropertyChanged("CompanyNumber");
+                OnPropertyChanged(() => CompanyNumber);
             }
         }
 
@@ -84,7 +79,7 @@ namespace PayBook.ViewModels
             {
                 if (_company.Address1 == value) return;
                 _company.Address1 = value;
-                OnPropertyChanged("Address1");
+                OnPropertyChanged(() => Address1);
             }
         }
 
@@ -95,7 +90,7 @@ namespace PayBook.ViewModels
             {
                 if (_company.Address2 == value) return;
                 _company.Address2 = value;
-                OnPropertyChanged("Address2");
+                OnPropertyChanged(() => Address2);
             }
         }
 
@@ -106,7 +101,7 @@ namespace PayBook.ViewModels
             {
                 if (_company.Comments == value) return;
                 _company.Comments = value;
-                OnPropertyChanged("Comments");
+                OnPropertyChanged(() => Comments);
             }
         }
 
@@ -117,7 +112,7 @@ namespace PayBook.ViewModels
             {
                 if (_company.ContactPerson == value) return;
                 _company.ContactPerson = value;
-                OnPropertyChanged("ContactPerson");
+                OnPropertyChanged(() => ContactPerson);
             }
         }
 
@@ -128,7 +123,7 @@ namespace PayBook.ViewModels
             {
                 if (_company.Email == value) return;
                 _company.Email = value;
-                OnPropertyChanged("Email");
+                OnPropertyChanged(() => Email);
             }
         }
 
@@ -139,7 +134,7 @@ namespace PayBook.ViewModels
             {
                 if (_company.Phone == value) return;
                 _company.Phone = value;
-                OnPropertyChanged("Phone");
+                OnPropertyChanged(() => Phone);
             }
         }
 
@@ -150,13 +145,18 @@ namespace PayBook.ViewModels
             {
                 if (_company.TaxNumber == value) return;
                 _company.TaxNumber = value;
-                OnPropertyChanged("TaxNumber");
+                OnPropertyChanged(() => TaxNumber);
             }
         }
 
         public override void LoadModel()
         {
             _company = _companyId > 0 ? _modelService.GetCompany(_companyId) : new Company();
+        }
+
+        public void SetCompanyId(int companyId)
+        {
+            _companyId = companyId;
         }
     }
 }
