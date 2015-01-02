@@ -4,7 +4,7 @@ namespace PayBook.Model
 {
     public interface IModelService
     {
-        List<Invoice> GetInvoices();
+        List<Invoice> GetPurchaseInvoices();
 
         List<Company> GetCompanies();
 

@@ -10,7 +10,7 @@ namespace PayBook.WebApplication.Controllers
         // GET api/values
         public IEnumerable<SalesInvoice> Get()
         {
-            return _service.GetInvoices().Cast<SalesInvoice>();
+            return _service.GetPurchaseInvoices().Cast<SalesInvoice>();
         }
 
         // GET api/values/5

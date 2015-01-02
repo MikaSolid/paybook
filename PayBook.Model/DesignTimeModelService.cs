@@ -5,7 +5,7 @@ namespace PayBook.Model
 {
     public class DesignTimeModelService : IModelService
     {
-        public List<Invoice> GetInvoices()
+        public List<Invoice> GetPurchaseInvoices()
         {
             var bills = new List<Invoice>();
 

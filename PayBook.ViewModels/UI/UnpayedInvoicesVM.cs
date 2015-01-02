@@ -23,7 +23,7 @@ namespace PayBook.ViewModels
         {
             _billsInternal.Clear();
 
-            var bills = _modelService.GetInvoices();
+            var bills = _modelService.GetPurchaseInvoices();
 
             foreach (var bill in bills)
             {
@@ -35,7 +35,7 @@ namespace PayBook.ViewModels
 
                 partyVM.Payments = _modelService.GetPayments().Where(p => p.PartyId == party.Id).Select(p => new PaymentVM(p)).ToList();
                 
-                partyVM.Bills = _modelService.GetInvoices().Where(b => b.Company.Id == party.Id).Select(b => new InvoiceVM(b, this)).ToList();
+                partyVM.Bills = _modelService.GetPurchaseInvoices().Where(b => b.Company.Id == party.Id).Select(b => new InvoiceVM(b, this)).ToList();
 
                 billVM.Company = partyVM;
 

@@ -156,7 +156,7 @@ namespace PayBook.ViewModels
         {
             _billsInternal.Clear();
 
-            var bills = _modelService.GetInvoices();
+            var bills = _modelService.GetPurchaseInvoices();
 
             foreach (var bill in bills)
             {

@@ -221,10 +221,6 @@
       <Project>{B30DD180-A30E-4DFE-AAE5-733DB5616E49}</Project>
       <Name>PayBook.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PayBook.DataAccess\PayBook.DataAccess.csproj">
-      <Project>{FDCDD206-F2EE-4F45-B3E4-9E1842052C32}</Project>
-      <Name>PayBook.DataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PayBook.Model\PayBook.Model.csproj">
       <Project>{f8cefbb4-91bf-49f7-9b0d-b7a4b9ec3260}</Project>
       <Name>PayBook.Model</Name>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -19,10 +20,9 @@ namespace PayBook.WebApiAgent
                 throw new Exception("Web Api baseServiceUrl should be defined in .config");
         }
 
-        public List<Invoice> GetInvoices()
+        public List<Invoice> GetPurchaseInvoices()
         {
-            //throw new System.NotImplementedException();
-            return new List<Invoice>();
+            return Get<List<PurchaseInvoice>>("PurchaseInvoice").Cast<Invoice>().ToList();
         }
 
         #region Company
@@ -85,7 +85,8 @@ namespace PayBook.WebApiAgent
 
         public int SaveInvoice(Invoice model)
         {
-            throw new System.NotImplementedException();
+            Post("PurchaseInvoice", model as PurchaseInvoice);
+            return model.Id;
         }
 
         #region Private methods

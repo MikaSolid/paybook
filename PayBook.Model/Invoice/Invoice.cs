@@ -38,7 +38,7 @@ namespace PayBook.Model
         #region Properties
         public int Id { get; set; }
 
-        public Company Company { get; private set; }
+        public Company Company { get; set; }
 
         public DateTime? Date { get; set; }
 
@@ -77,11 +77,6 @@ namespace PayBook.Model
                 DateTime = DateTime.Now,
                 Status = status
             });
-        }
-
-        public void SetCompany(Company company)
-        {
-            Company = company;
         }
 
         public void SetAmount(string amount)

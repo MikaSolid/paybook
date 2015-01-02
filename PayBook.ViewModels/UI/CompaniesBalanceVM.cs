@@ -25,7 +25,7 @@ namespace PayBook.ViewModels
                 var partyVM = new CompanyVM(party);
 
                 partyVM.Payments = _modelService.GetPayments().Where(p => p.PartyId == party.Id).Select(p => new PaymentVM(p)).ToList();
-                partyVM.Bills = _modelService.GetInvoices().Where(b => b.Company.Id == party.Id).Select(b => new InvoiceVM(b, null)).ToList();
+                partyVM.Bills = _modelService.GetPurchaseInvoices().Where(b => b.Company.Id == party.Id).Select(b => new InvoiceVM(b, null)).ToList();
 
                 //if (partyVM.Bills.Any() || partyVM.Payments.Any())
                 //    _partysInternal.Add(partyVM);

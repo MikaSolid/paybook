@@ -147,7 +147,7 @@ namespace PayBook.DataAccess
             }
         }
 
-        public List<Invoice> GetInvoices()
+        public List<Invoice> GetPurchaseInvoices()
         {
             return Bills;
         }

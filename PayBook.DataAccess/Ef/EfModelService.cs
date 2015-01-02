@@ -11,7 +11,7 @@ namespace PayBook.DataAccess.Ef
         // This line must exist in order to wire up EF sql provider services
         SqlProviderServices _services = SqlProviderServices.Instance;
 
-        public List<Model.Invoice> GetInvoices()
+        public List<Model.Invoice> GetPurchaseInvoices()
         {
             var db = new LocalDatabase();
             return db.Invoices.ToModel().ToList();

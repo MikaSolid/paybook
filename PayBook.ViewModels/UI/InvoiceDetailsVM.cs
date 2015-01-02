@@ -64,7 +64,7 @@ namespace PayBook.ViewModels
 
                     if (info != null)
                     {
-                        _invoice.SetCompany(_modelService.GetCompany(info.Id));
+                        _invoice.Company = _modelService.GetCompany(info.Id);
                         OnPropertyChanged(() => Company);
                     }
                 }
