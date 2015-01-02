@@ -2,22 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
-             xmlns:wpfClient="clr-namespace:PayBook.WpfClient"
-             xmlns:viewModels="clr-namespace:PayBook.ViewModels;assembly=PayBook.ViewModels"
              x:Class="PayBook.Views.InvoiceList"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=[PayBook.ViewModels.InvoiceListVM]}">
+             d:DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=[PayBook.ViewModels.PurchaseInvoicesVM]}">
 
-    <!--<d:DataContext>
-        <viewModels:BillsVM />
-    </d:DataContext>-->
-
-    
     <UserControl.Resources>
 
         <Style x:Key="{x:Type ListBox}"
@@ -225,7 +215,7 @@
         </Grid.RowDefinitions>
 
         <ListBox Grid.Row="0"
-                 ItemsSource="{Binding Bills}"
+                 ItemsSource="{Binding Invoices}"
                  ItemTemplate="{DynamicResource BillDataTemplate}"
                  ItemContainerStyle="{DynamicResource ListBoxItemStyle}">
             <ListBox.GroupStyle>

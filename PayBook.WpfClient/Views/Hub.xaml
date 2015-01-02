@@ -121,7 +121,7 @@
                 Width="144"
                 Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:InvoiceListVM}" />
+                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:PurchaseInvoicesVM}" />
             </Button.Command>
             <Button.Content>
                 <Grid>

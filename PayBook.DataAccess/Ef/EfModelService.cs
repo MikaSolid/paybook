@@ -20,7 +20,7 @@ namespace PayBook.DataAccess.Ef
         public List<Model.Company> GetCompanies()
         {
             var db = new LocalDatabase();
-            return db.Companies.ToCompany().ToList();
+            return db.Companies.ToModel().ToList();
         }
 
         public List<Model.Payment> GetPayments()
@@ -163,7 +163,7 @@ namespace PayBook.DataAccess.Ef
         public Model.Company GetCompany(int id)
         {
             var db = new LocalDatabase();
-            return db.Companies.Single(s => s.Id == id).ToCompany();
+            return db.Companies.Single(s => s.Id == id).ToModel();
         }
 
         public Model.Invoice GetInvoice(int id)
@@ -175,7 +175,7 @@ namespace PayBook.DataAccess.Ef
         public List<CompanyInfo> GetCompanyInfos()
         {
             var db = new LocalDatabase();
-            return db.Companies.ToCompanyInfo().ToList();
+            return db.Companies.ToModelInfo().ToList();
         }
     }
 }

@@ -63,7 +63,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\InvoiceDetailsVM.cs" />
-    <Compile Include="UI\InvoiceListVM.cs" />
+    <Compile Include="UI\PurchaseInvoicesVM.cs" />
     <Compile Include="UI\InvoiceVM.cs" />
     <Compile Include="UI\CalendarVM.cs" />
     <Compile Include="UI\CompaniesBalanceVM.cs" />

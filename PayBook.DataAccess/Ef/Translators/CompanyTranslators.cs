@@ -6,7 +6,7 @@ namespace PayBook.DataAccess.Ef
 {
     public static class CompanyTranslators
     {
-        public static Model.Company ToCompany(this Company dataModel)
+        public static Model.Company ToModel(this Company dataModel)
         {
             var model = new Model.Company();
             model.Id = dataModel.Id;
@@ -44,17 +44,17 @@ namespace PayBook.DataAccess.Ef
             return model;
         }
 
-        public static IEnumerable<Model.Company> ToCompany(this IEnumerable<Company> dataModel)
+        public static IEnumerable<Model.Company> ToModel(this IEnumerable<Company> dataModel)
         {
-            return dataModel.Select(dm => dm.ToCompany());
+            return dataModel.Select(dm => dm.ToModel());
         }
 
-        public static IEnumerable<CompanyInfo> ToCompanyInfo(this IEnumerable<Company> dataModel)
+        public static IEnumerable<CompanyInfo> ToModelInfo(this IEnumerable<Company> dataModel)
         {
-            return dataModel.Select(dm => dm.ToCompanyInfo());
+            return dataModel.Select(dm => dm.ToModelInfo());
         }
 
-        public static CompanyInfo ToCompanyInfo(this Company dataModel)
+        public static CompanyInfo ToModelInfo(this Company dataModel)
         {
             var model = new CompanyInfo();
             

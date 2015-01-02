@@ -6,7 +6,7 @@ using PayBook.Model;
 namespace PayBook.ViewModels
 {
     [Export]
-    public class UnpayedInvoicesVM : InvoiceListVM
+    public class UnpayedInvoicesVM : PurchaseInvoicesVM
     {
         [ImportingConstructor]
         public UnpayedInvoicesVM(IModelService modelService)
@@ -21,7 +21,7 @@ namespace PayBook.ViewModels
 
         public override void LoadModel()
         {
-            _billsInternal.Clear();
+            _invoicesInternal.Clear();
 
             var bills = _modelService.GetPurchaseInvoices();
 
@@ -37,7 +37,7 @@ namespace PayBook.ViewModels
                 
                 partyVM.Bills = _modelService.GetPurchaseInvoices().Where(b => b.Company.Id == party.Id).Select(b => new InvoiceVM(b, this)).ToList();
 
-                billVM.Company = partyVM;
+                // billVM.Company = partyVM;
 
                 if (party != null)
                     billVM.PartyName = party.Name;
@@ -46,7 +46,7 @@ namespace PayBook.ViewModels
 
                 if (!billVM.IsDue) continue;
 
-                _billsInternal.Add(billVM);
+                _invoicesInternal.Add(billVM);
             }
 
             Refresh();
@@ -99,7 +99,7 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return _bills.Where(b => b.IsMarkedForPayment).Sum(b => b.Amount);
+                return _invoices.Where(b => b.IsMarkedForPayment).Sum(b => b.Amount);
             }
         }
     }

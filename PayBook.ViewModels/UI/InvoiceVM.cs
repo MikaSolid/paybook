@@ -1,29 +1,24 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using PayBook.Model;
-using System;
 
 namespace PayBook.ViewModels
 {
     public class InvoiceVM : BaseVM
     {
         private readonly Invoice _invoice;
-        private readonly InvoiceListVM _invoices;
 
-        public InvoiceVM(Invoice invoice, InvoiceListVM invoices)
+        private readonly PurchaseInvoicesVM _invoices;
+
+        public InvoiceVM(Invoice invoice, PurchaseInvoicesVM invoices)
         {
             _invoice = invoice;
             _invoices = invoices;
         }
 
-        private bool _isDue;
-
         public bool IsDue
         {
-            get
-            {
-                return DateTime.Now > DueDate;
-            }
-            set { _isDue = value; }
+            get { return DateTime.Now > DueDate; }
         }
 
         public string Number
@@ -40,20 +35,16 @@ namespace PayBook.ViewModels
             }
         }
 
-        private string _partyName;
-
-        private CompanyVM _company;
-
         public string PartyName
         {
             get
             {
-                return _partyName;
+                return _invoice.Company.Name;
             }
             set
             {
-                if (_partyName == value) return;
-                _partyName = value;
+                if (_invoice.Company.Name == value) return;
+                _invoice.Company.Name = value;
                 OnPropertyChanged("PartyName");
             }
         }
@@ -105,7 +96,9 @@ namespace PayBook.ViewModels
         {
             get
             {
-                return _invoice.Amount;
+                var firstOrDefault = _invoice.Items.FirstOrDefault();
+                if (firstOrDefault != null) return firstOrDefault.Amount;
+                return 0;
             }
             set
             {
@@ -119,12 +112,6 @@ namespace PayBook.ViewModels
                     OnPropertyChanged("Amount");
                 }
             }
-        }
-
-        public CompanyVM Company
-        {
-            get { return _company; }
-            set { _company = value; }
         }
 
         private bool _isMarkedForPayment;

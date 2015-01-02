@@ -12,10 +12,11 @@ namespace PayBook.DataAccess.Ef
                 ? InvoiceType.SalesInvoice
                 : InvoiceType.PurchaseInvoice;
 
-            var model = Model.Invoice.Create(salesInvoice, dataModel.Party.Organization.Company.ToCompany());
+            var model = Model.Invoice.Create(salesInvoice, dataModel.Party.Organization.Company.ToModel());
 
             model.Id = dataModel.Id;
             model.Date = dataModel.InvoiceDate;
+            model.Items = dataModel.InvoiceItems.ToModel().ToList();
 
             return model;
         }
@@ -24,6 +25,22 @@ namespace PayBook.DataAccess.Ef
         {
             return dataModel.Select(dm => dm.ToModel());
         }
+
+        public static IEnumerable<Model.InvoiceItem> ToModel(this IEnumerable<InvoiceItem> dataModel)
+        {
+            return dataModel.Select(dm => dm.ToModel());
+        }
+
+        public static Model.InvoiceItem ToModel(this InvoiceItem dataModel)
+        {
+            var model = new Model.InvoiceItem();
+            model.Id = dataModel.Id;
+            model.Amount = dataModel.Amount;
+            model.Description = dataModel.Description;
+            return model;
+        }
+
+
 
         public static InvoiceItem FromModel(this Model.InvoiceItem dataModel, Invoice invoice)
         {

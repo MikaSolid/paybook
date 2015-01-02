@@ -8,19 +8,20 @@ using PayBook.Model;
 namespace PayBook.ViewModels
 {
     [Export]
-    public class InvoiceListVM : BaseViewVM
+    public class PurchaseInvoicesVM : BaseViewVM
     {
-        protected readonly ObservableCollection<InvoiceVM> _billsInternal = new ObservableCollection<InvoiceVM>();
-        protected readonly ReadOnlyObservableCollection<InvoiceVM> _bills;
-        private List<Company> _partys;
+        protected readonly ObservableCollection<InvoiceVM> _invoicesInternal = new ObservableCollection<InvoiceVM>();
+        protected readonly ReadOnlyObservableCollection<InvoiceVM> _invoices;
+        
+        public ReadOnlyCollection<CompanyInfo> _companyInfos;
 
         [ImportingConstructor]
-        public InvoiceListVM(IModelService modelService)
+        public PurchaseInvoicesVM(IModelService modelService)
             : base(modelService)
         {
             Title = "Računi";
 
-            _bills = new ReadOnlyObservableCollection<InvoiceVM>(_billsInternal);
+            _invoices = new ReadOnlyObservableCollection<InvoiceVM>(_invoicesInternal);
         }
 
         public bool FilterBill(object obj)
@@ -69,10 +70,17 @@ namespace PayBook.ViewModels
             && (!isPartyFiltered || partyIndex > -1);
         }
 
-        public ReadOnlyObservableCollection<InvoiceVM> Bills
+        public ReadOnlyObservableCollection<InvoiceVM> Invoices
         {
-            get { return _bills; }
+            get { return _invoices; }
         }
+
+        public ReadOnlyCollection<CompanyInfo> CompanyInfos
+        {
+            get { return _companyInfos; }
+            set { _companyInfos = value; }
+        }
+
 
         private string _partyName;
 
@@ -144,7 +152,7 @@ namespace PayBook.ViewModels
             }
         }
 
-        public List<string> Partys
+        public List<string> Companies
         {
             get
             {
@@ -154,13 +162,15 @@ namespace PayBook.ViewModels
 
         public override void LoadModel()
         {
-            _billsInternal.Clear();
+            _invoicesInternal.Clear();
 
-            var bills = _modelService.GetPurchaseInvoices();
+            _companyInfos = new ReadOnlyCollection<CompanyInfo>(_modelService.GetCompanyInfos());
+            
+            var invoices = _modelService.GetPurchaseInvoices();
 
-            foreach (var bill in bills)
+            foreach (var invoice in invoices)
             {
-                var billVM = new InvoiceVM(bill, this);
+                var invoiceVM = new InvoiceVM(invoice, this);
 
                 //var party = _modelService.GetCompany(bill.Company.Id);
 
@@ -174,7 +184,7 @@ namespace PayBook.ViewModels
                 //if (party != null)
                 //    billVM.PartyName = party.Name;
 
-                _billsInternal.Add(billVM);
+                _invoicesInternal.Add(invoiceVM);
             }
 
             Refresh();
@@ -184,7 +194,7 @@ namespace PayBook.ViewModels
         {
            // _collectionView.Refresh();
 
-            OnPropertyChanged(() => Bills);
+            OnPropertyChanged(() => Invoices);
         }
 
         //public ICommand NavigateToBillEditor

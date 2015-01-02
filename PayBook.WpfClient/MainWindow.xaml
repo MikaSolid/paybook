@@ -151,7 +151,7 @@
                         <views:CompanyDetails />
                     </DataTemplate>
 
-                    <DataTemplate DataType="{x:Type viewModels:InvoiceListVM}">
+                    <DataTemplate DataType="{x:Type viewModels:PurchaseInvoicesVM}">
                         <views:InvoiceList />
                     </DataTemplate>
 
