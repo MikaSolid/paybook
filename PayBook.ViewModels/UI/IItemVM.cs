@@ -2,9 +2,9 @@
 {
     public interface IItemVM
     {
-        int Id { get; set; }
+        int Id { get; }
 
-        string Title { get; set; }
+        string Name { get; set; }
 
         bool IsSelected { get; set; }
     }

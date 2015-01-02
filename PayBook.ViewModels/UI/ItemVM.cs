@@ -3,7 +3,7 @@
     public class ItemVM : BaseVM, IItemVM
     {
         private int _id;
-        private string _title;
+        private string _name;
         private bool _isSelected;
 
         public int Id
@@ -12,10 +12,10 @@
             set { _id = value; }
         }
 
-        public string Title
+        public string Name
         {
-            get { return _title; }
-            set { _title = value; }
+            get { return _name; }
+            set { _name = value; }
         }
 
         public bool IsSelected

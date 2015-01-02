@@ -43,6 +43,7 @@
     <Compile Include="Core\BaseViewVM.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\BaseItemVM.cs" />
     <Compile Include="Core\BaseVM.cs">
       <SubType>Code</SubType>
     </Compile>

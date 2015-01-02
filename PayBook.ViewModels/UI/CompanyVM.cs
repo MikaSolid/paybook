@@ -4,7 +4,7 @@ using PayBook.Model;
 
 namespace PayBook.ViewModels
 {
-    public class CompanyVM : BaseVM
+    public class CompanyVM : BaseItemVM
     {
         private readonly Company _company;
         private List<InvoiceVM> _bills = new List<InvoiceVM>();
@@ -31,7 +31,12 @@ namespace PayBook.ViewModels
 
         public Company Company { get { return _company; } }
 
-        public string Name
+        public override int Id
+        {
+            get { return _company.Id; }
+        }
+
+        public override string Name
         {
             get
             {

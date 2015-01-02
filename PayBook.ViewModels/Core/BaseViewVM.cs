@@ -5,6 +5,7 @@ namespace PayBook.ViewModels
     public abstract class BaseViewVM : BaseVM
     {
         protected readonly IModelService _modelService;
+    
         private string _title;
 
         public string Title

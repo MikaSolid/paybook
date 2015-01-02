@@ -62,6 +62,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\NavigateToPickerCommand.cs" />
     <Compile Include="Commands\SaveCompanyCommand.cs" />
     <Compile Include="Commands\EditCompanyCommand.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
