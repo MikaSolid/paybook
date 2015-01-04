@@ -22,6 +22,7 @@ namespace PayBook.Model
         public static Invoice Create(InvoiceType type)
         {
             Invoice invoice = type == InvoiceType.SalesInvoice ? (Invoice)new SalesInvoice() : new PurchaseInvoice();
+            invoice.Date = DateTime.Now;
             invoice.AddStatus(InvoiceStatusType.New);
             return invoice;
         }

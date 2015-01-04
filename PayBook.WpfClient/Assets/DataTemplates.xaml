@@ -1,13 +1,23 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:model="clr-namespace:PayBook.Model;assembly=PayBook.Model"
-                    xmlns:commands="clr-namespace:PayBook.WpfClient.Commands">
+                    xmlns:commands="clr-namespace:PayBook.WpfClient.Commands"
+                    xmlns:viewModels="clr-namespace:PayBook.ViewModels;assembly=PayBook.ViewModels"
+                    xmlns:payBook="clr-namespace:PayBook;assembly=PayBook.ViewModels">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Paybook.WpfClient;component/Assets/Converters.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <DataTemplate DataType="{x:Type model:CompanyInfo}">
+    <DataTemplate DataType="{x:Type payBook:BaseItemVM}">
+        <Grid Height="150"
+              Width="150"
+              Background="DarkSlateGray">
+            <TextBlock Text="{Binding Name}"></TextBlock>
+        </Grid>
+    </DataTemplate>
+
+ <DataTemplate DataType="{x:Type model:CompanyInfo}">
         <Button CommandParameter="{Binding Id}">
             <Button.Command>
                 <commands:EditCompanyCommand />

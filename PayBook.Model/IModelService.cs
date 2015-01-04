@@ -10,8 +10,6 @@ namespace PayBook.Model
 
         List<Payment> GetPayments();
 
-        void SaveBill(Invoice invoice);
-
         void SavePayment(Payment payment);
 
         Company GetParty(string partyName);

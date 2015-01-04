@@ -63,7 +63,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\ItemVM.cs" />
     <Compile Include="UI\IItemVM.cs" />
     <Compile Include="UI\InvoiceDetailsVM.cs" />
     <Compile Include="UI\PickerVM.cs" />

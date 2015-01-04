@@ -171,6 +171,10 @@
                         <views:UnpayedBills />
                     </DataTemplate>
 
+                    <DataTemplate DataType="{x:Type viewModels:PickerVM}">
+                        <views:Picker />
+                    </DataTemplate>
+
                 </ContentControl.Resources>
             </ContentControl>
 

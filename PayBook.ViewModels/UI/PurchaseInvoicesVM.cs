@@ -236,7 +236,7 @@ namespace PayBook.ViewModels
             invoice.Date = Convert.ToDateTime(Date);
             invoice.DueDate = Convert.ToDateTime(DueDate);
 
-            _modelService.SaveBill(invoice);
+            _modelService.SaveInvoice(invoice);
 
             PartyName = null;
             Number = null;

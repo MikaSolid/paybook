@@ -635,7 +635,7 @@
                                 <ListBox.ItemsSource>
                                     <MultiBinding Converter="{StaticResource AppointmentsConverter}">
                                         <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfClient:BillingCalendar}}"
-                                                 Path="DataContext.Bills" />
+                                                 Path="DataContext.Invoices" />
                                         <Binding RelativeSource="{RelativeSource Mode=Self}"
                                                  Path="DataContext" />
                                     </MultiBinding>

@@ -48,7 +48,7 @@
                 Width="144"
                 Height="144">
             <Button.Command>
-                <commands:NavigateCommand ToViewModel="{x:Type viewModels1:CompaniesVM}" />
+                <commands:NavigateToCompanyPickerCommand />
             </Button.Command>
             <Button.Content>
                 <Grid>

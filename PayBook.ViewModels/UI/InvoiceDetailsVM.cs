@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Runtime.Serialization.Formatters;
 using PayBook.Model;
 
 namespace PayBook.ViewModels

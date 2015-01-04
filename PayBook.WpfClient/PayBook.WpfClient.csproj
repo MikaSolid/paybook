@@ -62,13 +62,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\BaseCommand.cs" />
-    <Compile Include="Commands\NavigateToPickerCommand.cs" />
+    <Compile Include="Commands\NavigateToCompanyPickerCommand.cs" />
     <Compile Include="Commands\SaveCompanyCommand.cs" />
     <Compile Include="Commands\EditCompanyCommand.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\ResizeWindowCommand.cs" />
     <Compile Include="Commands\SaveInvoiceCommand.cs" />
     <Compile Include="Controls\BillingCalendar.cs" />
+    <Compile Include="Controls\TilePanel.cs" />
     <Compile Include="Converters\BillsConverter.cs" />
     <Compile Include="Converters\BooleanToBrushConverter.cs" />
     <Compile Include="Converters\DayNameConverter.cs" />
@@ -87,6 +88,9 @@
     </Compile>
     <Compile Include="Views\Payments.xaml.cs">
       <DependentUpon>Payments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Picker.xaml.cs">
+      <DependentUpon>Picker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UnpayedBills.xaml.cs">
       <DependentUpon>UnpayedBills.xaml</DependentUpon>
@@ -185,6 +189,10 @@
     <Page Include="Views\Payments.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Picker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UnpayedBills.xaml">
       <Generator>MSBuild:Compile</Generator>

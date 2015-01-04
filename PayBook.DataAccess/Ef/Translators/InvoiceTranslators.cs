@@ -16,6 +16,7 @@ namespace PayBook.DataAccess.Ef
 
             model.Id = dataModel.Id;
             model.Date = dataModel.InvoiceDate;
+            model.DueDate = dataModel.InvoiceDate;
             model.Items = dataModel.InvoiceItems.ToModel().ToList();
 
             return model;

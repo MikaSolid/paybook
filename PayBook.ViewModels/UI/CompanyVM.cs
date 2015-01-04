@@ -15,6 +15,15 @@ namespace PayBook.ViewModels
             _company = company;
         }
 
+        public CompanyVM(CompanyInfo companyInfo)
+        {
+            _company = new Company()
+                       {
+                           Id = companyInfo.Id,
+                           Name = companyInfo.Name
+                       }; 
+        }
+
         public string Code
         {
             get

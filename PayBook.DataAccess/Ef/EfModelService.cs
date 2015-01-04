@@ -30,11 +30,6 @@ namespace PayBook.DataAccess.Ef
             return new List<Model.Payment>();
         }
 
-        public void SaveBill(Model.Invoice invoice)
-        {
-            throw new NotImplementedException();
-        }
-
         public void SavePayment(Model.Payment payment)
         {
             throw new NotImplementedException();
